@@ -1,249 +1,281 @@
-/* ===== CSS ДЛЯ САЙТА "СЕРБИЯ" ===== */
-/* Этно-минимализм + современный урбанизм */
-/* Авторский дизайн для лучшего представления страны */
+/* ===== CSS ДЛЯ САЙТА "СЕРБИЯ" - ТЕМНАЯ ТЕМА ===== */
+/* Современные цвета, оптимизированный, быстрый */
 
 /* ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===== */
 :root {
-  /* ЦВЕТА СЕРБСКОГО ФЛАГА И ТРАДИЦИЙ */
-  --serbian-blue: #0c2e60;        /* Глубокий синий - небо, традиции, духовность */
-  --serbian-red: #c8102e;         /* Яркий красный - энергия, страсть, кровь */
-  --serbian-gold: #f8c300;        /* Золотой - богатство, свет, гостеприимство */
-  --serbian-white: #f5f0e8;       /* Кремовый - чистота, ткань, стены монастырей */
-  --serbian-earth: #8b4513;       /* Коричневый - земля, дерево, традиции */
+  /* ЦВЕТА ДЛЯ ТЕМНОЙ ТЕМЫ */
+  --color-bg: #0a0a0a;
+  --color-bg-light: #111111;
+  --color-surface: #151515;
+  --color-surface-light: #1e1e1e;
+  --color-surface-lighter: #262626;
+  --color-surface-hover: #2a2a2a;
   
-  /* СОВРЕМЕННЫЕ АКЦЕНТЫ */
-  --urban-dark: #1a1a1a;          /* Чёрный - Белград ночью, современность */
-  --urban-light: #ffffff;         /* Белый - чистота, минимализм */
-  --urban-gray: #e8e6e1;          /* Серый - бетон, городская эстетика */
+  /* ТЕКСТ */
+  --color-text: #f0f0f0;
+  --color-text-light: #b0b0b0;
+  --color-text-lighter: #777777;
+  --color-text-muted: #555555;
+  
+  /* АКЦЕНТНЫЕ ЦВЕТА (НЕ ФЛАГ) */
+  --color-primary: #8b5cf6;       /* Фиолетовый - современность, мистика */
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #7c3aed;
+  --color-primary-alpha: rgba(139, 92, 246, 0.1);
+  
+  --color-secondary: #10b981;     /* Изумрудный - природа, рост */
+  --color-secondary-light: #34d399;
+  --color-secondary-alpha: rgba(16, 185, 129, 0.1);
+  
+  --color-accent: #f59e0b;        /* Янтарный - тепло, гостеприимство */
+  --color-accent-light: #fbbf24;
+  --color-accent-alpha: rgba(245, 158, 11, 0.1);
   
   /* ДОПОЛНИТЕЛЬНЫЕ ЦВЕТА */
-  --text-primary: #2c2c2c;        /* Основной текст */
-  --text-secondary: #666666;      /* Вторичный текст */
-  --text-light: #888888;          /* Светлый текст */
-  --border-color: rgba(12, 46, 96, 0.1); /* Цвет границ */
+  --color-error: #ef4444;
+  --color-success: #22c55e;
+  --color-warning: #eab308;
+  --color-info: #3b82f6;
+  
+  /* ГРАНИЦЫ */
+  --color-border: #333333;
+  --color-border-light: #404040;
+  --color-border-hover: #555555;
+  
+  /* ТЕНИ */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 25px 0 rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 20px 40px 0 rgba(0, 0, 0, 0.2);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  
+  /* ГРАДИЕНТЫ */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  --gradient-bg: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+  --gradient-surface: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-light) 100%);
   
   /* ТИПОГРАФИЯ */
-  --font-heading: 'Playfair Display', 'Georgia', serif;
-  --font-body: 'Manrope', 'Helvetica Neue', sans-serif;
-  --font-accent: 'Raleway', 'Arial', sans-serif;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
   
-  /* ТЕНИ И ЭФФЕКТЫ */
-  --shadow-soft: 0 5px 20px rgba(0, 0, 0, 0.05);
-  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --shadow-hard: 0 15px 40px rgba(0, 0, 0, 0.12);
-  --shadow-glow-red: 0 10px 30px rgba(200, 16, 46, 0.3);
-  --shadow-glow-blue: 0 10px 30px rgba(12, 46, 96, 0.3);
-  --shadow-glow-gold: 0 10px 30px rgba(248, 195, 0, 0.3);
+  /* РАЗМЕРЫ ШРИФТОВ */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+  --text-6xl: 3.75rem;     /* 60px */
   
-  /* СКОРОСТИ АНИМАЦИЙ */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-  --transition-slow: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* ВЫСОТА СТРОКИ */
+  --leading-tight: 1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+  
+  /* ОТСТУПЫ */
+  --space-1: 0.25rem;      /* 4px */
+  --space-2: 0.5rem;       /* 8px */
+  --space-3: 0.75rem;      /* 12px */
+  --space-4: 1rem;         /* 16px */
+  --space-5: 1.5rem;       /* 24px */
+  --space-6: 2rem;         /* 32px */
+  --space-7: 2.5rem;       /* 40px */
+  --space-8: 3rem;         /* 48px */
+  --space-9: 4rem;         /* 64px */
+  --space-10: 5rem;        /* 80px */
   
   /* РАДИУСЫ */
-  --radius-small: 6px;
-  --radius-medium: 12px;
-  --radius-large: 20px;
-  --radius-round: 50px;
-  --radius-circle: 50%;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 9999px;
   
-  /* ПРОБЕЛЫ */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 3rem;
-  --space-xl: 5rem;
-  --space-xxl: 8rem;
+  /* АНИМАЦИИ */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Z-INDEX */
+  --z-negative: -1;
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 100;
+  --z-fixed: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-tooltip: 500;
+  --z-toast: 600;
+  --z-max: 9999;
 }
 
 /* ===== БАЗОВЫЕ СТИЛИ ===== */
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
-  scroll-padding-top: 100px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: var(--font-body);
-  line-height: 1.7;
-  color: var(--text-primary);
-  background-color: var(--serbian-white);
+  font-family: var(--font-main);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  font-weight: 400;
 }
 
-/* ФОНОВЫЕ ОРНАМЕНТЫ В СТИЛЕ СЕРБСКОЙ ВЫШИВКИ */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    /* Орнамент в углах в стиле пиротских ковров */
-    radial-gradient(circle at 10% 10%, rgba(200, 16, 46, 0.03) 0%, transparent 15%),
-    radial-gradient(circle at 90% 10%, rgba(12, 46, 96, 0.03) 0%, transparent 15%),
-    radial-gradient(circle at 10% 90%, rgba(248, 195, 0, 0.03) 0%, transparent 15%),
-    radial-gradient(circle at 90% 90%, rgba(139, 69, 19, 0.03) 0%, transparent 15%),
-    /* Линии в стиле традиционного орнамента */
-    linear-gradient(90deg, transparent 49%, rgba(12, 46, 96, 0.02) 50%, transparent 51%),
-    linear-gradient(0deg, transparent 49%, rgba(200, 16, 46, 0.02) 50%, transparent 51%);
-  pointer-events: none;
-  z-index: -1;
+/* Плавное появление контента */
+body.loading {
+  opacity: 0;
+  transition: opacity var(--transition-normal);
 }
 
-/* СКРЫТЬ СКРОЛЛБАР ДЛЯ ЛУЧШЕГО ВИДА */
-::-webkit-scrollbar {
-  width: 8px;
+body.loaded {
+  opacity: 1;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--serbian-white);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--serbian-red), var(--serbian-blue));
-  border-radius: var(--radius-round);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, var(--serbian-blue), var(--serbian-red));
-}
-
-/* ===== ТИПОГРАФИЯ В СТИЛЕ СЕРБСКОЙ КИРИЛЛИЦЫ ===== */
-h1, h2, h3, h4, h5, h6,
-.heading-primary,
-.heading-secondary,
-.logo,
-.hero-title {
-  font-family: var(--font-heading);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-  margin-bottom: var(--space-md);
+/* ===== ТИПОГРАФИЯ ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
 }
 
 h1 {
-  font-size: 4.5rem;
-  background: linear-gradient(135deg, var(--serbian-blue) 0%, var(--serbian-red) 100%);
+  font-size: var(--text-6xl);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.02em;
   position: relative;
-  display: inline-block;
 }
 
 h1::after {
-  content: "";
+  content: '';
   position: absolute;
-  bottom: -15px;
-  left: 0;
-  width: 120px;
-  height: 4px;
-  background: linear-gradient(to right, var(--serbian-red), var(--serbian-gold));
-  border-radius: 2px;
-}
-
-h2 {
-  font-size: 3.2rem;
-  color: var(--serbian-blue);
-  position: relative;
-  display: inline-block;
-  margin-bottom: var(--space-lg);
-}
-
-h2::after {
-  content: "";
-  position: absolute;
-  bottom: -15px;
+  bottom: -12px;
   left: 0;
   width: 80px;
   height: 4px;
-  background: linear-gradient(to right, var(--serbian-red), var(--serbian-gold));
-  border-radius: 2px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+}
+
+h2 {
+  font-size: var(--text-4xl);
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--gradient-secondary);
+  border-radius: var(--radius-full);
 }
 
 h3 {
-  font-size: 1.8rem;
-  color: var(--urban-dark);
-  margin-bottom: var(--space-sm);
+  font-size: var(--text-2xl);
+  color: var(--color-text);
 }
 
 h4 {
-  font-size: 1.4rem;
-  color: var(--serbian-blue);
-  margin-bottom: var(--space-sm);
+  font-size: var(--text-xl);
+  color: var(--color-text-light);
 }
 
 p {
-  font-size: 1.1rem;
-  margin-bottom: var(--space-md);
-  color: var(--text-secondary);
-  line-height: 1.8;
+  margin-bottom: var(--space-4);
+  color: var(--color-text-light);
+  line-height: var(--leading-relaxed);
 }
 
 .lead {
-  font-size: 1.3rem;
-  color: var(--serbian-blue);
+  font-size: var(--text-xl);
+  color: var(--color-text);
   font-weight: 300;
   max-width: 700px;
-  line-height: 1.6;
+  opacity: 0.9;
 }
 
-.small-text {
-  font-size: 0.9rem;
-  color: var(--text-light);
+.small {
+  font-size: var(--text-sm);
+  color: var(--color-text-lighter);
+}
+
+/* ===== ССЫЛКИ ===== */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+a:hover {
+  color: var(--color-primary-light);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 /* ===== КОНТЕЙНЕРЫ И СЕТКИ ===== */
 .container {
-  max-width: 1280px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--space-md);
+  padding: 0 var(--space-5);
 }
 
 .container-narrow {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 var(--space-md);
+  max-width: 800px;
 }
 
 .container-wide {
   max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 var(--space-md);
 }
 
-section {
-  padding: var(--space-xxl) 0;
+.section {
+  padding: var(--space-10) 0;
   position: relative;
 }
 
-.section-divider {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(to right, 
-    transparent, 
-    rgba(12, 46, 96, 0.2), 
-    rgba(200, 16, 46, 0.2), 
-    rgba(12, 46, 96, 0.2), 
-    transparent);
-  margin: var(--space-xl) 0;
+.section-alt {
+  background: var(--color-surface);
 }
 
-/* СЕТКИ В СТИЛЕ СОВРЕМЕННОГО УРБАНИЗМА */
+/* СЕТКИ */
 .grid {
   display: grid;
-  gap: var(--space-lg);
-  margin-top: var(--space-xl);
+  gap: var(--space-6);
 }
 
 .grid-2 {
@@ -262,26 +294,24 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-/* ===== НАВИГАЦИЯ - МИКС ЭТНО И УРБАН ===== */
+/* ===== НАВИГАЦИЯ ===== */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: var(--space-md) 0;
-  z-index: 1000;
-  transition: var(--transition-normal);
-  background: rgba(245, 240, 232, 0.92);
+  background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: var(--shadow-soft);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: var(--z-fixed);
+  padding: var(--space-4) 0;
+  transition: all var(--transition-normal);
 }
 
 .navbar.scrolled {
-  padding: var(--space-sm) 0;
-  background: rgba(245, 240, 232, 0.98);
-  box-shadow: var(--shadow-medium);
-  border-bottom-color: rgba(12, 46, 96, 0.15);
+  padding: var(--space-3) 0;
+  box-shadow: var(--shadow-lg);
 }
 
 .nav-container {
@@ -290,218 +320,170 @@ section {
   align-items: center;
 }
 
+/* ЛОГОТИП */
 .logo {
-  font-size: 2.2rem;
-  color: var(--serbian-blue);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  font-weight: 900;
-  transition: var(--transition-normal);
-}
-
-.logo span {
-  color: var(--serbian-red);
-  position: relative;
-}
-
-.logo span::after {
-  content: "";
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--serbian-gold);
-  transform: scaleX(0);
-  transition: var(--transition-normal);
-  transform-origin: right;
-}
-
-.logo:hover span::after {
-  transform: scaleX(1);
-  transform-origin: left;
+  gap: var(--space-2);
+  transition: transform var(--transition-normal);
 }
 
 .logo:hover {
   transform: translateY(-2px);
 }
 
+.logo-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+/* НАВИГАЦИОННЫЕ ССЫЛКИ */
 .nav-links {
   display: flex;
-  gap: var(--space-xl);
+  gap: var(--space-6);
   list-style: none;
 }
 
 .nav-link {
+  color: var(--color-text-light);
   text-decoration: none;
-  color: var(--serbian-blue);
-  font-weight: 600;
-  font-size: 1rem;
-  position: relative;
-  padding: var(--space-xs) 0;
-  transition: var(--transition-normal);
+  font-weight: 500;
+  font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-family: var(--font-accent);
+  padding: var(--space-2) 0;
+  position: relative;
+  transition: color var(--transition-fast);
 }
 
-.nav-link::before {
-  content: "";
+.nav-link::after {
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(to right, var(--serbian-red), var(--serbian-gold));
-  transition: var(--transition-normal);
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
 }
 
 .nav-link:hover {
-  color: var(--serbian-red);
+  color: var(--color-primary);
 }
 
-.nav-link:hover::before {
+.nav-link:hover::after {
   width: 100%;
 }
 
 .nav-link.active {
-  color: var(--serbian-red);
+  color: var(--color-primary);
 }
 
-.nav-link.active::before {
+.nav-link.active::after {
   width: 100%;
 }
 
+/* МОБИЛЬНОЕ МЕНЮ */
 .mobile-toggle {
   display: none;
   background: none;
   border: none;
-  font-size: 1.5rem;
-  color: var(--serbian-blue);
+  color: var(--color-text);
+  font-size: var(--text-2xl);
   cursor: pointer;
-  padding: var(--space-xs);
-  border-radius: var(--radius-small);
-  transition: var(--transition-normal);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
 }
 
 .mobile-toggle:hover {
-  background: rgba(12, 46, 96, 0.1);
-  color: var(--serbian-red);
+  background-color: var(--color-surface-light);
 }
 
-/* ===== ГЕРОЙ СЕКЦИЯ - ПАРАЛЛАКС И ДРАМА ===== */
-.hero-section {
+/* ===== ГЕРОЙ СЕКЦИЯ ===== */
+.hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
   overflow: hidden;
-  padding-top: 100px;
+  padding-top: 80px;
 }
 
-.hero-background {
+.hero::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -2;
-}
-
-.hero-background::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, 
-    rgba(12, 46, 96, 0.85) 0%, 
-    rgba(200, 16, 46, 0.7) 50%, 
-    rgba(248, 195, 0, 0.3) 100%);
-  z-index: 1;
-}
-
-.hero-background img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: brightness(0.7) contrast(1.1);
-  animation: kenburns 30s infinite alternate;
-}
-
-@keyframes kenburns {
-  0% {
-    transform: scale(1) translateX(0) translateY(0);
-  }
-  100% {
-    transform: scale(1.1) translateX(-20px) translateY(-20px);
-  }
+  background: radial-gradient(circle at 20% 50%, var(--color-primary-alpha) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, var(--color-secondary-alpha) 0%, transparent 50%),
+              radial-gradient(circle at 40% 80%, var(--color-accent-alpha) 0%, transparent 50%);
+  z-index: -1;
 }
 
 .hero-content {
-  text-align: center;
-  color: var(--serbian-white);
-  max-width: 900px;
-  padding: var(--space-xl);
+  max-width: 700px;
   position: relative;
-  z-index: 2;
-}
-
-.hero-title {
-  font-size: 5.5rem;
-  margin-bottom: var(--space-md);
-  color: var(--serbian-white);
-  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 1s ease-out;
+  z-index: 1;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  font-weight: 300;
-  margin-bottom: var(--space-xl);
-  opacity: 0.9;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
-  animation: fadeInUp 1s ease-out 0.2s both;
+  font-size: var(--text-xl);
+  color: var(--color-text-light);
+  margin-bottom: var(--space-6);
+  max-width: 600px;
 }
 
-/* ===== КНОПКИ - СОВРЕМЕННЫЕ С ЭТНИЧЕСКИМИ АКЦЕНТАМИ ===== */
+/* ===== КНОПКИ ===== */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
-  padding: var(--space-md) var(--space-xl);
-  border-radius: var(--radius-round);
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  font-size: var(--text-base);
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
-  transition: var(--transition-normal);
-  cursor: pointer;
+  transition: all var(--transition-normal);
   border: none;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  font-family: var(--font-accent);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  z-index: 1;
 }
 
 .btn::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: var(--transition-normal);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left var(--transition-slow);
+  z-index: -1;
 }
 
 .btn:hover::before {
@@ -509,179 +491,159 @@ section {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--serbian-red) 0%, #e03a5f 100%);
-  color: var(--serbian-white);
-  box-shadow: var(--shadow-glow-red);
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(200, 16, 46, 0.4);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--serbian-white);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--serbian-white);
-  transform: translateY(-5px);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background: var(--gradient-accent);
+  color: var(--color-bg);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--serbian-blue);
-  border: 2px solid var(--serbian-blue);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .btn-outline:hover {
-  background: var(--serbian-blue);
-  color: var(--serbian-white);
-  transform: translateY(-5px);
-}
-
-.btn-accent {
-  background: linear-gradient(135deg, var(--serbian-gold) 0%, #ffd700 100%);
-  color: var(--serbian-blue);
-  box-shadow: var(--shadow-glow-gold);
-}
-
-.btn-accent:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(248, 195, 0, 0.4);
+  background: var(--color-primary-alpha);
+  transform: translateY(-2px);
 }
 
 .btn-group {
   display: flex;
-  gap: var(--space-md);
-  justify-content: center;
-  margin-top: var(--space-xl);
+  gap: var(--space-4);
   flex-wrap: wrap;
-  animation: fadeInUp 1s ease-out 0.4s both;
+  margin-top: var(--space-6);
 }
 
-/* ===== КАРТОЧКИ - МИНИМАЛИЗМ С ТРАДИЦИОННЫМИ ТЕКСТУРАМИ ===== */
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===== КАРТОЧКИ ===== */
 .card {
-  background: var(--serbian-white);
-  border-radius: var(--radius-medium);
-  overflow: hidden;
-  box-shadow: var(--shadow-medium);
-  transition: var(--transition-normal);
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
   height: 100%;
   position: relative;
-  border: 1px solid var(--border-color);
+  overflow: hidden;
 }
 
 .card::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, var(--serbian-red), var(--serbian-gold));
-  z-index: 1;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-normal);
 }
 
 .card:hover {
-  transform: translateY(-15px);
-  box-shadow: var(--shadow-hard);
+  transform: translateY(-8px);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-xl);
 }
 
-.card-image {
-  height: 250px;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.card-image::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
-  pointer-events: none;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition-slow);
-}
-
-.card:hover .card-image img {
-  transform: scale(1.1);
-}
-
-.card-content {
-  padding: var(--space-lg);
+.card:hover::before {
+  transform: scaleX(1);
 }
 
 .card-icon {
   font-size: 2.5rem;
-  color: var(--serbian-red);
-  margin-bottom: var(--space-md);
-  transition: var(--transition-normal);
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+  transition: transform var(--transition-bounce);
 }
 
 .card:hover .card-icon {
   transform: scale(1.1) rotate(5deg);
-  color: var(--serbian-blue);
 }
 
 .card-title {
-  font-size: 1.5rem;
-  margin-bottom: var(--space-sm);
-  color: var(--serbian-blue);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
 }
 
 .card-text {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
+  color: var(--color-text-light);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
 }
 
-/* ===== ГАЛЕРЕЯ - СОВРЕМЕННАЯ СЕТКА С ЭТНИЧЕСКИМИ ЭФФЕКТАМИ ===== */
+/* ===== ГАЛЕРЕЯ ===== */
+.gallery {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-md);
-  margin-top: var(--space-xl);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1px;
+  background: var(--color-border);
 }
 
 .gallery-item {
-  border-radius: var(--radius-medium);
+  aspect-ratio: 1;
   overflow: hidden;
-  height: 280px;
   position: relative;
+  background: var(--color-surface-light);
   cursor: pointer;
-  box-shadow: var(--shadow-soft);
-  transition: var(--transition-normal);
+  transition: all var(--transition-normal);
 }
 
 .gallery-item:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-hard);
+  z-index: var(--z-dropdown);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-xl);
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition-slow);
-  filter: brightness(0.9) contrast(1.1);
+  transition: transform var(--transition-slow);
 }
 
 .gallery-item:hover img {
-  transform: scale(1.08);
-  filter: brightness(1) contrast(1.2);
+  transform: scale(1.1);
 }
 
 .gallery-overlay {
@@ -690,12 +652,12 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(12, 46, 96, 0.85), transparent 70%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
   display: flex;
   align-items: flex-end;
-  padding: var(--space-lg);
+  padding: var(--space-5);
   opacity: 0;
-  transition: var(--transition-normal);
+  transition: opacity var(--transition-normal);
 }
 
 .gallery-item:hover .gallery-overlay {
@@ -703,290 +665,227 @@ section {
 }
 
 .gallery-title {
-  color: var(--serbian-white);
-  font-size: 1.2rem;
+  color: white;
+  font-size: var(--text-lg);
   font-weight: 600;
-  transform: translateY(20px);
-  transition: var(--transition-normal);
-  font-family: var(--font-accent);
+  transform: translateY(10px);
+  transition: transform var(--transition-normal);
 }
 
 .gallery-item:hover .gallery-title {
   transform: translateY(0);
 }
 
-/* ===== ПРИРОДА - ОРГАНИЧЕСКИЕ ФОРМЫ И ТЕКСТУРЫ ===== */
+/* ===== ПРИРОДА ===== */
 .nature-section {
-  background: linear-gradient(to bottom, #f9f9f9, var(--serbian-white));
   position: relative;
   overflow: hidden;
 }
 
 .nature-section::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -100px;
   right: -100px;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(12, 46, 96, 0.05) 0%, transparent 70%);
-  z-index: 0;
-}
-
-.nature-section::after {
-  content: "";
-  position: absolute;
-  bottom: -100px;
-  left: -100px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(200, 16, 46, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-secondary-alpha) 0%, transparent 70%);
   z-index: 0;
 }
 
 .nature-card {
   position: relative;
-  height: 400px;
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-medium);
-  z-index: 1;
+  aspect-ratio: 16/9;
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
 }
 
 .nature-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition-slow);
+  transition: transform var(--transition-slow);
 }
 
 .nature-card:hover img {
   transform: scale(1.05);
 }
 
-.nature-content {
+.nature-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: var(--space-xl);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-  color: var(--serbian-white);
-  z-index: 2;
+  padding: var(--space-6);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+  color: white;
+  z-index: 1;
 }
 
-.nature-content h3 {
-  color: var(--serbian-white);
-  font-size: 2rem;
-  margin-bottom: var(--space-sm);
+.nature-overlay h3 {
+  color: white;
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
 }
 
-.nature-content p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1rem;
+.nature-overlay p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0;
 }
 
-/* ===== КУХНЯ - ТЁПЛЫЕ ЦВЕТА И ТЕКСТУРЫ ЕДЫ ===== */
+/* ===== КУХНЯ ===== */
 .cuisine-section {
-  background-color: var(--serbian-white);
   position: relative;
 }
 
 .cuisine-section::before {
-  content: "";
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, 
-    transparent, 
-    rgba(139, 69, 19, 0.1), 
-    rgba(248, 195, 0, 0.2), 
-    rgba(139, 69, 19, 0.1), 
-    transparent);
+  bottom: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--color-accent-alpha) 0%, transparent 70%);
+  z-index: 0;
 }
 
 .food-card {
   text-align: center;
-  padding: var(--space-xl);
-  border-radius: var(--radius-medium);
-  background: var(--serbian-white);
-  transition: var(--transition-normal);
-  border: 1px solid rgba(139, 69, 19, 0.1);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
   position: relative;
   z-index: 1;
 }
 
 .food-card:hover {
-  background: var(--serbian-white);
-  box-shadow: var(--shadow-hard);
-  border-color: rgba(139, 69, 19, 0.2);
-  transform: translateY(-10px);
-}
-
-.food-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(to right, var(--serbian-gold), var(--serbian-earth));
-  border-radius: var(--radius-medium) var(--radius-medium) 0 0;
-  opacity: 0;
-  transition: var(--transition-normal);
-}
-
-.food-card:hover::before {
-  opacity: 1;
+  transform: translateY(-8px);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-xl);
 }
 
 .food-image {
   width: 140px;
   height: 140px;
-  border-radius: var(--radius-circle);
+  border-radius: var(--radius-full);
   overflow: hidden;
-  margin: 0 auto var(--space-lg);
-  border: 5px solid var(--serbian-white);
-  box-shadow: var(--shadow-medium);
-  position: relative;
-  transition: var(--transition-normal);
+  margin: 0 auto var(--space-5);
+  border: 4px solid transparent;
+  background: var(--gradient-accent);
+  padding: 3px;
+  transition: transform var(--transition-bounce);
 }
 
 .food-card:hover .food-image {
   transform: scale(1.1) rotate(5deg);
-  border-color: var(--serbian-gold);
+}
+
+.food-image-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: var(--color-surface-light);
 }
 
 .food-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition-slow);
-}
-
-.food-card:hover .food-image img {
-  transform: scale(1.1);
 }
 
 .food-card h3 {
-  color: var(--serbian-earth);
-  margin-bottom: var(--space-sm);
-  transition: var(--transition-normal);
-}
-
-.food-card:hover h3 {
-  color: var(--serbian-red);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
 }
 
 .food-card p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+  color: var(--color-text-lighter);
+  font-size: var(--text-sm);
+  margin-bottom: 0;
 }
 
-/* ===== ПОДВАЛ - ТРАДИЦИОННЫЙ СТИЛЬ С СОВРЕМЕННОЙ ТИПОГРАФИЕЙ ===== */
+/* ===== ИЗОБРАЖЕНИЯ И PLACEHOLDER ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+.image-placeholder {
+  background: linear-gradient(90deg, 
+    var(--color-surface) 25%, 
+    var(--color-surface-light) 50%, 
+    var(--color-surface) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ===== ПОДВАЛ ===== */
 .footer {
-  background: linear-gradient(135deg, var(--serbian-blue) 0%, #0a2552 100%);
-  color: var(--serbian-white);
-  padding: var(--space-xxl) 0 var(--space-xl);
+  background: var(--color-surface);
+  padding: var(--space-10) 0 var(--space-6);
+  border-top: 1px solid var(--color-border);
   position: relative;
-  overflow: hidden;
 }
 
 .footer::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(248, 195, 0, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(200, 16, 46, 0.05) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.footer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(to right, var(--serbian-red), var(--serbian-gold), var(--serbian-red));
+  height: 1px;
+  background: var(--gradient-primary);
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-xl);
-  margin-bottom: var(--space-xl);
-  position: relative;
-  z-index: 1;
-}
-
-.footer-logo {
-  font-size: 2.5rem;
-  color: var(--serbian-white);
-  margin-bottom: var(--space-md);
-  font-weight: 900;
-}
-
-.footer-logo span {
-  color: var(--serbian-gold);
-}
-
-.footer-description {
-  opacity: 0.8;
-  margin-bottom: var(--space-lg);
-  line-height: 1.6;
-}
-
-.social-links {
-  display: flex;
-  gap: var(--space-sm);
-  margin-top: var(--space-md);
-}
-
-.social-link {
-  width: 45px;
-  height: 45px;
-  border-radius: var(--radius-circle);
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--serbian-white);
-  text-decoration: none;
-  transition: var(--transition-normal);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.social-link:hover {
-  background: var(--serbian-red);
-  transform: translateY(-5px) rotate(10deg);
-  border-color: var(--serbian-red);
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
 }
 
 .footer-heading {
-  font-size: 1.3rem;
-  margin-bottom: var(--space-lg);
-  color: var(--serbian-white);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--space-5);
+  color: var(--color-text-light);
   position: relative;
-  padding-bottom: var(--space-sm);
-  font-weight: 700;
-  font-family: var(--font-accent);
+  display: inline-block;
 }
 
 .footer-heading::after {
-  content: "";
+  content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -8px;
   left: 0;
-  width: 40px;
+  width: 30px;
   height: 2px;
-  background: var(--serbian-gold);
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
 }
 
 .footer-links {
@@ -994,45 +893,161 @@ section {
 }
 
 .footer-links li {
-  margin-bottom: var(--space-sm);
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-.footer-links i {
-  color: var(--serbian-gold);
-  font-size: 0.9rem;
-  width: 20px;
+  margin-bottom: var(--space-3);
 }
 
 .footer-links a {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-light);
   text-decoration: none;
-  transition: var(--transition-normal);
-  font-size: 0.95rem;
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .footer-links a:hover {
-  color: var(--serbian-gold);
-  padding-left: 5px;
+  color: var(--color-primary);
+  padding-left: var(--space-1);
+}
+
+.footer-links i {
+  font-size: var(--text-sm);
+  width: 16px;
+  color: var(--color-primary);
+}
+
+.social-links {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  border: 1px solid var(--color-border);
+}
+
+.social-link:hover {
+  background: var(--gradient-primary);
+  color: white;
+  transform: translateY(-3px);
+  border-color: transparent;
 }
 
 .copyright {
   text-align: center;
-  padding-top: var(--space-lg);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  opacity: 0.7;
-  font-size: 0.9rem;
-  position: relative;
-  z-index: 1;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-lighter);
+  font-size: var(--text-sm);
 }
 
-/* ===== АНИМАЦИИ ===== */
-@keyframes fadeInUp {
+/* ===== УТИЛИТЫ ===== */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-5 { margin-top: var(--space-5); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-7 { margin-top: var(--space-7); }
+.mt-8 { margin-top: var(--space-8); }
+.mt-9 { margin-top: var(--space-9); }
+.mt-10 { margin-top: var(--space-10); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-5 { margin-bottom: var(--space-5); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-7 { margin-bottom: var(--space-7); }
+.mb-8 { margin-bottom: var(--space-8); }
+.mb-9 { margin-bottom: var(--space-9); }
+.mb-10 { margin-bottom: var(--space-10); }
+
+.pt-0 { padding-top: 0; }
+.pt-1 { padding-top: var(--space-1); }
+.pt-2 { padding-top: var(--space-2); }
+.pt-3 { padding-top: var(--space-3); }
+.pt-4 { padding-top: var(--space-4); }
+.pt-5 { padding-top: var(--space-5); }
+.pt-6 { padding-top: var(--space-6); }
+.pt-7 { padding-top: var(--space-7); }
+.pt-8 { padding-top: var(--space-8); }
+.pt-9 { padding-top: var(--space-9); }
+.pt-10 { padding-top: var(--space-10); }
+
+.pb-0 { padding-bottom: 0; }
+.pb-1 { padding-bottom: var(--space-1); }
+.pb-2 { padding-bottom: var(--space-2); }
+.pb-3 { padding-bottom: var(--space-3); }
+.pb-4 { padding-bottom: var(--space-4); }
+.pb-5 { padding-bottom: var(--space-5); }
+.pb-6 { padding-bottom: var(--space-6); }
+.pb-7 { padding-bottom: var(--space-7); }
+.pb-8 { padding-bottom: var(--space-8); }
+.pb-9 { padding-bottom: var(--space-9); }
+.pb-10 { padding-bottom: var(--space-10); }
+
+.opacity-100 { opacity: 1; }
+.opacity-90 { opacity: 0.9; }
+.opacity-80 { opacity: 0.8; }
+.opacity-70 { opacity: 0.7; }
+.opacity-60 { opacity: 0.6; }
+.opacity-50 { opacity: 0.5; }
+.opacity-40 { opacity: 0.4; }
+.opacity-30 { opacity: 0.3; }
+.opacity-20 { opacity: 0.2; }
+.opacity-10 { opacity: 0.1; }
+.opacity-0 { opacity: 0; }
+
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ===== АНИМАЦИИ И ЭФФЕКТЫ ===== */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -1040,10 +1055,10 @@ section {
   }
 }
 
-@keyframes fadeInLeft {
+@keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateX(-30px);
   }
   to {
     opacity: 1;
@@ -1051,10 +1066,10 @@ section {
   }
 }
 
-@keyframes fadeInRight {
+@keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(40px);
+    transform: translateX(30px);
   }
   to {
     opacity: 1;
@@ -1062,122 +1077,66 @@ section {
   }
 }
 
-@keyframes pulse {
-  0% {
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
     transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
   }
 }
 
 .fade-in {
-  opacity: 0;
-  animation: fadeInUp 0.8s ease forwards;
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
-.fade-in-left {
-  opacity: 0;
-  animation: fadeInLeft 0.8s ease forwards;
+.slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
 }
 
-.fade-in-right {
-  opacity: 0;
-  animation: fadeInRight 0.8s ease forwards;
+.slide-in-right {
+  animation: slideInRight 0.6s ease-out forwards;
 }
 
-.pulse {
-  animation: pulse 2s infinite ease-in-out;
+.scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
 }
 
-.float {
-  animation: float 3s infinite ease-in-out;
-}
-
-.delay-1 {
-  animation-delay: 0.2s;
-}
-
-.delay-2 {
-  animation-delay: 0.4s;
-}
-
-.delay-3 {
-  animation-delay: 0.6s;
-}
-
-.delay-4 {
-  animation-delay: 0.8s;
-}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
 
 /* ===== АДАПТИВНОСТЬ ===== */
 @media (max-width: 1200px) {
-  html {
-    font-size: 15px;
+  :root {
+    --text-6xl: 3rem;
+    --text-4xl: 2rem;
+    --text-2xl: 1.5rem;
+    --text-xl: 1.125rem;
   }
   
-  h1 {
-    font-size: 4rem;
-  }
-  
-  h2 {
-    font-size: 2.8rem;
-  }
-  
-  .hero-title {
-    font-size: 4.5rem;
+  .container {
+    padding: 0 var(--space-4);
   }
 }
 
 @media (max-width: 992px) {
-  .grid-2, .grid-3, .grid-4 {
-    grid-template-columns: 1fr;
+  .grid-3, .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
   }
   
-  .hero-title {
-    font-size: 3.5rem;
-  }
-  
-  .nav-links {
-    gap: var(--space-lg);
+  .hero {
+    min-height: 90vh;
   }
 }
 
 @media (max-width: 768px) {
-  html {
-    font-size: 14px;
-  }
-  
-  .container {
-    padding: 0 var(--space-sm);
-  }
-  
-  h1 {
-    font-size: 3rem;
-  }
-  
-  h2 {
-    font-size: 2.4rem;
-  }
-  
-  .hero-title {
-    font-size: 2.8rem;
-  }
-  
-  section {
-    padding: var(--space-xl) 0;
+  .mobile-toggle {
+    display: block;
   }
   
   .nav-links {
@@ -1186,25 +1145,36 @@ section {
     top: 100%;
     left: 0;
     width: 100%;
-    background: var(--serbian-white);
+    background: var(--color-surface);
+    padding: var(--space-4);
     flex-direction: column;
-    padding: var(--space-lg);
-    box-shadow: var(--shadow-hard);
-    gap: var(--space-md);
-    z-index: 1000;
+    gap: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
   }
   
   .nav-links.active {
     display: flex;
   }
   
-  .mobile-toggle {
-    display: block;
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  h1 {
+    font-size: var(--text-5xl);
+  }
+  
+  h2 {
+    font-size: var(--text-3xl);
+  }
+  
+  .section {
+    padding: var(--space-8) 0;
   }
   
   .btn-group {
     flex-direction: column;
-    align-items: center;
   }
   
   .btn {
@@ -1214,188 +1184,106 @@ section {
   
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 }
 
-@media (max-width: 576px) {
-  h1 {
-    font-size: 2.5rem;
-  }
-  
-  h2 {
-    font-size: 2rem;
-  }
-  
-  .hero-title {
-    font-size: 2.5rem;
+@media (max-width: 480px) {
+  :root {
+    --text-6xl: 2.5rem;
+    --text-5xl: 2rem;
+    --text-4xl: 1.75rem;
+    --text-3xl: 1.5rem;
   }
   
-  .hero-content {
-    padding: var(--space-md);
+  .container {
+    padding: 0 var(--space-3);
   }
   
-  .lead {
-    font-size: 1.1rem;
+  .section {
+    padding: var(--space-6) 0;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ===== СПЕЦИАЛЬНЫЕ ЭФФЕКТЫ ДЛЯ СЕРБСКОЙ ТЕМЫ ===== */
-/* Орнаментные разделители */
-.ornament-divider {
-  height: 20px;
-  width: 100%;
-  background-image: 
-    repeating-linear-gradient(90deg, 
-      transparent, 
-      transparent 10px, 
-      var(--serbian-red) 10px, 
-      var(--serbian-red) 12px,
-      transparent 12px,
-      transparent 22px,
-      var(--serbian-blue) 22px,
-      var(--serbian-blue) 24px);
-  margin: var(--space-xl) 0;
-  opacity: 0.3;
+/* ===== ПРОГРЕСС БАР ===== */
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--gradient-primary);
+  z-index: var(--z-max);
+  transition: width 0.3s ease;
 }
 
-/* Эффект вышивки на некоторых элементах */
-.embroidery-effect {
-  position: relative;
+/* ===== СКРОЛЛБАР ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-.embroidery-effect::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(to right, 
-    var(--serbian-red), 
-    var(--serbian-gold), 
-    var(--serbian-blue));
-  border-radius: 2px;
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
 }
 
-/* Текстура старинной бумаги для некоторых блоков */
-.vintage-paper {
-  background-color: var(--serbian-white);
-  background-image: 
-    linear-gradient(rgba(139, 69, 19, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 69, 19, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
-  border: 1px solid rgba(139, 69, 19, 0.1);
-  border-radius: var(--radius-medium);
-  padding: var(--space-xl);
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-light);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-surface);
 }
 
-/* Эффект традиционного ковра */
-.rug-effect {
-  background: 
-    radial-gradient(circle at 50% 0%, rgba(200, 16, 46, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 100% 50%, rgba(12, 46, 96, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 50% 100%, rgba(248, 195, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 0% 50%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
-  border: 2px solid rgba(139, 69, 19, 0.2);
-  border-radius: var(--radius-medium);
-  position: relative;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border);
 }
 
-.rug-effect::before {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  border: 1px solid rgba(139, 69, 19, 0.1);
-  border-radius: calc(var(--radius-medium) - 5px);
-  pointer-events: none;
+/* ===== ВЫДЕЛЕНИЕ ТЕКСТА ===== */
+::selection {
+  background: var(--color-primary-alpha);
+  color: var(--color-primary-light);
 }
 
-/* Стиль для цитат в традиционном духе */
-.serbian-quote {
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  font-style: italic;
-  color: var(--serbian-blue);
-  padding: var(--space-lg);
-  border-left: 4px solid var(--serbian-red);
-  background: linear-gradient(to right, rgba(12, 46, 96, 0.05), transparent);
-  margin: var(--space-xl) 0;
-  position: relative;
+::-moz-selection {
+  background: var(--color-primary-alpha);
+  color: var(--color-primary-light);
 }
 
-.serbian-quote::before {
-  content: "„";
-  position: absolute;
-  top: -10px;
-  left: 20px;
-  font-size: 4rem;
-  color: var(--serbian-gold);
-  opacity: 0.3;
-  font-family: serif;
+/* ===== ФОКУС ДЛЯ ДОСТУПНОСТИ ===== */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
-.serbian-quote::after {
-  content: "”";
-  position: absolute;
-  bottom: -30px;
-  right: 20px;
-  font-size: 4rem;
-  color: var(--serbian-gold);
-  opacity: 0.3;
-  font-family: serif;
+/* ===== ПЕЧАТЬ ===== */
+@media print {
+  .navbar,
+  .footer,
+  .btn,
+  .mobile-toggle {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .container {
+    max-width: 100% !important;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+  
+  .gradient-text {
+    -webkit-text-fill-color: black !important;
+    background: none !important;
+  }
 }
-
-/* ===== УТИЛИТЫ ===== */
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.mt-0 { margin-top: 0; }
-.mt-sm { margin-top: var(--space-sm); }
-.mt-md { margin-top: var(--space-md); }
-.mt-lg { margin-top: var(--space-lg); }
-.mt-xl { margin-top: var(--space-xl); }
-
-.mb-0 { margin-bottom: 0; }
-.mb-sm { margin-bottom: var(--space-sm); }
-.mb-md { margin-bottom: var(--space-md); }
-.mb-lg { margin-bottom: var(--space-lg); }
-.mb-xl { margin-bottom: var(--space-xl); }
-
-.pt-0 { padding-top: 0; }
-.pt-sm { padding-top: var(--space-sm); }
-.pt-md { padding-top: var(--space-md); }
-.pt-lg { padding-top: var(--space-lg); }
-.pt-xl { padding-top: var(--space-xl); }
-
-.pb-0 { padding-bottom: 0; }
-.pb-sm { padding-bottom: var(--space-sm); }
-.pb-md { padding-bottom: var(--space-md); }
-.pb-lg { padding-bottom: var(--space-lg); }
-.pb-xl { padding-bottom: var(--space-xl); }
-
-.hidden {
-  display: none;
-}
-
-.visible {
-  display: block;
-}
-
-.full-width {
-  width: 100%;
-}
-
-/* ===== КОНЕЦ CSS ===== */
