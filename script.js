@@ -1,1051 +1,886 @@
-// ===== СОВРЕМЕННЫЙ JAVASCRIPT ДЛЯ САЙТА СЕРБИЯ =====
-// Анимации, эффекты, интерактивность
+// app.js
 
-// ===== КОНФИГУРАЦИЯ =====
-const CONFIG = {
-    // Анимации
-    animationSpeed: 0.3,
-    scrollOffset: 80,
-    lazyLoadThreshold: 0.1,
+// Оптимизированная загрузка и инициализация
+(function() {
+    'use strict';
     
-    // Эффекты
-    parallaxIntensity: 0.15,
-    mouseTrailLength: 15,
+    // Конфигурация
+    const CONFIG = {
+        LAZY_LOAD_OFFSET: '100px',
+        ANIMATION_THRESHOLD: 0.1,
+        DEBOUNCE_DELAY: 100,
+        SCROLL_THROTTLE: 100
+    };
     
-    // Картинки
-    imagesToLoad: [
-        'tara-national-park.jpg',
-        'djerdap-national-park.jpg',
-        'tara-mountain.jpg',
-        'belgrade-fortress.jpg',
-        'studentca-monastery.jpg',
-        'culture-festival.jpg',
-        'house-on-drina.jpg',
-        'cevapi.jpg',
-        'gibanica.jpg',
-        'rakija.jpg',
-        'palacinke.jpg'
-    ],
+    // Глобальное состояние
+    const State = {
+        isLoading: false,
+        isNavOpen: false,
+        lastScrollY: 0,
+        scrollDirection: 'down',
+        loadedImages: new Set()
+    };
     
-    // Задержки
-    staggerDelay: 100,
-    imageLoadDelay: 200
-};
-
-// ===== СОСТОЯНИЕ =====
-const STATE = {
-    isMobile: false,
-    isScrolled: false,
-    currentSection: 'home',
-    loadedImages: 0,
-    totalImages: 0,
-    mouseX: 0,
-    mouseY: 0,
-    scrollDirection: 'down',
-    lastScrollY: 0
-};
-
-// ===== ИНИЦИАЛИЗАЦИЯ =====
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('%c🇷🇸 СЕРБИЯ | Modern Experience', 
-        'background: linear-gradient(135deg, #3b82f6, #10b981); color: white; padding: 10px; border-radius: 8px; font-size: 14px;');
-    
-    init();
-});
-
-function init() {
-    // Определяем устройство
-    detectDevice();
-    
-    // Создаем экран загрузки
-    createLoadingScreen();
-    
-    // Инициализируем все модули
-    initNavigation();
-    initLazyLoading();
-    initAnimations();
-    initSmoothScrolling();
-    initParallax();
-    initImageEffects();
-    initHoverEffects();
-    initScrollAnimations();
-    initInteractiveElements();
-    
-    // Запускаем анимацию загрузки
-    setTimeout(() => {
-        startPageIntro();
-        updateProgressBar();
-    }, 500);
-    
-    // Вешаем обработчики событий
-    setupEventListeners();
-}
-
-// ===== ЭКРАН ЗАГРУЗКИ =====
-function createLoadingScreen() {
-    const loader = document.createElement('div');
-    loader.id = 'page-loader';
-    loader.innerHTML = `
-        <div class="loader-content">
-            <div class="loader-spinner">
-                <div class="spinner-ring"></div>
-                <div class="spinner-dot"></div>
-            </div>
-            <div class="loader-text">
-                <h3>СЕРБИЯ</h3>
-                <p>Загружаем путешествие...</p>
-                <div class="loader-progress">
-                    <div class="progress-bar"></div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(loader);
-    
-    // Стили для лоадера
-    const style = document.createElement('style');
-    style.textContent = `
-        #page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
+    // ===== УТИЛИТЫ =====
+    const Utils = {
+        // Дебаунс
+        debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        },
         
-        .loader-content {
-            text-align: center;
-            max-width: 300px;
-        }
-        
-        .loader-spinner {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 30px;
-        }
-        
-        .spinner-ring {
-            width: 100%;
-            height: 100%;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3b82f6;
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
-        }
-        
-        .spinner-dot {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 12px;
-            height: 12px;
-            background: #10b981;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .loader-text h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #3b82f6, #10b981);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .loader-progress {
-            width: 100%;
-            height: 4px;
-            background: #f3f3f3;
-            border-radius: 2px;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-function updateProgressBar() {
-    const progressBar = document.querySelector('.progress-bar');
-    if (!progressBar) return;
-    
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 2;
-        if (progress > 90) {
-            progress = 90;
-        }
-        progressBar.style.width = `${progress}%`;
-        
-        if (progress >= 90) {
-            clearInterval(interval);
-            // Завершаем загрузку
-            setTimeout(() => {
-                const loader = document.getElementById('page-loader');
-                if (loader) {
-                    loader.style.opacity = '0';
-                    setTimeout(() => loader.remove(), 500);
+        // Троттлинг
+        throttle(func, limit) {
+            let inThrottle;
+            return function(...args) {
+                if (!inThrottle) {
+                    func.apply(this, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
                 }
-            }, 500);
-        }
-    }, 50);
-}
-
-// ===== НАВИГАЦИЯ =====
-function initNavigation() {
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    
-    if (navToggle && navLinks) {
-        // Переключение мобильного меню
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            navToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-            
-            // Анимация для мобильного меню
-            if (navLinks.classList.contains('active')) {
-                animateMobileMenu();
-            }
-        });
+            };
+        },
         
-        // Закрытие меню при клике на ссылку
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
+        // Проверка видимости элемента
+        isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0
+            );
+        },
+        
+        // Плавная прокрутка
+        smoothScrollTo(target, offset = 80) {
+            const element = typeof target === 'string' ? document.querySelector(target) : target;
+            if (!element) return;
+            
+            const targetPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition - offset;
+            const duration = 800;
+            let start = null;
+            
+            function animation(currentTime) {
+                if (start === null) start = currentTime;
+                const timeElapsed = currentTime - start;
+                const run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+            
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+            
+            requestAnimationFrame(animation);
+        },
+        
+        // Загрузка изображения с кэшированием
+        loadImage(src) {
+            return new Promise((resolve, reject) => {
+                if (State.loadedImages.has(src)) {
+                    resolve(src);
+                    return;
+                }
                 
-                navLinks.classList.remove('active');
-                navToggle.textContent = '☰';
-                document.body.style.overflow = '';
+                const img = new Image();
+                img.onload = () => {
+                    State.loadedImages.add(src);
+                    resolve(src);
+                };
+                img.onerror = reject;
+                img.src = src;
+            });
+        },
+        
+        // Добавление CSS класса с префиксом
+        addClass(el, className) {
+            if (el.classList) {
+                el.classList.add(className);
+            } else {
+                el.className += ' ' + className;
+            }
+        },
+        
+        // Удаление CSS класса
+        removeClass(el, className) {
+            if (el.classList) {
+                el.classList.remove(className);
+            } else {
+                el.className = el.className.replace(
+                    new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), 
+                    ' '
+                );
+            }
+        },
+        
+        // Проверка поддержки Intersection Observer
+        supportsIntersectionObserver() {
+            return 'IntersectionObserver' in window &&
+                   'IntersectionObserverEntry' in window &&
+                   'intersectionRatio' in window.IntersectionObserverEntry.prototype;
+        }
+    };
+    
+    // ===== МОДУЛЬ НАВИГАЦИИ =====
+    const Navigation = {
+        init() {
+            this.nav = document.getElementById('nav');
+            this.navToggle = document.getElementById('navToggle');
+            this.navLinks = document.getElementById('navLinks');
+            
+            if (!this.nav || !this.navToggle || !this.navLinks) return;
+            
+            this.bindEvents();
+            this.updateActiveLink();
+        },
+        
+        bindEvents() {
+            // Переключение мобильного меню
+            this.navToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleMenu();
+            });
+            
+            // Закрытие меню при клике на ссылку
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        this.closeMenu();
+                        Utils.smoothScrollTo(href);
+                        this.updateActiveLink();
+                    }
+                });
+            });
+            
+            // Закрытие меню при клике вне его
+            document.addEventListener('click', (e) => {
+                if (!this.nav.contains(e.target) && State.isNavOpen) {
+                    this.closeMenu();
+                }
+            });
+            
+            // Обработка клавиши Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && State.isNavOpen) {
+                    this.closeMenu();
+                }
+            });
+            
+            // Изменение навигации при скролле
+            window.addEventListener('scroll', Utils.throttle(() => {
+                this.handleScroll();
+            }, CONFIG.SCROLL_THROTTLE));
+        },
+        
+        toggleMenu() {
+            if (State.isNavOpen) {
+                this.closeMenu();
+            } else {
+                this.openMenu();
+            }
+        },
+        
+        openMenu() {
+            Utils.addClass(this.navLinks, 'active');
+            this.navToggle.innerHTML = '<i class="fas fa-times"></i>';
+            State.isNavOpen = true;
+            
+            // Блокировка скролла на мобильных устройствах
+            if (window.innerWidth <= 768) {
+                document.body.style.overflow = 'hidden';
+            }
+        },
+        
+        closeMenu() {
+            Utils.removeClass(this.navLinks, 'active');
+            this.navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            State.isNavOpen = false;
+            document.body.style.overflow = '';
+        },
+        
+        handleScroll() {
+            const currentScrollY = window.pageYOffset;
+            
+            // Определение направления скролла
+            State.scrollDirection = currentScrollY > State.lastScrollY ? 'down' : 'up';
+            State.lastScrollY = currentScrollY;
+            
+            // Добавление класса при скролле
+            if (currentScrollY > 50) {
+                Utils.addClass(this.nav, 'scrolled');
+            } else {
+                Utils.removeClass(this.nav, 'scrolled');
+            }
+            
+            // Автоматическое закрытие меню на мобильных при скролле вниз
+            if (State.isNavOpen && State.scrollDirection === 'down' && window.innerWidth <= 768) {
+                this.closeMenu();
+            }
+            
+            this.updateActiveLink();
+        },
+        
+        updateActiveLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.pageYOffset + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
                 
-                // Плавная прокрутка к секции
-                if (targetId && targetId !== '#') {
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        smoothScrollTo(targetSection);
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        Utils.removeClass(link, 'active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            Utils.addClass(link, 'active');
+                        }
+                    });
+                }
+            });
+        }
+    };
+    
+    // ===== МОДУЛЬ ЛЕНИВОЙ ЗАГРУЗКИ =====
+    const LazyLoader = {
+        init() {
+            this.images = document.querySelectorAll('img[data-src], img[data-srcset]');
+            this.backgrounds = document.querySelectorAll('[data-bg]');
+            
+            if (Utils.supportsIntersectionObserver()) {
+                this.initWithObserver();
+            } else {
+                this.initFallback();
+            }
+        },
+        
+        initWithObserver() {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.loadElement(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: CONFIG.LAZY_LOAD_OFFSET,
+                threshold: CONFIG.ANIMATION_THRESHOLD
+            });
+            
+            // Наблюдаем за изображениями
+            this.images.forEach(img => {
+                if (!img.hasAttribute('src') || img.getAttribute('src') === '') {
+                    img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E';
+                }
+                imageObserver.observe(img);
+            });
+            
+            // Наблюдаем за фонами
+            this.backgrounds.forEach(el => {
+                imageObserver.observe(el);
+            });
+        },
+        
+        initFallback() {
+            // Fallback для старых браузеров
+            const lazyLoad = () => {
+                this.images.forEach(img => {
+                    if (Utils.isElementInViewport(img)) {
+                        this.loadElement(img);
+                    }
+                });
+                
+                this.backgrounds.forEach(el => {
+                    if (Utils.isElementInViewport(el)) {
+                        this.loadElement(el);
+                    }
+                });
+            };
+            
+            // Проверяем при скролле с троттлингом
+            window.addEventListener('scroll', Utils.throttle(lazyLoad, 250));
+            window.addEventListener('resize', Utils.throttle(lazyLoad, 250));
+            window.addEventListener('orientationchange', Utils.throttle(lazyLoad, 250));
+            
+            // Первоначальная проверка
+            lazyLoad();
+        },
+        
+        loadElement(element) {
+            if (element.tagName === 'IMG') {
+                const src = element.getAttribute('data-src');
+                const srcset = element.getAttribute('data-srcset');
+                
+                if (src) {
+                    Utils.loadImage(src)
+                        .then(() => {
+                            element.src = src;
+                            element.removeAttribute('data-src');
+                        })
+                        .catch(() => {
+                            console.warn('Failed to load image:', src);
+                        });
+                }
+                
+                if (srcset) {
+                    element.srcset = srcset;
+                    element.removeAttribute('data-srcset');
+                }
+                
+                // Анимация появления
+                element.style.opacity = '0';
+                element.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                }, 10);
+                
+            } else if (element.hasAttribute('data-bg')) {
+                const bg = element.getAttribute('data-bg');
+                element.style.backgroundImage = `url(${bg})`;
+                element.removeAttribute('data-bg');
+            }
+        }
+    };
+    
+    // ===== МОДУЛЬ АНИМАЦИЙ =====
+    const Animations = {
+        init() {
+            this.animatedElements = document.querySelectorAll('.fade-in, .slide-up, .scale-in');
+            this.initScrollAnimations();
+            this.initParallax();
+            this.initCardHoverEffects();
+            this.initButtonEffects();
+        },
+        
+        initScrollAnimations() {
+            if (Utils.supportsIntersectionObserver()) {
+                const animationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateElement(entry.target);
+                            animationObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: CONFIG.ANIMATION_THRESHOLD,
+                    rootMargin: '50px'
+                });
+                
+                this.animatedElements.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    animationObserver.observe(el);
+                });
+            } else {
+                // Fallback
+                this.animatedElements.forEach((el, index) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        if (Utils.isElementInViewport(el)) {
+                            this.animateElement(el);
+                        }
+                    }, index * 100);
+                });
+                
+                window.addEventListener('scroll', Utils.throttle(() => {
+                    this.animatedElements.forEach(el => {
+                        if (Utils.isElementInViewport(el) && 
+                            getComputedStyle(el).opacity === '0') {
+                            this.animateElement(el);
+                        }
+                    });
+                }, 250));
+            }
+        },
+        
+        animateElement(element) {
+            Utils.addClass(element, 'animated');
+            
+            // Убираем inline стили для применения CSS анимаций
+            setTimeout(() => {
+                element.style.opacity = '';
+                element.style.transform = '';
+            }, 10);
+            
+            // Добавляем случайную задержку для эффекта каскада
+            const delay = Math.random() * 200;
+            setTimeout(() => {
+                Utils.addClass(element, 'visible');
+            }, delay);
+        },
+        
+        initParallax() {
+            const parallaxElements = document.querySelectorAll('[data-parallax]');
+            
+            if (!parallaxElements.length) return;
+            
+            window.addEventListener('scroll', Utils.throttle(() => {
+                const scrolled = window.pageYOffset;
+                
+                parallaxElements.forEach(el => {
+                    const speed = parseFloat(el.getAttribute('data-parallax')) || 0.5;
+                    const yPos = -(scrolled * speed);
+                    el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                });
+            }, CONFIG.SCROLL_THROTTLE));
+        },
+        
+        initCardHoverEffects() {
+            const cards = document.querySelectorAll('.card, .photo-item');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                    
+                    // Эффект поднятия
+                    card.style.zIndex = '100';
+                    card.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    setTimeout(() => {
+                        card.style.zIndex = '';
+                    }, 300);
+                });
+            });
+        },
+        
+        initButtonEffects() {
+            const buttons = document.querySelectorAll('.btn');
+            
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Эффект ripple
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.6);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        width: ${size}px;
+                        height: ${size}px;
+                        top: ${y}px;
+                        left: ${x}px;
+                        pointer-events: none;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    // Удаляем элемент после анимации
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+                
+                // Эффект наведения
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Добавляем стили для ripple эффекта
+            this.addRippleStyles();
+        },
+        
+        addRippleStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
                     }
                 }
-            });
-        });
-        
-        // Закрытие меню при клике вне его
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !navToggle.contains(e.target) && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                navToggle.textContent = '☰';
-                document.body.style.overflow = '';
-            }
-        });
-    }
-    
-    // Обновление активной ссылки при скролле
-    window.addEventListener('scroll', throttle(() => {
-        updateActiveNavLink();
-    }, 100));
-}
-
-function animateMobileMenu() {
-    const menuItems = document.querySelectorAll('.nav-link');
-    menuItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-20px)';
-        item.style.transition = 'all 0.3s ease';
-        
-        setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateX(0)';
-        }, index * 100);
-    });
-}
-
-function updateActiveNavLink() {
-    const sections = document.querySelectorAll('section[id]');
-    const scrollPos = window.scrollY + 100;
-    
-    let currentSection = 'home';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        const sectionId = section.getAttribute('id');
-        
-        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-            currentSection = sectionId;
-        }
-    });
-    
-    // Обновляем активный класс
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
-            link.classList.add('active');
-        }
-    });
-}
-
-// ===== ПЛАВНАЯ ПРОКРУТКА =====
-function initSmoothScrolling() {
-    // Плавная прокрутка для всех якорных ссылок
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#' || href === '#!') return;
-            
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                smoothScrollTo(target);
                 
-                // Обновляем URL без перезагрузки страницы
-                history.pushState(null, null, href);
-            }
-        });
-    });
-    
-    // Обработка кнопок браузера "назад/вперед"
-    window.addEventListener('popstate', () => {
-        const hash = window.location.hash;
-        if (hash) {
-            const target = document.querySelector(hash);
-            if (target) smoothScrollTo(target);
-        }
-    });
-}
-
-function smoothScrollTo(target) {
-    const startPosition = window.pageYOffset;
-    const targetPosition = target.getBoundingClientRect().top + startPosition - CONFIG.scrollOffset;
-    const distance = targetPosition - startPosition;
-    const duration = 800;
-    let startTime = null;
-    
-    function animation(currentTime) {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        
-        // Easing функция для плавности
-        const ease = easeOutCubic(progress);
-        window.scrollTo(0, startPosition + distance * ease);
-        
-        if (timeElapsed < duration) {
-            requestAnimationFrame(animation);
-        }
-    }
-    
-    requestAnimationFrame(animation);
-    
-    function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
-    }
-}
-
-// ===== АНИМАЦИИ ПРИ СКРОЛЛЕ =====
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Добавляем класс для анимации
-                entry.target.classList.add('animated');
-                
-                // Разные анимации для разных элементов
-                if (entry.target.classList.contains('card')) {
-                    animateCard(entry.target);
-                } else if (entry.target.classList.contains('gallery-item')) {
-                    animateGalleryItem(entry.target);
-                } else if (entry.target.classList.contains('text-window')) {
-                    animateTextWindow(entry.target);
-                } else if (entry.target.classList.contains('food-card')) {
-                    animateFoodCard(entry.target);
+                .btn {
+                    position: relative;
+                    overflow: hidden;
                 }
-                
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    // Наблюдаем за всеми анимируемыми элементами
-    document.querySelectorAll('.card, .gallery-item, .text-window, .food-card').forEach(el => {
-        observer.observe(el);
-    });
-}
-
-function animateCard(card) {
-    const index = Array.from(document.querySelectorAll('.card')).indexOf(card);
-    const delay = index * CONFIG.staggerDelay;
-    
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px) rotateX(10deg)';
-    card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    
-    setTimeout(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0) rotateX(0)';
-        
-        // Анимация иконки
-        const icon = card.querySelector('.card-icon');
-        if (icon) {
-            icon.style.transform = 'scale(1.1) rotate(5deg)';
-            setTimeout(() => {
-                icon.style.transform = 'scale(1) rotate(0)';
-            }, 300);
+            `;
+            document.head.appendChild(style);
         }
-    }, delay);
-}
-
-function animateGalleryItem(item) {
-    const index = Array.from(document.querySelectorAll('.gallery-item')).indexOf(item);
-    const delay = index * 50;
+    };
     
-    item.style.opacity = '0';
-    item.style.transform = 'scale(0.9)';
-    
-    setTimeout(() => {
-        item.style.opacity = '1';
-        item.style.transform = 'scale(1)';
-        item.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    }, delay);
-}
-
-function animateTextWindow(window) {
-    window.style.opacity = '0';
-    window.style.transform = 'translateY(20px)';
-    window.style.transition = 'all 0.5s ease';
-    
-    setTimeout(() => {
-        window.style.opacity = '1';
-        window.style.transform = 'translateY(0)';
-    }, 200);
-}
-
-function animateFoodCard(card) {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px) rotate(-5deg)';
-    
-    const index = Array.from(document.querySelectorAll('.food-card')).indexOf(card);
-    const delay = index * 100;
-    
-    setTimeout(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0) rotate(0)';
-        card.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1)';
+    // ===== МОДУЛЬ ГАЛЕРЕИ =====
+    const Gallery = {
+        init() {
+            this.photoItems = document.querySelectorAll('.photo-item');
+            if (!this.photoItems.length) return;
+            
+            this.setupGallery();
+        },
         
-        // Анимация изображения
-        const img = card.querySelector('.food-img');
-        if (img) {
-            setTimeout(() => {
-                img.style.transform = 'scale(1.1) rotate(5deg)';
+        setupGallery() {
+            this.photoItems.forEach((item, index) => {
+                // Анимация появления с задержкой
                 setTimeout(() => {
-                    img.style.transform = 'scale(1) rotate(0)';
-                }, 300);
-            }, 200);
-        }
-    }, delay);
-}
-
-// ===== ПАРАЛЛАКС ЭФФЕКТЫ =====
-function initParallax() {
-    if (STATE.isMobile) return;
-    
-    // Добавляем параллакс для героя
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.setAttribute('data-parallax', 'true');
-    }
-    
-    // Добавляем параллакс для некоторых картинок
-    document.querySelectorAll('.nature-main, .nature-card').forEach((el, index) => {
-        el.setAttribute('data-parallax', 'true');
-        el.setAttribute('data-depth', (0.1 + index * 0.05).toFixed(2));
-    });
-    
-    // Запускаем параллакс
-    startParallax();
-}
-
-function startParallax() {
-    if (STATE.isMobile) return;
-    
-    let ticking = false;
-    
-    const updateParallax = () => {
-        const scrolled = window.pageYOffset;
-        
-        // Параллакс для героя
-        const hero = document.querySelector('.hero[data-parallax="true"]');
-        if (hero && scrolled < window.innerHeight) {
-            const parallax = -(scrolled * CONFIG.parallaxIntensity);
-            hero.style.transform = `translate3d(0, ${parallax}px, 0)`;
-        }
-        
-        // Параллакс для других элементов
-        document.querySelectorAll('[data-parallax="true"]').forEach(el => {
-            const depth = parseFloat(el.getAttribute('data-depth') || CONFIG.parallaxIntensity);
-            const movement = -(scrolled * depth);
-            
-            if (el.classList.contains('nature-main') || el.classList.contains('nature-card')) {
-                el.style.transform = `translate3d(0, ${movement}px, 0)`;
-            }
-        });
-        
-        ticking = false;
-    };
-    
-    const requestTick = () => {
-        if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
-        }
-    };
-    
-    window.addEventListener('scroll', requestTick);
-}
-
-// ===== ЛЕНИВАЯ ЗАГРУЗКА ИЗОБРАЖЕНИЙ =====
-function initLazyLoading() {
-    const images = document.querySelectorAll('img');
-    STATE.totalImages = images.length;
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                loadImage(img);
-                observer.unobserve(img);
-            }
-        });
-    }, {
-        rootMargin: '50px',
-        threshold: CONFIG.lazyLoadThreshold
-    });
-    
-    // Наблюдаем за всеми изображениями
-    images.forEach(img => {
-        if (img.dataset.src) {
-            observer.observe(img);
-        } else {
-            // Если у изображения нет data-src, сразу считаем загруженным
-            STATE.loadedImages++;
-        }
-    });
-    
-    // Предзагружаем важные изображения
-    preloadCriticalImages();
-}
-
-function loadImage(img) {
-    if (img.dataset.src) {
-        const src = img.dataset.src;
-        
-        // Создаем временное изображение для загрузки
-        const tempImg = new Image();
-        tempImg.src = src;
-        
-        tempImg.onload = () => {
-            // Плавное появление изображения
-            img.src = src;
-            img.classList.add('loaded');
-            img.style.opacity = '0';
-            
-            setTimeout(() => {
-                img.style.transition = 'opacity 0.5s ease';
-                img.style.opacity = '1';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
                 
-                STATE.loadedImages++;
-                checkAllImagesLoaded();
-            }, 100);
-        };
-        
-        tempImg.onerror = () => {
-            // Если изображение не загрузилось, используем fallback
-            const fallbackMatch = img.getAttribute('onerror')?.match(/src='([^']+)'/);
-            if (fallbackMatch) {
-                img.src = fallbackMatch[1];
-                img.classList.add('loaded');
-                img.style.opacity = '1';
-            }
-            STATE.loadedImages++;
-            checkAllImagesLoaded();
-        };
-        
-        delete img.dataset.src;
-    }
-}
-
-function preloadCriticalImages() {
-    // Предзагружаем самые важные изображения
-    const criticalImages = [
-        'tara-national-park.jpg',
-        'belgrade-fortress.jpg',
-        'cevapi.jpg'
-    ];
-    
-    criticalImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => {
-            STATE.loadedImages++;
-            checkAllImagesLoaded();
-        };
-        img.onerror = () => {
-            STATE.loadedImages++;
-            checkAllImagesLoaded();
-        };
-    });
-}
-
-function checkAllImagesLoaded() {
-    if (STATE.loadedImages >= STATE.totalImages) {
-        console.log('✅ Все изображения загружены');
-        document.body.classList.add('images-loaded');
-    }
-}
-
-// ===== ЭФФЕКТЫ ДЛЯ ИЗОБРАЖЕНИЙ =====
-function initImageEffects() {
-    // Эффект увеличения при наведении
-    document.querySelectorAll('.gallery-img, .food-img').forEach(img => {
-        img.parentElement.addEventListener('mouseenter', () => {
-            img.style.transform = 'scale(1.05)';
-            img.style.transition = 'transform 0.3s ease';
-        });
-        
-        img.parentElement.addEventListener('mouseleave', () => {
-            img.style.transform = 'scale(1)';
-        });
-    });
-    
-    // Эффект загрузки изображений
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        // Добавляем placeholder
-        if (!img.classList.contains('loaded')) {
-            img.style.background = 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)';
-            img.style.backgroundSize = '200% 100%';
-            img.style.animation = 'loading 1.5s infinite';
-        }
-    });
-    
-    // Добавляем анимацию loading
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// ===== ЭФФЕКТЫ ПРИ НАВЕДЕНИИ =====
-function initHoverEffects() {
-    // Эффект для карточек
-    document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.zIndex = '10';
-            this.style.boxShadow = 'var(--shadow-xl)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            setTimeout(() => {
-                this.style.zIndex = '';
-            }, 300);
-        });
-    });
-    
-    // Эффект для галереи
-    document.querySelectorAll('.gallery-item').forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            const caption = this.querySelector('.gallery-caption');
-            if (caption) {
-                caption.style.opacity = '1';
-                caption.style.transform = 'translateY(0)';
-            }
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            const caption = this.querySelector('.gallery-caption');
-            if (caption) {
-                caption.style.opacity = '0';
-                caption.style.transform = 'translateY(10px)';
-            }
-        });
-    });
-    
-    // Эффект для кнопок (ripple)
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', createRipple);
-    });
-}
-
-function createRipple(e) {
-    const btn = e.currentTarget;
-    const circle = document.createElement('span');
-    const diameter = Math.max(btn.clientWidth, btn.clientHeight);
-    const radius = diameter / 2;
-    
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${e.clientX - (btn.getBoundingClientRect().left + radius)}px`;
-    circle.style.top = `${e.clientY - (btn.getBoundingClientRect().top + radius)}px`;
-    circle.classList.add('ripple');
-    
-    const ripple = btn.getElementsByClassName('ripple')[0];
-    if (ripple) {
-        ripple.remove();
-    }
-    
-    btn.appendChild(circle);
-}
-
-// ===== ИНТЕРАКТИВНЫЕ ЭЛЕМЕНТЫ =====
-function initInteractiveElements() {
-    // Анимация логотипа
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+                // Клик для увеличения (можно расширить в будущем)
+                item.addEventListener('click', () => {
+                    this.showImage(index);
+                });
+                
+                // Эффект при наведении на мобильных (touch)
+                item.addEventListener('touchstart', () => {
+                    Utils.addClass(item, 'touched');
+                }, { passive: true });
+                
+                item.addEventListener('touchend', () => {
+                    setTimeout(() => {
+                        Utils.removeClass(item, 'touched');
+                    }, 300);
+                }, { passive: true });
             });
+        },
+        
+        showImage(index) {
+            // Базовый превью - можно расширить до полноценной галереи
+            const item = this.photoItems[index];
+            const img = item.querySelector('img');
+            const caption = item.querySelector('.photo-caption')?.textContent || '';
             
-            // Анимация логотипа
-            logo.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                logo.style.transform = 'scale(1)';
-            }, 300);
-        });
-    }
-    
-    // Интерактивные текстовые окна
-    document.querySelectorAll('.text-window').forEach(window => {
-        window.addEventListener('click', function() {
-            this.style.transform = 'translateY(-4px) scale(1.01)';
-            setTimeout(() => {
-                this.style.transform = 'translateY(-4px) scale(1)';
-            }, 150);
-        });
-    });
-    
-    // Показ информации при клике на изображения природы
-    document.querySelectorAll('.nature-card').forEach(card => {
-        card.addEventListener('click', function() {
-            const img = this.querySelector('img');
-            if (img) {
-                showImageInfo(img.alt || 'Природа Сербии');
-            }
-        });
-    });
-}
-
-function showImageInfo(title) {
-    // Создаем всплывающее окно
-    const popup = document.createElement('div');
-    popup.className = 'image-info-popup';
-    popup.innerHTML = `
-        <div class="popup-content">
-            <h3>${title}</h3>
-            <p>Нажмите в любом месте, чтобы закрыть</p>
-        </div>
-    `;
-    
-    document.body.appendChild(popup);
-    
-    // Анимация появления
-    setTimeout(() => {
-        popup.style.opacity = '1';
-        popup.style.transform = 'translateY(0)';
-    }, 10);
-    
-    // Закрытие при клике
-    popup.addEventListener('click', () => {
-        popup.style.opacity = '0';
-        popup.style.transform = 'translateY(20px)';
-        setTimeout(() => popup.remove(), 300);
-    });
-    
-    // Стили для попапа
-    const style = document.createElement('style');
-    style.textContent = `
-        .image-info-popup {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 20px 30px;
-            border-radius: var(--radius-lg);
-            z-index: 1000;
-            opacity: 0;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .popup-content h3 {
-            color: white;
-            margin-bottom: 5px;
-        }
-        
-        .popup-content p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// ===== АНИМАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ =====
-function startPageIntro() {
-    // Анимация появления страницы
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-        
-        // Анимация заголовка
-        const heroTitle = document.querySelector('.hero h1');
-        if (heroTitle) {
-            animateText(heroTitle);
-        }
-        
-        // Анимация остальных элементов
-        setTimeout(() => {
-            animateHeroElements();
-        }, 500);
-    }, 300);
-}
-
-function animateText(element) {
-    const text = element.textContent;
-    element.textContent = '';
-    
-    for (let i = 0; i < text.length; i++) {
-        const span = document.createElement('span');
-        span.textContent = text[i];
-        span.style.display = 'inline-block';
-        span.style.opacity = '0';
-        span.style.transform = 'translateY(20px)';
-        span.style.transition = `all 0.3s ease ${i * 0.05}s`;
-        
-        element.appendChild(span);
-        
-        setTimeout(() => {
-            span.style.opacity = '1';
-            span.style.transform = 'translateY(0)';
-        }, 300 + (i * 30));
-    }
-}
-
-function animateHeroElements() {
-    const heroDescription = document.querySelector('.hero-description');
-    const heroButtons = document.querySelector('.btn-group');
-    
-    if (heroDescription) {
-        heroDescription.style.opacity = '0';
-        heroDescription.style.transform = 'translateY(20px)';
-        heroDescription.style.transition = 'all 0.5s ease 0.3s';
-        
-        setTimeout(() => {
-            heroDescription.style.opacity = '1';
-            heroDescription.style.transform = 'translateY(0)';
-        }, 300);
-    }
-    
-    if (heroButtons) {
-        const buttons = heroButtons.querySelectorAll('.btn');
-        buttons.forEach((btn, index) => {
-            btn.style.opacity = '0';
-            btn.style.transform = 'translateY(20px)';
-            btn.style.transition = `all 0.5s ease ${0.5 + (index * 0.1)}s`;
+            console.log('Просмотр изображения:', img.src, caption);
             
-            setTimeout(() => {
-                btn.style.opacity = '1';
-                btn.style.transform = 'translateY(0)';
-            }, 500 + (index * 100));
-        });
-    }
-}
-
-// ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
-function setupEventListeners() {
-    // Определение устройства при ресайзе
-    window.addEventListener('resize', throttle(() => {
-        detectDevice();
-    }, 200));
-    
-    // Эффект навигации при скролле
-    window.addEventListener('scroll', throttle(() => {
-        const navbar = document.querySelector('.nav');
-        if (navbar) {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        }
-        
-        // Обновление направления скролла
-        STATE.scrollDirection = window.scrollY > STATE.lastScrollY ? 'down' : 'up';
-        STATE.lastScrollY = window.scrollY;
-    }, 100));
-    
-    // Горячие клавиши
-    document.addEventListener('keydown', (e) => {
-        // Escape - закрыть мобильное меню
-        if (e.key === 'Escape') {
-            const navLinks = document.getElementById('navLinks');
-            const navToggle = document.getElementById('navToggle');
-            if (navLinks && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                navToggle.textContent = '☰';
-                document.body.style.overflow = '';
-            }
-        }
-        
-        // Пробел - прокрутка вниз
-        if (e.key === ' ' && !e.target.matches('input, textarea, select')) {
-            e.preventDefault();
-            window.scrollBy({
-                top: window.innerHeight * 0.8,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Стрелки вверх/вниз
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            window.scrollBy({ top: 100, behavior: 'smooth' });
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            window.scrollBy({ top: -100, behavior: 'smooth' });
-        }
-    });
-    
-    // Анимация при загрузке страницы
-    window.addEventListener('load', () => {
-        console.log('🚀 Страница полностью загружена');
-        
-        // Показываем индикатор загрузки
-        const loadingIndicator = document.createElement('div');
-        loadingIndicator.id = 'loading-indicator';
-        loadingIndicator.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            z-index: 9998;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        `;
-        
-        document.body.appendChild(loadingIndicator);
-        
-        // Анимация индикатора
-        setTimeout(() => loadingIndicator.style.transform = 'scaleX(0.3)', 10);
-        setTimeout(() => loadingIndicator.style.transform = 'scaleX(0.7)', 300);
-        setTimeout(() => loadingIndicator.style.transform = 'scaleX(1)', 600);
-        setTimeout(() => {
-            loadingIndicator.style.opacity = '0';
-            setTimeout(() => loadingIndicator.remove(), 300);
-        }, 900);
-    });
-}
-
-// ===== УТИЛИТЫ =====
-function detectDevice() {
-    STATE.isMobile = window.innerWidth <= 768;
-    
-    if (STATE.isMobile) {
-        document.body.classList.add('is-mobile');
-        document.body.classList.remove('is-desktop');
-    } else {
-        document.body.classList.add('is-desktop');
-        document.body.classList.remove('is-mobile');
-    }
-}
-
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
+            // Здесь можно добавить модальное окно с изображением
+            // Для простоты пока просто логируем
         }
     };
-}
-
-// ===== ЭКСПОРТ ДЛЯ ОТЛАДКИ =====
-window.SerbiaJS = {
-    version: '1.0.0',
-    reload: () => {
-        location.reload();
-    },
-    toggleAnimations: () => {
-        document.body.classList.toggle('no-animations');
-        console.log('Анимации ' + (document.body.classList.contains('no-animations') ? 'выключены' : 'включены'));
-    },
-    showStats: () => {
-        console.table({
-            loadedImages: STATE.loadedImages,
-            totalImages: STATE.totalImages,
-            isMobile: STATE.isMobile,
-            currentSection: STATE.currentSection
-        });
+    
+    // ===== МОДУЛЬ ПРОИЗВОДИТЕЛЬНОСТИ =====
+    const Performance = {
+        init() {
+            this.initPreload();
+            this.initPrefetch();
+            this.initIdleCallback();
+            this.monitorPerformance();
+        },
+        
+        initPreload() {
+            // Предзагрузка критичных изображений
+            const criticalImages = [
+                'https://images.unsplash.com/photo-1578474845476-8af6d0aa3e79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+            ];
+            
+            criticalImages.forEach(src => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.as = 'image';
+                link.href = src;
+                document.head.appendChild(link);
+            });
+        },
+        
+        initPrefetch() {
+            // Префетч для навигации
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            // Можно добавить префетч ресурсов для секции
+                        }
+                    }
+                }, { once: true });
+            });
+        },
+        
+        initIdleCallback() {
+            // Используем idle callback для не критичных задач
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    this.loadNonCriticalResources();
+                });
+            } else {
+                // Fallback
+                setTimeout(() => {
+                    this.loadNonCriticalResources();
+                }, 2000);
+            }
+        },
+        
+        loadNonCriticalResources() {
+            // Загрузка не критичных изображений и ресурсов
+            const nonCriticalImages = document.querySelectorAll('img[data-src][data-priority="low"]');
+            nonCriticalImages.forEach(img => {
+                if (Utils.isElementInViewport(img)) {
+                    const src = img.getAttribute('data-src');
+                    Utils.loadImage(src).then(() => {
+                        img.src = src;
+                    });
+                }
+            });
+        },
+        
+        monitorPerformance() {
+            // Мониторинг производительности
+            if ('performance' in window) {
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        const perfData = performance.getEntriesByType('navigation')[0];
+                        if (perfData) {
+                            console.log('Performance metrics:', {
+                                loadTime: perfData.loadEventEnd - perfData.loadEventStart,
+                                domReady: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                                complete: perfData.domComplete
+                            });
+                        }
+                    }, 0);
+                });
+            }
+        }
+    };
+    
+    // ===== МОДУЛЬ АНАЛИТИКИ =====
+    const Analytics = {
+        init() {
+            this.trackEvents();
+            this.trackScrollDepth();
+            this.trackTimeOnPage();
+        },
+        
+        trackEvents() {
+            // Трекинг кликов по навигации
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const section = link.getAttribute('href');
+                    this.logEvent('navigation_click', { section });
+                });
+            });
+            
+            // Трекинг кликов по кнопкам
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const text = btn.textContent.trim();
+                    this.logEvent('button_click', { button: text });
+                });
+            });
+            
+            // Трекинг просмотра фотографий
+            document.querySelectorAll('.photo-item').forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    this.logEvent('gallery_view', { image_index: index });
+                });
+            });
+        },
+        
+        trackScrollDepth() {
+            const depths = [25, 50, 75, 90];
+            let trackedDepths = new Set();
+            
+            window.addEventListener('scroll', Utils.throttle(() => {
+                const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = window.scrollY;
+                const percentage = Math.round((scrolled / scrollable) * 100);
+                
+                depths.forEach(depth => {
+                    if (percentage >= depth && !trackedDepths.has(depth)) {
+                        trackedDepths.add(depth);
+                        this.logEvent('scroll_depth', { depth: `${depth}%` });
+                    }
+                });
+            }, 1000));
+        },
+        
+        trackTimeOnPage() {
+            let startTime = Date.now();
+            
+            window.addEventListener('beforeunload', () => {
+                const timeSpent = Math.round((Date.now() - startTime) / 1000);
+                this.logEvent('time_on_page', { seconds: timeSpent });
+            });
+        },
+        
+        logEvent(eventName, data = {}) {
+            // Для GitHub Pages - просто логируем в консоль
+            // В реальном проекте здесь будет отправка в аналитическую систему
+            console.log(`[Analytics] ${eventName}:`, {
+                ...data,
+                timestamp: new Date().toISOString(),
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+        }
+    };
+    
+    // ===== ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ =====
+    const App = {
+        init() {
+            // Скрываем загрузочный экран
+            this.hideLoading();
+            
+            // Инициализируем модули
+            Navigation.init();
+            LazyLoader.init();
+            Animations.init();
+            Gallery.init();
+            Performance.init();
+            Analytics.init();
+            
+            // Настраиваем глобальные обработчики
+            this.setupGlobalHandlers();
+            
+            // Показываем контент
+            this.showContent();
+            
+            // Выводим приветственное сообщение
+            this.showWelcomeMessage();
+        },
+        
+        hideLoading() {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.opacity = '0';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 300);
+            }
+        },
+        
+        showContent() {
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.3s ease';
+        },
+        
+        setupGlobalHandlers() {
+            // Обработка ошибок изображений
+            document.addEventListener('error', (e) => {
+                if (e.target.tagName === 'IMG') {
+                    console.warn('Image failed to load:', e.target.src);
+                    // Можно установить fallback изображение
+                    e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="400" height="300" fill="%231a1a1a"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23fff" font-family="Arial"%3EИзображение%3C/text%3E%3C/svg%3E';
+                }
+            }, true);
+            
+            // Предотвращение контекстного меню на изображениях
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('contextmenu', (e) => e.preventDefault());
+            });
+            
+            // Обновление при изменении размера окна
+            window.addEventListener('resize', Utils.debounce(() => {
+                this.handleResize();
+            }, CONFIG.DEBOUNCE_DELAY));
+            
+            // Обработка клавиатуры
+            document.addEventListener('keydown', (e) => {
+                // Прокрутка вверх/вниз по секциям
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    this.scrollToSection(e.key);
+                }
+            });
+        },
+        
+        handleResize() {
+            // Обновление навигации при изменении размера
+            if (window.innerWidth > 768 && State.isNavOpen) {
+                Navigation.closeMenu();
+            }
+            
+            // Переинициализация lazy load для новых размеров
+            LazyLoader.init();
+        },
+        
+        scrollToSection(direction) {
+            const sections = Array.from(document.querySelectorAll('section[id]'));
+            const currentScroll = window.pageYOffset;
+            
+            let targetSection = null;
+            
+            if (direction === 'ArrowDown') {
+                // Ищем следующую секцию
+                for (let section of sections) {
+                    if (section.offsetTop > currentScroll + 100) {
+                        targetSection = section;
+                        break;
+                    }
+                }
+            } else if (direction === 'ArrowUp') {
+                // Ищем предыдущую секцию
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    if (sections[i].offsetTop < currentScroll - 100) {
+                        targetSection = sections[i];
+                        break;
+                    }
+                }
+            }
+            
+            if (targetSection) {
+                Utils.smoothScrollTo(targetSection);
+            }
+        },
+        
+        showWelcomeMessage() {
+            // Красивое сообщение в консоли
+            const styles = [
+                'font-size: 14px',
+                'font-family: monospace',
+                'background: linear-gradient(90deg, #2a1a3c, #4d6bff)',
+                'color: white',
+                'padding: 10px 20px',
+                'border-radius: 4px',
+                'font-weight: bold'
+            ].join(';');
+            
+            console.log('%c🇷🇸 Добро пожаловать на сайт о Сербии!', styles);
+            console.log('%cСтрана с богатой историей и большим сердцем', 'color: #c59bff');
+        }
+    };
+    
+    // ===== ТОЧКА ВХОДА =====
+    // Ждем загрузки DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => App.init());
+    } else {
+        App.init();
     }
-};
-
-// Сообщение в консоль
-console.log(`
-%c
-   ╔══════════════════════════════════╗
-   ║    🇷🇸 ДОБРО ПОЖАЛОВАТЬ В СЕРБИЮ!  ║
-   ╚══════════════════════════════════╝
-   
-   Команды отладки:
-   • SerbiaJS.reload() - Перезагрузить
-   • SerbiaJS.toggleAnimations() - Вкл/выкл анимации
-   • SerbiaJS.showStats() - Показать статистику
-   
-   Управление:
-   • Пробел - Прокрутить вниз
-   • Стрелки - Плавная прокрутка
-   • Escape - Закрыть меню
-   
-   Приятного путешествия! ✨
-`, 'color: #3b82f6; font-family: monospace; background: #f0f9ff; padding: 20px; border-radius: 8px;');
+    
+    // Экспортируем публичные методы (для отладки)
+    window.App = {
+        Navigation,
+        Animations,
+        Gallery,
+        Utils,
+        State
+    };
+    
+})();
