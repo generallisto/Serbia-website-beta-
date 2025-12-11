@@ -1,2616 +1,1373 @@
 @charset "utf-8";
 /* CSS Document 
 
-TemplateMo 605 Xmas Countdown - Сербская новогодняя версия
-Полная адаптация для HTML структуры
-
-https://templatemo.com/tm-605-xmas-countdown
+Тема: Сербия встречает Новый Год 2026
+Современная версия с улучшениями
 
 */
 
-/* ===================== VARIABLES ===================== */
 :root {
-    --bg-dark: #0a0a0f;
-    --bg-card: rgba(255, 255, 255, 0.03);
-    --bg-glass: rgba(255, 255, 255, 0.05);
-    --border-glass: rgba(255, 255, 255, 0.08);
-    --border-glow: rgba(255, 255, 255, 0.15);
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.6);
-    --text-dim: rgba(255, 255, 255, 0.4);
-    --accent-red: #c6363c;
-    --accent-green: #00d4aa;
-    --accent-gold: #ffd700;
-    --accent-blue: #4d9fff;
-    --accent-serbian: #f8e71c;
-    --accent-serbian-dark: #e6d21a;
-    --accent-serbian-red: #c6363c;
-    --accent-serbian-blue: #1a365d;
-    --glow-red: rgba(198, 54, 60, 0.4);
-    --glow-green: rgba(0, 212, 170, 0.4);
-    --glow-gold: rgba(255, 215, 0, 0.3);
-    --glow-serbian: rgba(248, 231, 28, 0.4);
-    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.15);
-    --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.25);
-    --transition-fast: all 0.2s ease;
-    --transition-medium: all 0.3s ease;
-    --transition-slow: all 0.5s ease;
+	--bg-dark: #0a0a0f;
+	--bg-card: rgba(255, 255, 255, 0.03);
+	--bg-glass: rgba(255, 255, 255, 0.07);
+	--border-glass: rgba(255, 255, 255, 0.1);
+	--border-glow: rgba(255, 255, 255, 0.2);
+	--text-primary: #ffffff;
+	--text-secondary: rgba(255, 255, 255, 0.75);
+	--text-dim: rgba(255, 255, 255, 0.5);
+	--accent-red: #c6363c;
+	--accent-green: #00d4aa;
+	--accent-gold: #ffd700;
+	--accent-blue: #4d9fff;
+	--accent-serbian: #f8e71c;
+	--glow-red: rgba(198, 54, 60, 0.4);
+	--glow-green: rgba(0, 212, 170, 0.4);
+	--glow-gold: rgba(248, 231, 28, 0.4);
+	--glow-serbian: rgba(248, 231, 28, 0.3);
 }
 
-/* ===================== RESET & BASE ===================== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
-    font-size: 16px;
+	scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 400;
-    background: var(--bg-dark);
-    color: var(--text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
-    min-height: 100vh;
+	font-family: 'Space Grotesk', sans-serif;
+	font-weight: 450;
+	background: var(--bg-dark);
+	color: var(--text-primary);
+	line-height: 1.7;
+	overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-}
-
-p {
-    margin-bottom: 1rem;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-    transition: var(--transition-medium);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ===================== BACKGROUND EFFECTS ===================== */
+/* Grid Background */
 .grid-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 0;
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+	background-size: 60px 60px;
 }
 
 .grid-bg::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(ellipse at 50% 0%, rgba(198, 54, 60, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(248, 231, 28, 0.05) 0%, transparent 40%),
-        radial-gradient(ellipse at 20% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 40%);
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: 
+		radial-gradient(ellipse at 50% 0%, rgba(198, 54, 60, 0.1) 0%, transparent 70%),
+		radial-gradient(ellipse at 80% 50%, rgba(248, 231, 28, 0.08) 0%, transparent 50%),
+		radial-gradient(ellipse at 20% 80%, rgba(255, 215, 0, 0.06) 0%, transparent 50%);
 }
 
-/* Снежный фон - усовершенствованная версия */
+/* Snowflakes - ИСПРАВЛЕНО: менее выраженные и более белые */
 .snow-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1;
+	overflow: hidden;
 }
 
 .snowflake-bg {
-    position: absolute;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.5rem;
-    animation: snowfall-bg linear infinite;
-    text-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.3),
-        0 0 20px rgba(248, 231, 28, 0.2);
-    filter: drop-shadow(0 0 5px rgba(248, 231, 28, 0.3));
-    user-select: none;
+	position: absolute;
+	color: rgba(255, 255, 255, 0.2);
+	font-size: 1.2rem;
+	animation: snowfall-bg linear infinite;
+	text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 @keyframes snowfall-bg {
-    0% {
-        transform: translateY(-100px) translateX(-10px) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.8;
-    }
-    90% {
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateY(100vh) translateX(10px) rotate(360deg);
-        opacity: 0;
-    }
+	0% {
+		transform: translateY(-100px) rotate(0deg);
+		opacity: 0;
+	}
+	10% {
+		opacity: 0.4;
+	}
+	90% {
+		opacity: 0.4;
+	}
+	100% {
+		transform: translateY(100vh) rotate(360deg);
+		opacity: 0;
+	}
 }
 
-/* Дополнительный снег для глубины */
-.snow-layer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    background-image: 
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        radial-gradient(circle at 40% 90%, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-    background-size: 300px 300px;
-}
-
-/* ===================== ANIMATIONS ===================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.7;
-        transform: scale(1.1);
-    }
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-@keyframes blink {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.3;
-    }
-}
-
-@keyframes glow {
-    0%, 100% {
-        box-shadow: 0 0 20px var(--glow-serbian);
-    }
-    50% {
-        box-shadow: 0 0 40px var(--glow-serbian);
-    }
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
-    }
-    33% {
-        transform: translateY(-10px) rotate(5deg);
-    }
-    66% {
-        transform: translateY(-5px) rotate(-5deg);
-    }
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
-    100% {
-        background-position: 1000px 0;
-    }
-}
-
-/* ===================== GLASS EFFECTS ===================== */
+/* Glass Card Mixin */
 .glass {
-    background: var(--bg-glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-glass);
-    border-radius: 24px;
+	background: var(--bg-glass);
+	backdrop-filter: blur(25px);
+	-webkit-backdrop-filter: blur(25px);
+	border: 1px solid var(--border-glass);
+	border-radius: 24px;
+	transition: all 0.4s ease;
 }
 
-.glass-strong {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid var(--border-glow);
+.glass:hover {
+	border-color: var(--border-glow);
+	transform: translateY(-5px);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 
+		0 0 30px var(--glow-serbian);
 }
 
-.glass-hover:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--border-glow);
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-heavy), 0 0 40px var(--glow-serbian);
-}
-
-/* ===================== HEADER & NAVIGATION ===================== */
+/* Header */
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 20px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    transition: var(--transition-medium);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	padding: 20px 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1400px;
+	margin: 0 auto;
+	transition: all 0.4s ease;
 }
 
 header.scrolled {
-    background: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-glass);
-    padding: 15px 60px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+	background: rgba(10, 10, 15, 0.9);
+	backdrop-filter: blur(25px);
+	-webkit-backdrop-filter: blur(25px);
+	border-bottom: 1px solid var(--border-glass);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 16px;
-    transition: var(--transition-medium);
-}
-
-.logo:hover {
-    background: var(--bg-glass);
-    transform: translateY(-2px);
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	text-decoration: none;
 }
 
 .logo-icon {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    box-shadow: 0 4px 20px rgba(198, 54, 60, 0.3);
+	width: 44px;
+	height: 44px;
+	background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian));
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.3rem;
+	font-weight: bold;
+	box-shadow: 0 5px 15px rgba(198, 54, 60, 0.3);
 }
 
 .logo-text {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-    background: linear-gradient(135deg, var(--text-primary), var(--accent-serbian));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+	font-family: 'Syne', sans-serif;
+	font-size: 1.4rem;
+	font-weight: 800;
+	color: var(--text-primary);
+	letter-spacing: -0.5px;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .logo-text span {
-    color: var(--accent-serbian);
-    -webkit-text-fill-color: var(--accent-serbian);
+	color: var(--accent-serbian);
+	font-weight: 900;
 }
 
 nav {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+	display: flex;
+	gap: 8px;
 }
 
 nav a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    padding: 12px 24px;
-    border-radius: 12px;
-    transition: var(--transition-medium);
-    position: relative;
-    overflow: hidden;
-}
-
-nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(248, 231, 28, 0.1), transparent);
-    transition: var(--transition-medium);
+	color: var(--text-secondary);
+	text-decoration: none;
+	font-size: 0.95rem;
+	font-weight: 600;
+	padding: 12px 22px;
+	border-radius: 14px;
+	transition: all 0.3s ease;
+	position: relative;
 }
 
 nav a:hover {
-    color: var(--text-primary);
-    background: var(--bg-glass);
-    transform: translateY(-2px);
+	color: var(--text-primary);
+	background: var(--bg-glass);
+	transform: translateY(-2px);
 }
 
-nav a:hover::before {
-    left: 100%;
+nav a::after {
+	content: '';
+	position: absolute;
+	bottom: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 2px;
+	background: var(--accent-serbian);
+	transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+	width: 60%;
 }
 
 nav a.nav-active {
-    color: var(--text-primary);
-    background: var(--bg-glass);
-    border: 1px solid var(--border-glass);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	color: var(--text-primary);
+	background: var(--bg-glass);
+	border: 1px solid var(--border-glass);
+	font-weight: 700;
 }
 
 .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    cursor: pointer;
-    z-index: 1001;
-    padding: 12px;
-    background: var(--bg-glass);
-    border: 1px solid var(--border-glass);
-    border-radius: 10px;
-    transition: var(--transition-medium);
-}
-
-.nav-toggle:hover {
-    background: rgba(248, 231, 28, 0.1);
-    border-color: var(--accent-serbian);
+	display: none;
+	flex-direction: column;
+	gap: 6px;
+	cursor: pointer;
+	z-index: 1001;
+	padding: 10px;
 }
 
 .nav-toggle span {
-    width: 24px;
-    height: 2px;
-    background: var(--text-primary);
-    border-radius: 2px;
-    transition: var(--transition-medium);
+	width: 24px;
+	height: 3px;
+	background: var(--text-primary);
+	border-radius: 2px;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.nav-toggle.active {
-    background: rgba(248, 231, 28, 0.2);
-    border-color: var(--accent-serbian);
-}
-
-.nav-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 6px);
-    background: var(--accent-serbian);
-}
-
-.nav-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -6px);
-    background: var(--accent-serbian);
-}
-
-/* ===================== HERO SECTION ===================== */
+/* Hero Section */
 .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 140px 20px 100px;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    animation: fadeIn 1s ease-out;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(198, 54, 60, 0.1) 0%, transparent 70%);
-    z-index: -1;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 140px 20px 100px;
+	position: relative;
+	z-index: 2;
+	text-align: center;
 }
 
 .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 28px;
-    background: var(--bg-glass);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--border-glass);
-    border-radius: 100px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 40px;
-    animation: fadeInDown 0.8s ease forwards;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(248, 231, 28, 0.2), transparent);
-    animation: shimmer 3s infinite;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 24px;
+	background: var(--bg-glass);
+	border: 1px solid var(--border-glass);
+	border-radius: 100px;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--text-secondary);
+	margin-bottom: 40px;
+	animation: fadeInDown 0.8s ease forwards;
+	backdrop-filter: blur(20px);
 }
 
 .hero-badge .dot {
-    width: 10px;
-    height: 10px;
-    background: var(--accent-serbian);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-    box-shadow: 0 0 10px var(--glow-serbian);
+	width: 10px;
+	height: 10px;
+	background: var(--accent-serbian);
+	border-radius: 50%;
+	animation: pulse 2s ease-in-out infinite;
+	box-shadow: 0 0 15px var(--accent-serbian);
+}
+
+@keyframes pulse {
+	0%, 100% {
+		opacity: 1;
+		transform: scale(1);
+		box-shadow: 0 0 15px var(--accent-serbian);
+	}
+	50% {
+		opacity: 0.7;
+		transform: scale(1.2);
+		box-shadow: 0 0 25px var(--accent-serbian);
+	}
+}
+
+@keyframes fadeInDown {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3.5rem, 12vw, 8rem);
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -4px;
-    margin-bottom: 32px;
-    animation: fadeInUp 0.8s ease 0.2s forwards;
-    opacity: 0;
-    text-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+	font-family: 'Syne', sans-serif;
+	font-size: clamp(3rem, 10vw, 7rem);
+	font-weight: 900;
+	line-height: 1.05;
+	letter-spacing: -3px;
+	margin-bottom: 24px;
+	animation: fadeInUp 0.8s ease 0.2s forwards;
+	opacity: 0;
+	text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 
 .hero h1 .gradient {
-    background: linear-gradient(135deg, 
-        var(--accent-red) 0%, 
-        var(--accent-serbian) 25%, 
-        var(--accent-gold) 50%, 
-        var(--accent-serbian) 75%, 
-        var(--accent-red) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    animation: shimmer 3s ease infinite;
-    position: relative;
+	background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian), var(--accent-gold));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	position: relative;
+}
+
+.hero h1 .gradient::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian), var(--accent-gold));
+	filter: blur(20px);
+	z-index: -1;
+	opacity: 0.3;
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto 60px;
-    animation: fadeInUp 0.8s ease 0.4s forwards;
-    opacity: 0;
-    line-height: 1.8;
+	font-size: 1.3rem;
+	font-weight: 500;
+	color: var(--text-secondary);
+	max-width: 600px;
+	margin-bottom: 60px;
+	animation: fadeInUp 0.8s ease 0.4s forwards;
+	opacity: 0;
+	line-height: 1.8;
 }
 
-/* Сербская новогодняя фишка */
-.serbian-charm {
-    margin-bottom: 40px;
-    text-align: center;
-    animation: fadeInUp 0.8s ease 0.6s forwards;
-    opacity: 0;
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
-.serbian-charm > div {
-    display: inline-flex;
-    align-items: center;
-    gap: 20px;
-    padding: 18px 40px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.05));
-    border-radius: 50px;
-    border: 1px solid var(--border-glass);
-    backdrop-filter: blur(20px);
-    transition: var(--transition-medium);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.serbian-charm > div::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(248, 231, 28, 0.1), transparent);
-    transition: var(--transition-medium);
-}
-
-.serbian-charm > div:hover {
-    border-color: var(--accent-serbian);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px var(--glow-serbian);
-}
-
-.serbian-charm > div:hover::before {
-    left: 100%;
-}
-
-.serbian-charm span:nth-child(1) {
-    font-size: 2rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-.serbian-charm span:nth-child(2) {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    font-weight: 500;
-}
-
-.serbian-charm span:nth-child(3) {
-    font-size: 2rem;
-    cursor: pointer;
-    animation: pulse 2s ease-in-out infinite;
-    transition: var(--transition-medium);
-}
-
-.serbian-charm span:nth-child(3):hover {
-    transform: scale(1.2) rotate(15deg);
-    filter: drop-shadow(0 0 10px var(--glow-serbian));
-}
-
-/* ===================== COUNTDOWN SECTION ===================== */
+/* Countdown */
 .countdown-wrapper {
-    animation: fadeInUp 0.8s ease 0.8s forwards;
-    opacity: 0;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+	animation: fadeInUp 0.8s ease 0.6s forwards;
+	opacity: 0;
 }
 
 .countdown {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .countdown-item {
-    position: relative;
-    width: 200px;
-    padding: 40px 20px;
-    text-align: center;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(198, 54, 60, 0.05));
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid var(--border-glass);
-    border-radius: 28px;
-    overflow: hidden;
-    transition: var(--transition-medium);
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: calc(var(--item-index, 0) * 0.1s);
+	position: relative;
+	width: 180px;
+	padding: 32px 24px;
+	text-align: center;
+	background: var(--bg-glass);
+	backdrop-filter: blur(40px);
+	-webkit-backdrop-filter: blur(40px);
+	border: 1px solid var(--border-glass);
+	border-radius: 24px;
+	overflow: hidden;
+	transition: all 0.4s ease;
 }
 
 .countdown-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        var(--accent-red), 
-        var(--accent-serbian), 
-        var(--accent-gold), 
-        transparent);
-    opacity: 0.8;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg, transparent, var(--accent-red), var(--accent-serbian), transparent);
+	opacity: 0.8;
 }
 
 .countdown-item::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(248, 231, 28, 0.1), transparent 70%);
-    pointer-events: none;
-    transition: var(--transition-medium);
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(circle at 50% 0%, rgba(248, 231, 28, 0.15), transparent 70%);
+	pointer-events: none;
 }
 
 .countdown-item:hover {
-    transform: translateY(-12px) scale(1.05);
-    border-color: var(--border-glow);
-    box-shadow: 
-        0 25px 80px rgba(0, 0, 0, 0.5),
-        0 0 60px var(--glow-red),
-        0 0 30px var(--glow-serbian);
-}
-
-.countdown-item:hover::after {
-    background: radial-gradient(circle at 50% 0%, rgba(248, 231, 28, 0.2), transparent 70%);
+	transform: translateY(-10px);
+	border-color: var(--border-glow);
+	box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), 
+		0 0 50px var(--glow-serbian);
 }
 
 .countdown-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 4.5rem;
-    font-weight: 900;
-    line-height: 1;
-    display: block;
-    background: linear-gradient(180deg, 
-        var(--text-primary) 0%, 
-        var(--accent-serbian) 50%, 
-        var(--text-secondary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-variant-numeric: tabular-nums;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    margin-bottom: 10px;
+	font-family: 'Syne', sans-serif;
+	font-size: 3.8rem;
+	font-weight: 900;
+	line-height: 1;
+	display: block;
+	background: linear-gradient(180deg, var(--text-primary), var(--accent-serbian));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	font-variant-numeric: tabular-nums;
+	text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .countdown-label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: var(--accent-serbian);
-    margin-top: 12px;
-    display: block;
-    text-shadow: 0 0 10px rgba(248, 231, 28, 0.3);
+	font-size: 0.85rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	color: var(--accent-serbian);
+	margin-top: 12px;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .countdown-colon {
-    font-family: 'Syne', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: var(--accent-serbian);
-    align-self: center;
-    margin-bottom: 40px;
-    animation: blink 1.5s ease-in-out infinite;
-    text-shadow: 0 0 20px var(--glow-serbian);
+	font-family: 'Syne', sans-serif;
+	font-size: 3rem;
+	font-weight: 800;
+	color: var(--accent-serbian);
+	align-self: center;
+	margin-bottom: 20px;
+	animation: blink 1s ease-in-out infinite;
+	text-shadow: 0 0 20px var(--accent-serbian);
+}
+
+@keyframes blink {
+	0%, 100% {
+		opacity: 1;
+		text-shadow: 0 0 20px var(--accent-serbian);
+	}
+	50% {
+		opacity: 0.5;
+		text-shadow: 0 0 10px var(--accent-serbian);
+	}
 }
 
 .target-date {
-    margin-top: 50px;
-    padding: 20px 40px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.05));
-    border: 1px solid var(--border-glass);
-    border-radius: 100px;
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 1rem;
-    color: var(--text-secondary);
-    backdrop-filter: blur(20px);
-    transition: var(--transition-medium);
-}
-
-.target-date:hover {
-    border-color: var(--accent-serbian);
-    background: rgba(248, 231, 28, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	margin-top: 40px;
+	padding: 16px 32px;
+	background: var(--bg-card);
+	border: 1px solid var(--border-glass);
+	border-radius: 100px;
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--text-secondary);
+	backdrop-filter: blur(20px);
 }
 
 .target-date svg {
-    width: 22px;
-    height: 22px;
-    stroke: var(--accent-serbian);
-    stroke-width: 2.5;
-    transition: var(--transition-medium);
-}
-
-.target-date:hover svg {
-    transform: rotate(15deg) scale(1.2);
-}
-
-/* Сербский новогодний баннер */
-.serbian-newyear {
-    margin-top: 60px;
-    padding: 20px 50px;
-    background: linear-gradient(90deg, 
-        var(--accent-red) 0%, 
-        var(--accent-serbian) 50%, 
-        var(--accent-red) 100%);
-    border-radius: 50px;
-    display: inline-block;
-    animation: 
-        fadeInUp 1s ease forwards,
-        pulse 2s infinite,
-        glow 3s infinite;
-    box-shadow: 
-        0 10px 40px rgba(198, 54, 60, 0.4),
-        0 0 30px var(--glow-serbian);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: var(--transition-medium);
-}
-
-.serbian-newyear::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: var(--transition-medium);
-}
-
-.serbian-newyear:hover {
-    transform: scale(1.05) rotate(-2deg);
-    box-shadow: 
-        0 15px 50px rgba(198, 54, 60, 0.6),
-        0 0 40px var(--glow-serbian);
-}
-
-.serbian-newyear:hover::before {
-    left: 100%;
-}
-
-.serbian-newyear span {
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: white;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
+	width: 20px;
+	height: 20px;
+	stroke: var(--accent-serbian);
+	filter: drop-shadow(0 0 5px var(--accent-serbian));
 }
 
 .scroll-indicator {
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    animation: 
-        fadeInUp 1s ease 1.5s forwards,
-        bounce 2s ease-in-out infinite 2s;
-    opacity: 0;
+	position: absolute;
+	bottom: 40px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	animation: fadeInUp 0.8s ease 1s forwards, bounce 2s ease-in-out infinite 1.5s;
+	opacity: 0;
 }
 
 .scroll-indicator span {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--accent-serbian);
-    text-shadow: 0 0 10px rgba(248, 231, 28, 0.3);
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	color: var(--accent-serbian);
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .scroll-indicator .line {
-    width: 2px;
-    height: 50px;
-    background: linear-gradient(180deg, 
-        var(--accent-red) 0%, 
-        var(--accent-serbian) 50%, 
-        transparent 100%);
-    animation: pulse 2s ease-in-out infinite;
+	width: 2px;
+	height: 40px;
+	background: linear-gradient(180deg, var(--accent-red), var(--accent-serbian), transparent);
+	border-radius: 2px;
 }
 
-/* ===================== SECTIONS COMMON STYLES ===================== */
+@keyframes bounce {
+	0%, 100% {
+		transform: translateX(-50%) translateY(0);
+	}
+	50% {
+		transform: translateX(-50%) translateY(10px);
+	}
+}
+
+/* Section Common */
 section {
-    position: relative;
-    z-index: 2;
-    padding: 150px 60px;
-    animation: fadeIn 0.8s ease;
-}
-
-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
+	position: relative;
+	z-index: 2;
+	padding: 120px 60px;
 }
 
 .section-header {
-    text-align: center;
-    margin-bottom: 100px;
-    position: relative;
-}
-
-.section-header::after {
-    content: '';
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-red), var(--accent-serbian), var(--accent-red));
-    border-radius: 3px;
+	text-align: center;
+	margin-bottom: 80px;
 }
 
 .section-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 24px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.05));
-    border: 1px solid var(--border-glass);
-    border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent-serbian);
-    margin-bottom: 32px;
-    backdrop-filter: blur(20px);
-    position: relative;
-    overflow: hidden;
-}
-
-.section-tag::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(248, 231, 28, 0.2), transparent);
-    animation: shimmer 3s infinite;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 20px;
+	background: var(--bg-glass);
+	border: 1px solid var(--border-glass);
+	border-radius: 100px;
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--accent-serbian);
+	margin-bottom: 24px;
+	backdrop-filter: blur(20px);
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: 900;
-    letter-spacing: -3px;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    background: linear-gradient(135deg, var(--text-primary), var(--accent-serbian));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+	font-family: 'Syne', sans-serif;
+	font-size: clamp(2.8rem, 5vw, 4.2rem);
+	font-weight: 900;
+	letter-spacing: -2px;
+	color: var(--text-primary);
+	margin-bottom: 20px;
+	text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .section-subtitle {
-    font-size: 1.3rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin: 24px auto 0;
-    line-height: 1.8;
+	font-size: 1.2rem;
+	font-weight: 500;
+	color: var(--text-secondary);
+	max-width: 600px;
+	margin: 0 auto;
+	line-height: 1.8;
 }
 
-/* ===================== ABOUT SECTION ===================== */
+/* About Section */
 .about {
-    background: linear-gradient(180deg, 
-        transparent 0%, 
-        rgba(198, 54, 60, 0.03) 30%, 
-        rgba(248, 231, 28, 0.02) 70%, 
-        transparent 100%);
-    position: relative;
-}
-
-.about::before {
-    content: '🇷🇸';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20vw;
-    opacity: 0.02;
-    z-index: -1;
-    pointer-events: none;
+	background: linear-gradient(180deg, transparent 0%, rgba(198, 54, 60, 0.03) 50%, transparent 100%);
 }
 
 .about-grid {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    align-items: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 80px;
+	align-items: center;
 }
 
 .about-image {
-    position: relative;
-    perspective: 1000px;
+	position: relative;
 }
 
 .about-image-stack {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 24px;
-    height: 550px;
-    transform-style: preserve-3d;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 20px;
+	height: 450px;
 }
 
 .about-img-item {
-    border-radius: 24px;
-    overflow: hidden;
-    border: 2px solid var(--border-glass);
-    position: relative;
-    transition: var(--transition-medium);
-    transform-origin: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-.about-img-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(248, 231, 28, 0.1), transparent);
-    opacity: 0;
-    transition: var(--transition-medium);
-    z-index: 1;
+	border-radius: 20px;
+	overflow: hidden;
+	border: 2px solid var(--border-glass);
+	position: relative;
+	transition: all 0.4s ease;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .about-img-item:hover {
-    border-color: var(--accent-serbian);
-    transform: translateZ(20px) scale(1.05);
-    box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 30px var(--glow-serbian);
-}
-
-.about-img-item:hover::before {
-    opacity: 1;
+	border-color: var(--border-glow);
+	transform: translateY(-5px) scale(1.02);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
+		0 0 30px var(--glow-serbian);
 }
 
 .about-img-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition-slow);
-    filter: brightness(0.9);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s ease;
 }
 
 .about-img-item:hover img {
-    transform: scale(1.15);
-    filter: brightness(1.1);
+	transform: scale(1.1);
 }
 
 .about-img-item.img-1 {
-    grid-row: span 2;
-    border-color: rgba(198, 54, 60, 0.3);
+	grid-row: span 2;
 }
 
 .about-img-item.img-2,
 .about-img-item.img-3 {
-    grid-column: 2;
-    border-color: rgba(248, 231, 28, 0.3);
+	grid-column: 2;
 }
 
 .about-content h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
-    font-weight: 800;
-    letter-spacing: -2px;
-    margin-bottom: 32px;
-    line-height: 1.2;
-    background: linear-gradient(135deg, var(--text-primary), var(--accent-red));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+	font-family: 'Syne', sans-serif;
+	font-size: 2.8rem;
+	font-weight: 800;
+	letter-spacing: -1px;
+	margin-bottom: 24px;
+	line-height: 1.2;
 }
 
 .about-content h3 span {
-    -webkit-text-fill-color: var(--accent-serbian);
-    text-shadow: 0 0 20px var(--glow-serbian);
+	color: var(--accent-red);
+	text-shadow: 0 0 20px var(--glow-red);
 }
 
 .about-content p {
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    padding-right: 20px;
+	color: var(--text-secondary);
+	margin-bottom: 25px;
+	font-size: 1.1rem;
+	font-weight: 450;
+	line-height: 1.8;
 }
 
-/* Счетчик сербских традиций */
-.serbian-traditions-counter {
-    margin: 40px 0;
-    padding: 32px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.03));
-    border: 1px solid var(--border-glass);
-    border-radius: 24px;
-    backdrop-filter: blur(20px);
-    transition: var(--transition-medium);
-    position: relative;
-    overflow: hidden;
+/* Gallery Section */
+.gallery {
+	background: rgba(0, 0, 0, 0.05);
 }
 
-.serbian-traditions-counter::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-red), var(--accent-serbian), var(--accent-gold));
+.gallery-grid {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 30px;
 }
 
-.serbian-traditions-counter:hover {
-    border-color: var(--accent-serbian);
-    transform: translateY(-5px);
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.3),
-        0 0 30px var(--glow-serbian);
+.gallery-item {
+	border-radius: 20px;
+	overflow: hidden;
+	border: 2px solid var(--border-glass);
+	background: var(--bg-glass);
+	transition: all 0.4s ease;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.serbian-traditions-counter h4 {
-    margin-bottom: 24px;
-    color: var(--accent-serbian);
-    font-size: 1.3rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.gallery-item:hover {
+	transform: translateY(-10px);
+	border-color: var(--border-glow);
+	box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 
+		0 0 40px var(--glow-serbian);
 }
 
-.serbian-traditions-counter h4::before {
-    content: '🎯';
-    font-size: 1.5rem;
+.gallery-item img {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	transition: transform 0.6s ease;
 }
 
-.tradition-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
-    border: 1px solid transparent;
-    transition: var(--transition-medium);
+.gallery-item:hover img {
+	transform: scale(1.1);
 }
 
-.tradition-item:hover {
-    background: rgba(248, 231, 28, 0.05);
-    border-color: rgba(248, 231, 28, 0.2);
-    transform: translateX(10px);
+.gallery-caption {
+	padding: 25px;
 }
 
-.tradition-item span:first-child {
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 16px;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(198, 54, 60, 0.3);
+.gallery-caption h4 {
+	font-family: 'Syne', sans-serif;
+	font-size: 1.4rem;
+	font-weight: 700;
+	margin-bottom: 12px;
+	color: var(--text-primary);
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.tradition-item span:last-child {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    font-weight: 500;
+.gallery-caption p {
+	font-size: 1rem;
+	font-weight: 450;
+	color: var(--text-secondary);
+	line-height: 1.7;
 }
 
-/* Список желаний */
-.wish-list {
-    margin: 40px 0;
-    padding: 32px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(0, 212, 170, 0.03));
-    border: 1px solid var(--border-glass);
-    border-radius: 24px;
-    backdrop-filter: blur(20px);
-    transition: var(--transition-medium);
-    position: relative;
-    overflow: hidden;
+/* Food Section */
+.food {
+	background: linear-gradient(180deg, transparent 0%, rgba(255, 215, 0, 0.03) 50%, transparent 100%);
 }
 
-.wish-list::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-green), var(--accent-serbian), var(--accent-gold));
+.food-grid {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 40px;
 }
 
-.wish-list:hover {
-    border-color: var(--accent-green);
-    transform: translateY(-5px);
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.3),
-        0 0 30px var(--glow-green);
+.food-card {
+	background: var(--bg-glass);
+	border: 2px solid var(--border-glass);
+	border-radius: 24px;
+	overflow: hidden;
+	transition: all 0.4s ease;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.wish-list h4 {
-    margin-bottom: 24px;
-    color: var(--accent-gold);
-    font-size: 1.3rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.food-card:hover {
+	transform: translateY(-10px);
+	border-color: var(--border-glow);
+	box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 
+		0 0 40px var(--glow-serbian);
 }
 
-.wish-list h4::before {
-    content: '🎯';
-    font-size: 1.5rem;
+.food-image {
+	width: 100%;
+	height: 250px;
+	overflow: hidden;
+	position: relative;
 }
 
-.wish-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
-    border: 1px solid transparent;
-    transition: var(--transition-medium);
+.food-image::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50%;
+	background: linear-gradient(to top, rgba(10, 10, 15, 0.9), transparent);
 }
 
-.wish-item:hover {
-    background: rgba(255, 215, 0, 0.05);
-    border-color: rgba(255, 215, 0, 0.2);
+.food-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s ease;
 }
 
-.wish-item input[type="checkbox"] {
-    width: 24px;
-    height: 24px;
-    margin-right: 16px;
-    cursor: pointer;
-    accent-color: var(--accent-gold);
-    border: 2px solid var(--border-glass);
-    border-radius: 6px;
-    transition: var(--transition-medium);
+.food-card:hover .food-image img {
+	transform: scale(1.1);
 }
 
-.wish-item input[type="checkbox"]:checked {
-    background-color: var(--accent-gold);
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 15px var(--glow-gold);
+.food-content {
+	padding: 30px;
 }
 
-.wish-item label {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    flex: 1;
-    transition: var(--transition-medium);
+.food-content h3 {
+	font-family: 'Syne', sans-serif;
+	font-size: 1.7rem;
+	font-weight: 800;
+	margin-bottom: 15px;
+	color: var(--accent-gold);
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.wish-item input[type="checkbox"]:checked + label {
-    color: var(--accent-gold);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    text-decoration: line-through;
-    text-decoration-color: var(--accent-gold);
+.food-content p {
+	font-size: 1.05rem;
+	font-weight: 450;
+	color: var(--text-secondary);
+	margin-bottom: 20px;
+	line-height: 1.7;
 }
 
-#wish-counter {
-    margin-top: 24px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-align: center;
-    padding: 12px 24px;
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(248, 231, 28, 0.1));
-    border-radius: 12px;
-    border: 1px solid rgba(0, 212, 170, 0.2);
-    transition: var(--transition-medium);
+.recipe {
+	background: rgba(255, 215, 0, 0.08);
+	border-left: 4px solid var(--accent-gold);
+	padding: 25px;
+	border-radius: 0 12px 12px 0;
+	margin-top: 25px;
+	backdrop-filter: blur(10px);
 }
 
-#wish-counter:hover {
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.2), rgba(248, 231, 28, 0.2));
-    transform: scale(1.05);
+.recipe h4 {
+	font-family: 'Syne', sans-serif;
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin-bottom: 15px;
+	color: var(--text-primary);
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.about-templatemo {
-    margin-top: 50px;
-    padding: 40px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.03));
-    border: 1px solid var(--border-glass);
-    border-radius: 28px;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(20px);
-    transition: var(--transition-medium);
+.recipe ul {
+	padding-left: 20px;
+	color: var(--text-secondary);
+	font-size: 1rem;
+	font-weight: 450;
+	line-height: 1.6;
 }
 
-.about-templatemo::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-green), var(--accent-serbian), var(--accent-gold));
+.recipe li {
+	margin-bottom: 10px;
+	position: relative;
 }
 
-.about-templatemo:hover {
-    border-color: var(--accent-serbian);
-    transform: translateY(-8px);
-    box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.4),
-        0 0 40px var(--glow-serbian);
+.recipe li::before {
+	content: '•';
+	color: var(--accent-gold);
+	font-weight: bold;
+	position: absolute;
+	left: -15px;
+	text-shadow: 0 0 10px var(--accent-gold);
 }
 
-.about-templatemo p {
-    font-size: 1.1rem;
-    margin-bottom: 28px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-}
-
-.about-templatemo p strong {
-    color: var(--accent-gold);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.btn-templatemo {
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 36px;
-    background: linear-gradient(135deg, var(--accent-green), #00b894);
-    border-radius: 16px;
-    color: var(--bg-dark);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: var(--transition-medium);
-    border: none;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.btn-templatemo::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: var(--transition-medium);
-    z-index: -1;
-}
-
-.btn-templatemo:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 
-        0 20px 50px var(--glow-green),
-        0 0 30px var(--glow-serbian);
-}
-
-.btn-templatemo:hover::before {
-    left: 100%;
-}
-
-.btn-templatemo svg {
-    width: 22px;
-    height: 22px;
-    stroke: var(--bg-dark);
-    stroke-width: 2.5;
-    transition: var(--transition-medium);
-}
-
-.btn-templatemo:hover svg {
-    transform: translateX(8px) rotate(15deg);
-}
-
-/* ===================== EVENTS SECTION ===================== */
+/* Events Section */
 .events {
-    background: var(--bg-dark);
-    position: relative;
-    overflow: hidden;
-}
-
-.events::before {
-    content: '🎄';
-    position: absolute;
-    top: 50%;
-    right: 5%;
-    transform: translateY(-50%);
-    font-size: 15vw;
-    opacity: 0.03;
-    z-index: -1;
-    pointer-events: none;
-    animation: float 6s ease-in-out infinite;
+	background: var(--bg-dark);
 }
 
 .events-grid {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
 }
 
 .event-card {
-    position: relative;
-    border-radius: 32px;
-    overflow: hidden;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(198, 54, 60, 0.03));
-    border: 2px solid var(--border-glass);
-    transition: var(--transition-medium);
-    cursor: pointer;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.event-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(248, 231, 28, 0.05), transparent);
-    opacity: 0;
-    transition: var(--transition-medium);
-    z-index: 1;
+	position: relative;
+	border-radius: 28px;
+	overflow: hidden;
+	background: var(--bg-glass);
+	border: 2px solid var(--border-glass);
+	transition: all 0.5s ease;
+	cursor: pointer;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .event-card:hover {
-    transform: translateY(-15px) scale(1.03);
-    border-color: var(--accent-serbian);
-    box-shadow: 
-        0 40px 100px rgba(0, 0, 0, 0.5),
-        0 0 50px var(--glow-serbian),
-        0 0 25px var(--glow-red);
-}
-
-.event-card:hover::before {
-    opacity: 1;
+	transform: translateY(-15px);
+	border-color: var(--border-glow);
+	box-shadow: 0 35px 80px rgba(0, 0, 0, 0.5), 
+		0 0 50px var(--glow-serbian);
 }
 
 .event-image {
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-    position: relative;
+	width: 100%;
+	height: 250px;
+	overflow: hidden;
+	position: relative;
 }
 
 .event-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background: linear-gradient(to top, rgba(10, 10, 15, 0.9), transparent);
-    z-index: 1;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(to bottom, transparent 50%, rgba(10, 10, 15, 0.8));
 }
 
 .event-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition-slow);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s ease;
 }
 
 .event-card:hover .event-image img {
-    transform: scale(1.2) rotate(2deg);
-    filter: brightness(1.2) saturate(1.2);
+	transform: scale(1.15);
 }
 
 .event-date-badge {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    padding: 14px 20px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(248, 231, 28, 0.1));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    z-index: 2;
-    transition: var(--transition-medium);
-}
-
-.event-card:hover .event-date-badge {
-    background: linear-gradient(135deg, rgba(198, 54, 60, 0.3), rgba(248, 231, 28, 0.2));
-    border-color: var(--accent-serbian);
-    transform: scale(1.1) rotate(5deg);
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	padding: 12px 20px;
+	background: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(25px);
+	-webkit-backdrop-filter: blur(25px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 15px;
+	z-index: 2;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .event-date-badge .day {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    line-height: 1;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+	font-family: 'Syne', sans-serif;
+	font-size: 1.8rem;
+	font-weight: 900;
+	color: var(--text-primary);
+	line-height: 1;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .event-date-badge .month {
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent-serbian);
-    text-shadow: 0 0 10px var(--glow-serbian);
-    margin-top: 4px;
+	font-size: 1rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: var(--accent-red);
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .event-content {
-    padding: 32px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: rgba(10, 10, 15, 0.7);
-    position: relative;
-    z-index: 2;
+	padding: 30px;
 }
 
 .event-content h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin-bottom: 16px;
-    color: var(--text-primary);
-    background: linear-gradient(135deg, var(--text-primary), var(--accent-serbian));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+	font-family: 'Syne', sans-serif;
+	font-size: 1.6rem;
+	font-weight: 800;
+	margin-bottom: 15px;
+	color: var(--text-primary);
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .event-content p {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 24px;
-    flex: 1;
+	font-size: 1.05rem;
+	font-weight: 450;
+	color: var(--text-secondary);
+	line-height: 1.7;
+	margin-bottom: 25px;
 }
 
 .event-meta {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    flex-wrap: wrap;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--text-dim);
 }
 
 .event-meta span {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    transition: var(--transition-medium);
-}
-
-.event-meta span:hover {
-    background: rgba(248, 231, 28, 0.1);
-    color: var(--accent-serbian);
-    transform: translateY(-2px);
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }
 
 .event-meta svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--accent-gold);
-    stroke-width: 2.5;
-    transition: var(--transition-medium);
+	width: 18px;
+	height: 18px;
+	stroke: var(--accent-gold);
+	filter: drop-shadow(0 0 5px var(--accent-gold));
 }
 
-.event-meta span:hover svg {
-    stroke: var(--accent-serbian);
-    transform: scale(1.2);
-}
-
-.newyear-tag {
-    margin-top: 16px;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, rgba(255, 61, 90, 0.15), rgba(248, 231, 28, 0.1));
-    border-radius: 12px;
-    border: 1px solid rgba(255, 61, 90, 0.2);
-    display: inline-block;
-    transition: var(--transition-medium);
-}
-
-.newyear-tag:hover {
-    background: linear-gradient(135deg, rgba(255, 61, 90, 0.25), rgba(248, 231, 28, 0.2));
-    border-color: var(--accent-serbian);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.newyear-tag span {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--accent-red);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* ===================== TRADITIONS SECTION ===================== */
+/* Traditions Section */
 .traditions {
-    background: linear-gradient(180deg, 
-        transparent 0%, 
-        rgba(0, 212, 170, 0.03) 30%, 
-        rgba(248, 231, 28, 0.02) 70%, 
-        transparent 100%);
-    position: relative;
-}
-
-.traditions::before {
-    content: '✨';
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    font-size: 10vw;
-    opacity: 0.03;
-    z-index: -1;
-    pointer-events: none;
-    animation: float 8s ease-in-out infinite;
-}
-
-/* Новогодний календарь */
-.ny-calendar {
-    max-width: 900px;
-    margin: 0 auto 80px;
-    padding: 40px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.05));
-    border: 2px solid var(--border-glass);
-    border-radius: 32px;
-    backdrop-filter: blur(40px);
-    position: relative;
-    overflow: hidden;
-    transition: var(--transition-medium);
-}
-
-.ny-calendar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-red), var(--accent-serbian), var(--accent-gold), var(--accent-green), var(--accent-blue));
-}
-
-.ny-calendar:hover {
-    border-color: var(--accent-serbian);
-    transform: translateY(-10px);
-    box-shadow: 
-        0 40px 100px rgba(0, 0, 0, 0.4),
-        0 0 60px var(--glow-serbian);
-}
-
-.ny-calendar h3 {
-    text-align: center;
-    margin-bottom: 40px;
-    color: var(--accent-gold);
-    font-size: 1.8rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-}
-
-.ny-calendar h3::before,
-.ny-calendar h3::after {
-    content: '🎅';
-    font-size: 2rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-.ny-calendar h3::after {
-    animation-delay: 1.5s;
-}
-
-.ny-calendar > div:first-of-type {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.calendar-day {
-    text-align: center;
-    padding: 30px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-glass);
-    border-radius: 20px;
-    transition: var(--transition-medium);
-    position: relative;
-    overflow: hidden;
-}
-
-.calendar-day:hover {
-    background: rgba(248, 231, 28, 0.08);
-    border-color: var(--accent-serbian);
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-}
-
-.calendar-day > div:first-child {
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: var(--accent-red);
-    margin-bottom: 12px;
-    text-shadow: 0 5px 20px rgba(198, 54, 60, 0.4);
-    transition: var(--transition-medium);
-}
-
-.calendar-day:hover > div:first-child {
-    color: var(--accent-serbian);
-    transform: scale(1.2);
-}
-
-.calendar-day > div:last-child {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: var(--transition-medium);
-}
-
-.calendar-day:hover > div:last-child {
-    color: var(--accent-serbian);
-    text-shadow: 0 0 10px var(--glow-serbian);
-}
-
-.ny-calendar > div:last-of-type {
-    text-align: center;
-}
-
-.ny-calendar button {
-    padding: 16px 40px;
-    background: linear-gradient(135deg, var(--accent-red), rgba(198, 54, 60, 0.8));
-    border: 2px solid var(--accent-serbian);
-    color: var(--text-primary);
-    border-radius: 16px;
-    cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: var(--transition-medium);
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.ny-calendar button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(248, 231, 28, 0.3), transparent);
-    transition: var(--transition-medium);
-    z-index: -1;
-}
-
-.ny-calendar button:hover {
-    background: linear-gradient(135deg, var(--accent-serbian), var(--accent-gold));
-    color: var(--bg-dark);
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 
-        0 20px 50px rgba(198, 54, 60, 0.5),
-        0 0 30px var(--glow-serbian);
-}
-
-.ny-calendar button:hover::before {
-    left: 100%;
+	background: linear-gradient(180deg, transparent 0%, rgba(0, 212, 170, 0.03) 50%, transparent 100%);
 }
 
 .traditions-grid {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 30px;
 }
 
 .tradition-card {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 32px;
-    padding: 32px;
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.03));
-    border: 2px solid var(--border-glass);
-    border-radius: 28px;
-    align-items: center;
-    transition: var(--transition-medium);
-    position: relative;
-    overflow: hidden;
-}
-
-.tradition-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--accent-serbian), transparent);
-    opacity: 0;
-    transition: var(--transition-medium);
+	display: grid;
+	grid-template-columns: 140px 1fr;
+	gap: 25px;
+	padding: 25px;
+	background: var(--bg-glass);
+	border: 2px solid var(--border-glass);
+	border-radius: 24px;
+	align-items: center;
+	transition: all 0.4s ease;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .tradition-card:hover {
-    border-color: var(--accent-serbian);
-    background: linear-gradient(135deg, var(--bg-glass), rgba(248, 231, 28, 0.08));
-    transform: translateX(15px) translateY(-10px);
-    box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.4),
-        0 0 40px var(--glow-serbian);
-}
-
-.tradition-card:hover::before {
-    opacity: 1;
+	border-color: var(--border-glow);
+	transform: translateX(10px);
+	background: rgba(255, 255, 255, 0.1);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
+		0 0 40px var(--glow-serbian);
 }
 
 .tradition-image {
-    width: 160px;
-    height: 160px;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid var(--border-glass);
-    transition: var(--transition-medium);
-    position: relative;
-}
-
-.tradition-image::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(248, 231, 28, 0.1), transparent);
-    opacity: 0;
-    transition: var(--transition-medium);
-    z-index: 1;
-}
-
-.tradition-card:hover .tradition-image {
-    border-color: var(--accent-serbian);
-    transform: scale(1.1) rotate(5deg);
-}
-
-.tradition-card:hover .tradition-image::before {
-    opacity: 1;
+	width: 140px;
+	height: 140px;
+	border-radius: 20px;
+	overflow: hidden;
+	border: 2px solid var(--border-glass);
 }
 
 .tradition-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition-slow);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s ease;
 }
 
 .tradition-card:hover .tradition-image img {
-    transform: scale(1.2);
-    filter: brightness(1.2) saturate(1.2);
+	transform: scale(1.1);
 }
 
 .tradition-content {
-    padding-right: 20px;
+	padding-right: 20px;
 }
 
 .tradition-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--accent-green);
-    margin-bottom: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tradition-number::before {
-    content: '';
-    width: 20px;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent-green), transparent);
+	font-family: 'Syne', sans-serif;
+	font-size: 0.85rem;
+	font-weight: 800;
+	color: var(--accent-green);
+	margin-bottom: 10px;
+	letter-spacing: 2px;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .tradition-content h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-    background: linear-gradient(135deg, var(--text-primary), var(--accent-serbian));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+	font-family: 'Syne', sans-serif;
+	font-size: 1.5rem;
+	font-weight: 800;
+	margin-bottom: 12px;
+	color: var(--text-primary);
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .tradition-content p {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    line-height: 1.8;
-    margin-bottom: 20px;
+	font-size: 1.05rem;
+	font-weight: 450;
+	color: var(--text-secondary);
+	line-height: 1.7;
+	margin-bottom: 20px;
 }
 
-.newyear-badge {
-    margin-top: 16px;
-    padding: 12px 24px;
-    background: linear-gradient(135deg, rgba(255, 61, 90, 0.15), rgba(248, 231, 28, 0.1));
-    border-radius: 12px;
-    border: 1px solid rgba(255, 61, 90, 0.2);
-    display: inline-block;
-    transition: var(--transition-medium);
-}
-
-.tradition-card:nth-child(2) .newyear-badge {
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(248, 231, 28, 0.1));
-    border-color: rgba(0, 212, 170, 0.2);
-}
-
-.tradition-card:nth-child(3) .newyear-badge {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(248, 231, 28, 0.1));
-    border-color: rgba(255, 215, 0, 0.2);
-}
-
-.tradition-card:nth-child(4) .newyear-badge {
-    background: linear-gradient(135deg, rgba(77, 159, 255, 0.15), rgba(248, 231, 28, 0.1));
-    border-color: rgba(77, 159, 255, 0.2);
-}
-
-.newyear-badge:hover {
-    background: linear-gradient(135deg, rgba(248, 231, 28, 0.2), rgba(255, 215, 0, 0.2));
-    border-color: var(--accent-serbian);
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.newyear-badge span {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--accent-red);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tradition-card:nth-child(2) .newyear-badge span {
-    color: var(--accent-green);
-}
-
-.tradition-card:nth-child(3) .newyear-badge span {
-    color: var(--accent-gold);
-}
-
-.tradition-card:nth-child(4) .newyear-badge span {
-    color: var(--accent-blue);
-}
-
-/* ===================== FOOTER ===================== */
+/* Footer */
 footer {
-    position: relative;
-    z-index: 2;
-    padding: 100px 60px 40px;
-    background: linear-gradient(180deg, 
-        transparent 0%, 
-        rgba(255, 255, 255, 0.02) 100%);
-    border-top: 1px solid var(--border-glass);
-}
-
-footer::before {
-    content: '🎄';
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    font-size: 5rem;
-    opacity: 0.05;
-    z-index: -1;
-    pointer-events: none;
-    animation: float 5s ease-in-out infinite;
+	position: relative;
+	z-index: 2;
+	padding: 80px 60px 30px;
+	background: rgba(255, 255, 255, 0.03);
+	border-top: 1px solid var(--border-glass);
 }
 
 .footer-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 80px;
-    margin-bottom: 80px;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 60px;
+	margin-bottom: 60px;
 }
 
 .footer-brand {
-    text-align: center;
-    position: relative;
-}
-
-.footer-brand::before {
-    content: '';
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
+	text-align: center;
 }
 
 .footer-brand .logo {
-    justify-content: center;
-    margin-bottom: 32px;
-    display: inline-flex;
-}
-
-.footer-brand .logo:hover {
-    transform: translateY(-5px) scale(1.05);
+	justify-content: center;
+	margin-bottom: 25px;
 }
 
 .footer-brand p {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.9;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 20px;
+	color: var(--text-secondary);
+	font-size: 1.05rem;
+	font-weight: 450;
+	line-height: 1.8;
+	max-width: 600px;
+	margin: 0 auto;
 }
 
 .footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 40px;
-    border-top: 1px solid var(--border-glass);
-    text-align: center;
-    position: relative;
-}
-
-.footer-bottom::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-red), var(--accent-serbian), var(--accent-gold));
-    border-radius: 3px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 30px;
+	border-top: 1px solid var(--border-glass);
+	text-align: center;
 }
 
 .footer-bottom p {
-    font-size: 1rem;
-    color: var(--text-dim);
-    margin-bottom: 20px;
-    line-height: 1.8;
+	font-size: 0.95rem;
+	font-weight: 450;
+	color: var(--text-dim);
+	margin-bottom: 10px;
 }
 
-.footer-bottom p:last-of-type {
-    width: 100%;
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 15px;
-    border: 1px solid var(--border-glass);
+.footer-bottom .serbian-greeting {
+	color: var(--accent-serbian);
+	font-weight: 700;
+	font-size: 1.1rem;
+	text-shadow: 0 2px 10px rgba(248, 231, 28, 0.3);
+	margin: 20px 0;
+	display: block;
 }
 
-.footer-bottom p:last-of-type span {
-    color: var(--accent-gold);
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    display: block;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-    animation: pulse 2s infinite;
+/* Responsive */
+@media (max-width: 1200px) {
+	section {
+		padding: 100px 40px;
+	}
+	
+	.about-grid {
+		gap: 60px;
+	}
+	
+	.events-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	
+	.traditions-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	.gallery-grid, .food-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
-/* ===================== RESPONSIVE DESIGN ===================== */
-
-/* Large Desktop */
-@media (min-width: 1920px) {
-    .container {
-        max-width: 1600px;
-    }
-    
-    .hero h1 {
-        font-size: clamp(4rem, 15vw, 10rem);
-    }
-    
-    .countdown-item {
-        width: 240px;
-        padding: 50px 30px;
-    }
-    
-    .countdown-number {
-        font-size: 5.5rem;
-    }
-}
-
-/* Desktop */
-@media (max-width: 1440px) {
-    section {
-        padding: 120px 40px;
-    }
-    
-    header {
-        padding: 20px 40px;
-    }
-    
-    .hero {
-        padding: 120px 20px 80px;
-    }
-    
-    .about-grid {
-        gap: 70px;
-    }
-    
-    .events-grid {
-        gap: 28px;
-    }
-    
-    .traditions-grid {
-        gap: 28px;
-    }
-}
-
-/* Tablet Landscape */
-@media (max-width: 1024px) {
-    :root {
-        --bg-glass: rgba(255, 255, 255, 0.08);
-    }
-    
-    section {
-        padding: 100px 30px;
-    }
-    
-    .section-header {
-        margin-bottom: 70px;
-    }
-    
-    .section-title {
-        font-size: clamp(2.5rem, 5vw, 4rem);
-    }
-    
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-        max-width: 800px;
-    }
-    
-    .about-image {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    
-    .about-image-stack {
-        height: 500px;
-    }
-    
-    .events-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-    }
-    
-    .event-card:last-child {
-        grid-column: 1 / -1;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    
-    .traditions-grid {
-        grid-template-columns: 1fr;
-        max-width: 700px;
-    }
-    
-    .ny-calendar > div:first-of-type {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .ny-calendar > div:first-of-type > div:last-child {
-        grid-column: 1 / -1;
-    }
-    
-    footer {
-        padding: 80px 30px 30px;
-    }
-}
-
-/* Tablet Portrait */
 @media (max-width: 920px) {
-    html {
-        font-size: 15px;
-    }
-    
-    header {
-        padding: 15px 24px;
-    }
-    
-    header.scrolled {
-        padding: 12px 24px;
-    }
-    
-    nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 320px;
-        height: 100vh;
-        background: linear-gradient(135deg, 
-            rgba(10, 10, 15, 0.98), 
-            rgba(10, 10, 15, 0.95));
-        backdrop-filter: blur(50px);
-        -webkit-backdrop-filter: blur(50px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 60px 40px;
-        gap: 12px;
-        transition: var(--transition-medium);
-        border-left: 1px solid var(--border-glass);
-        z-index: 999;
-    }
-    
-    nav.active {
-        right: 0;
-    }
-    
-    nav a {
-        width: 100%;
-        font-size: 1.2rem;
-        padding: 16px 24px;
-        margin: 5px 0;
-    }
-    
-    .nav-toggle {
-        display: flex;
-    }
-    
-    .hero {
-        padding: 100px 20px 60px;
-    }
-    
-    .hero h1 {
-        letter-spacing: -2px;
-        font-size: clamp(2.8rem, 10vw, 6rem);
-    }
-    
-    .countdown {
-        gap: 15px;
-    }
-    
-    .countdown-item {
-        width: 150px;
-        padding: 30px 20px;
-    }
-    
-    .countdown-number {
-        font-size: 3.5rem;
-    }
-    
-    .countdown-colon {
-        display: none;
-    }
-    
-    .serbian-charm > div {
-        flex-direction: column;
-        gap: 15px;
-        padding: 24px 32px;
-    }
-    
-    .about-image-stack {
-        height: 450px;
-    }
-    
-    .about-features {
-        grid-template-columns: 1fr;
-    }
-    
-    .events-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-    }
-    
-    .event-card:last-child {
-        max-width: none;
-    }
-    
-    .tradition-card {
-        grid-template-columns: 120px 1fr;
-        gap: 24px;
-        padding: 24px;
-    }
-    
-    .tradition-image {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .ny-calendar {
-        padding: 32px 24px;
-    }
-    
-    footer {
-        padding: 60px 24px 24px;
-    }
+	header {
+		padding: 15px 24px;
+	}
+	
+	nav {
+		position: fixed;
+		top: 0;
+		right: -100%;
+		width: 280px;
+		height: 100vh;
+		background: rgba(10, 10, 15, 0.95);
+		backdrop-filter: blur(40px);
+		-webkit-backdrop-filter: blur(40px);
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		padding: 40px;
+		gap: 8px;
+		transition: right 0.4s ease;
+		border-left: 1px solid var(--border-glass);
+		box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+	}
+	
+	nav.active {
+		right: 0;
+	}
+	
+	nav a {
+		width: 100%;
+		font-size: 1.1rem;
+		padding: 15px 20px;
+	}
+	
+	.nav-toggle {
+		display: flex;
+	}
+	
+	.nav-toggle.active span:nth-child(1) {
+		transform: rotate(45deg) translate(5px, 6px);
+	}
+	
+	.nav-toggle.active span:nth-child(2) {
+		opacity: 0;
+	}
+	
+	.nav-toggle.active span:nth-child(3) {
+		transform: rotate(-45deg) translate(5px, -6px);
+	}
+	
+	section {
+		padding: 80px 24px;
+	}
+	
+	.hero {
+		padding: 120px 20px 80px;
+	}
+	
+	.countdown {
+		gap: 12px;
+	}
+	
+	.countdown-item {
+		width: 140px;
+		padding: 28px 20px;
+	}
+	
+	.countdown-number {
+		font-size: 3rem;
+	}
+	
+	.countdown-label {
+		font-size: 0.75rem;
+	}
+	
+	.countdown-colon {
+		display: none;
+	}
+	
+	.target-date {
+		padding: 14px 28px;
+		font-size: 0.9rem;
+	}
+	
+	.about-grid {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+	
+	.about-image {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+	
+	.about-image-stack {
+		height: 350px;
+	}
+	
+	.events-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	.tradition-card {
+		grid-template-columns: 100px 1fr;
+		gap: 20px;
+		padding: 20px;
+	}
+	
+	.tradition-image {
+		width: 100px;
+		height: 100px;
+	}
+	
+	.gallery-grid, .food-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	footer {
+		padding: 60px 24px 24px;
+	}
 }
 
-/* Mobile */
-@media (max-width: 640px) {
-    html {
-        font-size: 14px;
-    }
-    
-    section {
-        padding: 80px 20px;
-    }
-    
-    .section-header {
-        margin-bottom: 50px;
-    }
-    
-    .section-tag {
-        padding: 8px 20px;
-        font-size: 0.75rem;
-    }
-    
-    .hero-badge {
-        padding: 10px 20px;
-        font-size: 0.8rem;
-    }
-    
-    .hero h1 {
-        font-size: clamp(2.5rem, 12vw, 4rem);
-        letter-spacing: -1px;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.1rem;
-        padding: 0 10px;
-    }
-    
-    .countdown-item {
-        width: 120px;
-        padding: 24px 15px;
-    }
-    
-    .countdown-number {
-        font-size: 2.8rem;
-    }
-    
-    .countdown-label {
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-    }
-    
-    .target-date {
-        padding: 15px 25px;
-        font-size: 0.9rem;
-    }
-    
-    .serbian-newyear {
-        padding: 16px 30px;
-    }
-    
-    .serbian-newyear span {
-        font-size: 1rem;
-    }
-    
-    .about-image-stack {
-        height: 350px;
-        gap: 15px;
-    }
-    
-    .about-content h3 {
-        font-size: 2.2rem;
-    }
-    
-    .serbian-traditions-counter,
-    .wish-list,
-    .about-templatemo {
-        padding: 24px;
-    }
-    
-    .tradition-item,
-    .wish-item {
-        padding: 10px 12px;
-    }
-    
-    .event-content {
-        padding: 24px;
-    }
-    
-    .event-date-badge {
-        top: 15px;
-        left: 15px;
-        padding: 12px 16px;
-    }
-    
-    .event-date-badge .day {
-        font-size: 1.5rem;
-    }
-    
-    .event-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .ny-calendar > div:first-of-type {
-        grid-template-columns: 1fr;
-    }
-    
-    .tradition-card {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        text-align: center;
-    }
-    
-    .tradition-image {
-        width: 100%;
-        height: 200px;
-        margin: 0 auto;
-    }
-    
-    .tradition-content {
-        padding-right: 0;
-    }
-    
-    .tradition-number {
-        justify-content: center;
-    }
-    
-    footer {
-        padding: 50px 20px 20px;
-    }
-    
-    .footer-bottom p:last-of-type {
-        padding: 15px;
-    }
-}
-
-/* Small Mobile */
 @media (max-width: 480px) {
-    .countdown-item {
-        width: 100px;
-        padding: 20px 12px;
-    }
-    
-    .countdown-number {
-        font-size: 2.2rem;
-    }
-    
-    .hero-badge {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
-    }
-    
-    .serbian-charm > div span:nth-child(2) {
-        text-align: center;
-    }
-    
-    .about-image-stack {
-        height: 300px;
-        gap: 10px;
-    }
-    
-    .event-image {
-        height: 220px;
-    }
-    
-    .calendar-day {
-        padding: 20px 15px;
-    }
-    
-    .calendar-day > div:first-child {
-        font-size: 2.8rem;
-    }
-    
-    .ny-calendar button {
-        width: 100%;
-        padding: 14px 20px;
-    }
-    
-    .tradition-card {
-        padding: 20px;
-    }
+	.hero h1 {
+		font-size: clamp(2.5rem, 8vw, 4rem);
+	}
+	
+	.countdown-item {
+		width: 110px;
+		padding: 20px 15px;
+	}
+	
+	.countdown-number {
+		font-size: 2.2rem;
+	}
+	
+	.countdown-label {
+		font-size: 0.7rem;
+	}
+	
+	.section-title {
+		font-size: clamp(2rem, 6vw, 3rem);
+	}
+	
+	.tradition-card {
+		grid-template-columns: 1fr;
+	}
+	
+	.tradition-image {
+		width: 100%;
+		height: 200px;
+	}
+	
+	.event-date-badge {
+		padding: 10px 16px;
+	}
+	
+	.event-date-badge .day {
+		font-size: 1.5rem;
+	}
+	
+	.event-date-badge .month {
+		font-size: 0.9rem;
+	}
 }
 
-/* Extra Small Mobile */
-@media (max-width: 360px) {
-    .logo-text {
-        font-size: 1.2rem;
-    }
-    
-    .hero h1 {
-        font-size: clamp(2rem, 10vw, 3rem);
-    }
-    
-    .countdown-item {
-        width: 85px;
-        padding: 18px 10px;
-    }
-    
-    .countdown-number {
-        font-size: 1.8rem;
-    }
-    
-    .section-title {
-        font-size: clamp(2rem, 5vw, 2.8rem);
-    }
+/* Special Effects */
+.highlight-text {
+	color: var(--accent-serbian);
+	font-weight: 700;
+	text-shadow: 0 0 15px var(--accent-serbian);
 }
 
-/* ===================== UTILITY CLASSES ===================== */
-.text-center {
-    text-align: center;
+.glow-box {
+	box-shadow: 0 0 30px var(--glow-serbian);
 }
 
-.text-gradient {
-    background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.serbian-flag-glow {
+	text-shadow: 0 0 20px var(--accent-red), 
+		0 0 40px var(--accent-serbian),
+		0 0 60px var(--accent-blue);
 }
 
-.bg-gradient {
-    background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian));
+/* Animation for new sections */
+@keyframes slideInUp {
+	from {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
-.glow {
-    text-shadow: 0 0 20px var(--glow-serbian);
+.gallery-item, .food-card {
+	animation: slideInUp 0.8s ease forwards;
+	opacity: 0;
 }
 
-.mt-0 { margin-top: 0; }
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
-.mt-3 { margin-top: 3rem; }
-.mt-4 { margin-top: 4rem; }
-.mt-5 { margin-top: 5rem; }
+.gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.gallery-item:nth-child(3) { animation-delay: 0.3s; }
+.gallery-item:nth-child(4) { animation-delay: 0.4s; }
 
-.mb-0 { margin-bottom: 0; }
-.mb-1 { margin-bottom: 1rem; }
-.mb-2 { margin-bottom: 2rem; }
-.mb-3 { margin-bottom: 3rem; }
-.mb-4 { margin-bottom: 4rem; }
-.mb-5 { margin-bottom: 5rem; }
+.food-card:nth-child(1) { animation-delay: 0.1s; }
+.food-card:nth-child(2) { animation-delay: 0.2s; }
+.food-card:nth-child(3) { animation-delay: 0.3s; }
+.food-card:nth-child(4) { animation-delay: 0.4s; }
 
-.p-0 { padding: 0; }
-.p-1 { padding: 1rem; }
-.p-2 { padding: 2rem; }
-.p-3 { padding: 3rem; }
-.p-4 { padding: 4rem; }
-.p-5 { padding: 5rem; }
-
-.hidden {
-    display: none !important;
+/* Hover effects for text */
+p strong, .recipe li strong {
+	color: var(--accent-serbian);
+	font-weight: 700;
+	text-shadow: 0 0 10px rgba(248, 231, 28, 0.3);
 }
 
-.visible {
-    display: block !important;
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
 }
 
-.flex {
-    display: flex;
+::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.05);
 }
 
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+::-webkit-scrollbar-thumb {
+	background: var(--accent-serbian);
+	border-radius: 5px;
+	box-shadow: 0 0 10px var(--accent-serbian);
 }
 
-.flex-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.grid {
-    display: grid;
-}
-
-/* ===================== PRINT STYLES ===================== */
-@media print {
-    .grid-bg,
-    .snow-background,
-    .snow-layer,
-    .scroll-indicator,
-    .nav-toggle,
-    .serbian-charm,
-    .serbian-newyear,
-    .btn-templatemo,
-    .ny-calendar button,
-    footer::before {
-        display: none !important;
-    }
-    
-    body {
-        background: white !important;
-        color: black !important;
-    }
-    
-    .glass,
-    .glass-strong {
-        background: white !important;
-        border: 1px solid #ddd !important;
-        box-shadow: none !important;
-        backdrop-filter: none !important;
-    }
-    
-    .text-gradient {
-        -webkit-text-fill-color: black !important;
-        background: none !important;
-    }
-    
-    a {
-        color: blue !important;
-        text-decoration: underline !important;
-    }
-    
-    section {
-        page-break-inside: avoid;
-        padding: 20px !important;
-    }
-    
-    .hero {
-        min-height: auto;
-        padding: 40px 20px !important;
-    }
+::-webkit-scrollbar-thumb:hover {
+	background: var(--accent-red);
 }
