@@ -1,52 +1,393 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Serbia Guide</title>
-    <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Путешествие по Сербии</title>
+<!-- Подключение шрифтов -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<!-- Стиль -->
+<style>
+  :root {
+    --background-color: #121212;
+    --text-color: #f0f0f0;
+    --accent-color: #ff5722;
+    --header-background: #1f1f1f;
+    --footer-background: #1f1f1f;
+    --card-background: #2c2c2c;
+    --border-color: #333;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+
+  /* Шапка сайта */
+  header {
+    background-color: var(--header-background);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--accent-color);
+  }
+
+  nav {
+    display: flex;
+    gap: 20px;
+  }
+
+  nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  nav a:hover {
+    color: var(--accent-color);
+  }
+
+  /* Основной контент */
+  main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  section {
+    margin-bottom: 60px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+  }
+
+  /* Карточки для контента */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+
+  .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 15px;
+  }
+
+  .card-content h3 {
+    margin-top: 0;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .card-content p {
+    font-size: 14px;
+  }
+
+  /* Галерея */
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .gallery img {
+    width: calc(25% - 10px);
+    border-radius: 4px;
+    object-fit: cover;
+    height: 200px;
+    transition: transform 0.3s;
+  }
+
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Футер */
+  footer {
+    background-color: var(--footer-background);
+    padding: 30px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .footer-section {
+    flex: 1 1 200px;
+    margin-bottom: 20px;
+  }
+
+  .footer-section h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .footer-section p, .footer-section a {
+    font-size: 14px;
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  .footer-section a:hover {
+    color: var(--accent-color);
+  }
+
+  /* Кнопка вверх */
+  #scrollToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+  }
+
+  #scrollToTop:hover {
+    background-color: #e64a19;
+  }
+
+  /* Мобильное меню */
+  @media(max-width: 768px){
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    #menu-toggle {
+      display: block;
+      cursor: pointer;
+      font-size: 24px;
+      color: var(--text-color);
+      margin-top: 10px;
+    }
+
+    nav {
+      display: none;
+    }
+
+    nav.show {
+      display: flex;
+    }
+  }
+</style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">Serbia</div>
-        <nav class="nav">
-            <a href="#about">О стране</a>
-            <a href="#places">Достопримечательности</a>
-            <a href="#tips">Советы</a>
-        </nav>
-    </header>
 
-    <section id="about" class="section">
-        <h1>О Сербии</h1>
-        <p>
-            Сербия — страна на Балканах, известная своей историей, природой и
-            атмосферой. Здесь уютные города, вкусная еда, тёплый народ и низкие
-            цены по сравнению с Европой.
-        </p>
-    </section>
+<header>
+  <h1>Сербия — страна контрастов</h1>
+  <div id="menu-toggle">&#9776;</div>
+  <nav id="nav">
+    <a href="#main">Главная</a>
+    <a href="#about">О стране</a>
+    <a href="#culture">Культура</a>
+    <a href="#nature">Природа</a>
+    <a href="#gallery">Галерея</a>
+    <a href="#news">Новости</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+</header>
 
-    <section id="places" class="section dark">
-        <h1>Достопримечательности</h1>
-        <ul>
-            <li>Белградская крепость — сердце столицы.</li>
-            <li>Нови-Сад и Петроварадинская крепость.</li>
-            <li>Копаоник — лучший горнолыжный курорт.</li>
-            <li>Ниш — один из древнейших городов Европы.</li>
-        </ul>
-    </section>
+<main>
+  <!-- Главный раздел -->
+  <section id="main">
+    <h2>Добро пожаловать в Сербию</h2>
+    <p>Сербия — это страна с богатой историей, живописной природой и уникальной культурой. Исследуйте удивительные места, наслаждайтесь вкусной кухней и погрузитесь в атмосферу настоящей Европы.</p>
+    <button onclick="scrollToSection('#about')">Подробнее о стране</button>
+  </section>
 
-    <section id="tips" class="section">
-        <h1>Советы туристу</h1>
-        <ul>
-            <li>Цены ниже, чем в странах ЕС.</li>
-            <li>Лучше всего приезжать весной или осенью.</li>
-            <li>Сербы приветливые, многие знают английский.</li>
-            <li>Еда дешевая и порции большие.</li>
-        </ul>
-    </section>
+  <!-- О стране -->
+  <section id="about">
+    <h2>О стране</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Белград">
+        <div class="card-content">
+          <h3>Белград</h3>
+          <p>Столица и крупнейший город, сердце страны с богатой историей и современной атмосферой.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ниш">
+        <div class="card-content">
+          <h3>Ниш</h3>
+          <p>Один из древнейших городов Европы с множеством исторических памятников.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Косово">
+        <div class="card-content">
+          <h3>Косово</h3>
+          <p>Зона с богатой историей и природной красотой, важная часть культуры страны.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <footer class="footer">
-        © 2025 Serbia Travel Guide
-    </footer>
+  <!-- Культура -->
+  <section id="culture">
+    <h2>Культура</h2>
+    <p>Культурное наследие Сербии включает музыку, танцы, традиционные ремёсла и кухню. В стране проходят многочисленные фестивали и праздники, которые отражают богатство национальной культуры.</p>
+    <div class="cards">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Традиционный танец">
+        <div class="card-content">
+          <h3>Традиционные танцы</h3>
+          <p>Яркие и энергичные, они передают дух сербской культуры и гостеприимства.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Музыкальный фестиваль">
+        <div class="card-content">
+          <h3>Музыкальные фестивали</h3>
+          <p>Множество фестивалей с народной и современной музыкой по всей стране.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Природа -->
+  <section id="nature">
+    <h2>Природа и пейзажи</h2>
+    <p>Сербия славится своими национальными парками, горами и реками. От живописных долин до горных вершин — каждый найдёт что-то по душе.</p>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Горы Сербии" />
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Река" />
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Лес" />
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Горный пейзаж" />
+    </div>
+  </section>
+
+  <!-- Галерея -->
+  <section id="gallery">
+    <h2>Фотогалерея</h2>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Белград">
+      <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ниш">
+      <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Пейзаж">
+      <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Культура">
+      <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Природа" />
+    </div>
+  </section>
+
+  <!-- Новости -->
+  <section id="news">
+    <h2>Последние новости</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Новость 1" />
+        <div class="card-content">
+          <h3>Сербия открывает границы</h3>
+          <p>Страна вновь открыта для туристов с соблюдением всех мер безопасности.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1549887534-7c6808458d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Новость 2" />
+        <div class="card-content">
+          <h3>Культурные события</h3>
+          <p>В Белграде прошёл международный фестиваль искусств и музыки.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section id="contacts">
+    <h2>Контакты</h2>
+    <p>Свяжитесь с нами для получения дополнительной информации о путешествиях, турах и мероприятиях в Сербии.</p>
+    <ul>
+      <li>Телефон: +381 11 1234567</li>
+      <li>Email: info@serbia-travel.com</li>
+      <li>Адрес: улица Пушкина, д. 10, Белград</li>
+    </ul>
+  </section>
+</main>
+
+<!-- Кнопка возврата вверх -->
+<button id="scrollToTop" title="Вернуться вверх">&#8679;</button>
+
+<!-- Скрипты -->
+<script>
+  // Мобильное меню
+  const menuToggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('nav');
+
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('show');
+  });
+
+  // Кнопка возврата вверх
+  const scrollBtn = document.getElementById('scrollToTop');
+
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      scrollBtn.style.display = 'flex';
+    } else {
+      scrollBtn.style.display = 'none';
+    }
+  });
+
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Функция для перехода к разделам
+  function scrollToSection(id) {
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
 </body>
 </html>
