@@ -7,12 +7,939 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* БАЗОВЫЕ СТИЛИ - ТЕМНАЯ ТЕМА */
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-dim: rgba(255, 255, 255, 0.4);
+            --accent-red: #c6363c;
+            --accent-green: #00d4aa;
+            --accent-gold: #ffd700;
+            --accent-blue: #4d9fff;
+            --accent-serbian: #f8e71c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* СЕТЧАТЫЙ ФОН */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .grid-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(198, 54, 60, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 50%, rgba(248, 231, 28, 0.05) 0%, transparent 40%),
+                        radial-gradient(ellipse at 20% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 40%);
+        }
+
+        /* СНЕГ НА ФОНЕ */
+        .snow-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .snowflake-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.5rem;
+            animation: snowfall-bg linear infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes snowfall-bg {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-serbian);
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+            background: var(--bg-glass);
+        }
+
+        nav a.nav-active {
+            color: var(--text-primary);
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 10px;
+        }
+
+        .nav-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 140px 20px 100px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-serbian);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-serbian), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* COUNTDOWN */
+        .countdown-wrapper {
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            position: relative;
+            width: 180px;
+            padding: 32px 24px;
+            text-align: center;
+            background: var(--bg-glass);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(198, 54, 60, 0.4);
+        }
+
+        .countdown-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            display: block;
+            background: linear-gradient(180deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            margin-top: 12px;
+        }
+
+        .countdown-colon {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            align-self: center;
+            margin-bottom: 20px;
+            animation: blink 1s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .target-date {
+            margin-top: 40px;
+            padding: 16px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .target-date svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--accent-serbian);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: fadeInUp 0.8s ease 1s forwards, bounce 2s ease-in-out infinite 1.5s;
+            opacity: 0;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        .scroll-indicator .line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--accent-red), var(--accent-serbian), transparent);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* SECTIONS */
+        section {
+            position: relative;
+            z-index: 2;
+            padding: 120px 60px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-serbian);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 20px auto 0;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background: linear-gradient(180deg, transparent 0%, rgba(198, 54, 60, 0.02) 50%, transparent 100%);
+        }
+
+        .about-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 16px;
+            height: 450px;
+        }
+
+        .about-img-item {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-glass);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .about-img-item:hover {
+            border-color: var(--border-glow);
+            transform: scale(1.02);
+        }
+
+        .about-img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .about-img-item.img-1 {
+            grid-row: span 2;
+        }
+
+        .about-img-item.img-2,
+        .about-img-item.img-3 {
+            grid-column: 2;
+        }
+
+        .about-content h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .about-content h3 span {
+            color: var(--accent-red);
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* EVENTS SECTION */
+        .events {
+            background: var(--bg-dark);
+        }
+
+        .events-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .event-card {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--border-glow);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.1);
+        }
+
+        .event-date-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            z-index: 2;
+        }
+
+        .event-date-badge .day {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .event-date-badge .month {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-red);
+        }
+
+        .event-content {
+            padding: 28px;
+        }
+
+        .event-content h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .event-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .event-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .event-meta svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--accent-gold);
+        }
+
+        /* TRADITIONS SECTION */
+        .traditions {
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 212, 170, 0.02) 50%, transparent 100%);
+        }
+
+        .traditions-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .tradition-card {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 24px;
+            padding: 24px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .tradition-card:hover {
+            border-color: var(--border-glow);
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .tradition-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .tradition-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tradition-content {
+            padding-right: 20px;
+        }
+
+        .tradition-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .tradition-content h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .tradition-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        /* FOOTER */
+        footer {
+            position: relative;
+            z-index: 2;
+            padding: 80px 60px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        .footer-brand .logo {
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-glass);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            section {
+                padding: 100px 40px;
+            }
+            
+            .about-grid {
+                gap: 50px;
+            }
+            
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .traditions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 920px) {
+            header {
+                padding: 15px 24px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(40px);
+                -webkit-backdrop-filter: blur(40px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 40px;
+                gap: 8px;
+                transition: right 0.4s ease;
+                border-left: 1px solid var(--border-glass);
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav a {
+                width: 100%;
+                font-size: 1.1rem;
+            }
+            
+            .nav-toggle {
+                display: flex;
+            }
+            
+            section {
+                padding: 80px 24px;
+            }
+            
+            .hero {
+                padding: 120px 20px 80px;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                width: 120px;
+                padding: 24px 16px;
+            }
+            
+            .countdown-number {
+                font-size: 2.5rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.65rem;
+                letter-spacing: 2px;
+            }
+            
+            .countdown-colon {
+                display: none;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .about-image {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .about-image-stack {
+                height: 350px;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tradition-card {
+                grid-template-columns: 100px 1fr;
+                gap: 16px;
+                padding: 16px;
+            }
+            
+            .tradition-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            footer {
+                padding: 60px 24px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .countdown-item {
+                width: 90px;
+                padding: 20px 12px;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+            
+            .tradition-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .tradition-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Background -->
     <div class="grid-bg"></div>
-    <div class="particles" id="particles"></div>
+    <div class="snow-background" id="snowBackground"></div>
 
     <!-- Header -->
     <header id="header">
@@ -25,7 +952,6 @@
             <a href="#about">О Сербии</a>
             <a href="#events">События</a>
             <a href="#traditions">Традиции</a>
-            <a href="#ny" class="nav-cta">Новый Год</a>
         </nav>
         <div class="nav-toggle" id="navToggle">
             <span></span>
@@ -88,7 +1014,7 @@
         </div>
 
         <!-- Новогодний баннер в сербском стиле -->
-        <div class="serbian-newyear" style="margin-top: 40px; padding: 15px 30px; background: linear-gradient(90deg, #c6363c, #f8e71c); border-radius: 50px; display: inline-block; animation: pulse-banner 2s infinite;">
+        <div class="serbian-newyear" style="margin-top: 40px; padding: 15px 30px; background: linear-gradient(90deg, #c6363c, #f8e71c); border-radius: 50px; display: inline-block; animation: pulse 2s infinite;">
             <span style="font-weight: 600; color: white;">✨ Srećna Nova Godina 2026! ✨</span>
         </div>
 
@@ -109,13 +1035,13 @@
             <div class="about-image">
                 <div class="about-image-stack">
                     <div class="about-img-item img-1">
-                        <img src="images/serbia1.jpg" alt="Белград зимой" onerror="this.src='https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop'">
+                        <img src="images/serbia-winter1.jpg" alt="Белград зимой">
                     </div>
                     <div class="about-img-item img-2">
-                        <img src="images/serbia2.jpg" alt="Горы Сербии" onerror="this.src='https://images.unsplash.com/photo-1593693399504-d534b6d6ee7c?w=800&auto=format&fit=crop'">
+                        <img src="images/serbia-winter2.jpg" alt="Горы Сербии">
                     </div>
                     <div class="about-img-item img-3">
-                        <img src="images/serbia3.jpg" alt="Новогодний рынок" onerror="this.src='https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&auto=format&fit=crop'">
+                        <img src="images/serbia-winter3.jpg" alt="Новогодний рынок">
                     </div>
                 </div>
             </div>
@@ -167,11 +1093,12 @@
                     <p id="wish-counter" style="margin-top: 15px; font-size: 0.9rem; color: var(--accent-green);"></p>
                 </div>
                 
-                <div class="about-templatemo">
-                    <p>Узнайте, как сербы сочетают православные традиции, балканское гостеприимство и современные новогодние празднования!</p>
-                    <a href="#traditions" class="btn-templatemo">
+                <div class="about-templatemo" style="margin-top: 40px; padding: 28px; background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: 20px; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));"></div>
+                    <p style="font-size: 0.95rem; margin-bottom: 20px; color: var(--text-secondary);">Узнайте, как сербы сочетают православные традиции, балканское гостеприимство и современные новогодние празднования!</p>
+                    <a href="#traditions" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: linear-gradient(135deg, var(--accent-green), #00b894); border-radius: 12px; color: var(--bg-dark); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
                         <span>Изучить традиции</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; stroke: var(--bg-dark);">
                             <line x1="7" y1="17" x2="17" y2="7"></line>
                             <polyline points="7 7 17 7 17 17"></polyline>
                         </svg>
@@ -191,7 +1118,7 @@
         <div class="events-grid">
             <div class="event-card">
                 <div class="event-image">
-                    <img src="images/event1.jpg" alt="Новогодний Белград" onerror="this.src='https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop'">
+                    <img src="images/event-serbia1.jpg" alt="Новогодний Белград">
                     <div class="event-date-badge">
                         <div class="day">15-31</div>
                         <div class="month">Дек</div>
@@ -223,7 +1150,7 @@
             </div>
             <div class="event-card">
                 <div class="event-image">
-                    <img src="images/event2.jpg" alt="Горнолыжные курорты" onerror="this.src='https://images.unsplash.com/photo-1543334050-2d9c3ec7caa5?w=800&auto=format&fit=crop'">
+                    <img src="images/event-serbia2.jpg" alt="Горнолыжные курорты">
                     <div class="event-date-badge">
                         <div class="day">Дек-Янв</div>
                         <div class="month">Сезон</div>
@@ -255,7 +1182,7 @@
             </div>
             <div class="event-card">
                 <div class="event-image">
-                    <img src="images/event3.jpg" alt="Новогодний ужин" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop'">
+                    <img src="images/event-serbia3.jpg" alt="Новогодний ужин">
                     <div class="event-date-badge">
                         <div class="day">31</div>
                         <div class="month">Дек</div>
@@ -314,7 +1241,7 @@
                 </div>
             </div>
             <div style="text-align: center; margin-top: 25px;">
-                <button onclick="showMoreDates()" style="padding: 10px 25px; background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); border-radius: 10px; cursor: pointer;">
+                <button onclick="showMoreDates()" style="padding: 10px 25px; background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); border-radius: 10px; cursor: pointer; transition: all 0.3s ease;">
                     Показать все праздники
                 </button>
             </div>
@@ -323,7 +1250,7 @@
         <div class="traditions-grid">
             <div class="tradition-card">
                 <div class="tradition-image">
-                    <img src="images/tradition1.jpg" alt="Badnjak" onerror="this.src='https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&auto=format&fit=crop'">
+                    <img src="images/ny-serbia1.jpg" alt="Badnjak">
                 </div>
                 <div class="tradition-content">
                     <div class="tradition-number">01</div>
@@ -336,7 +1263,7 @@
             </div>
             <div class="tradition-card">
                 <div class="tradition-image">
-                    <img src="images/tradition2.jpg" alt="Česnica" onerror="this.src='https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&auto=format&fit=crop'">
+                    <img src="images/ny-serbia2.jpg" alt="Česnica">
                 </div>
                 <div class="tradition-content">
                     <div class="tradition-number">02</div>
@@ -349,12 +1276,12 @@
             </div>
             <div class="tradition-card">
                 <div class="tradition-image">
-                    <img src="images/tradition3.jpg" alt="Новогодний стол" onerror="this.src='https://images.unsplash.com/photo-1576866209830-589e1bfbaa4d?w=800&auto=format&fit=crop'">
+                    <img src="images/ny-serbia3.jpg" alt="Сербский праздничный стол">
                 </div>
                 <div class="tradition-content">
                     <div class="tradition-number">03</div>
-                    <h3>Новогоднее застолье</h3>
-                    <p>Печеный поросенок, сарма (голубцы), пршут, сыры и домашняя ракия — обязательные элементы праздника.</p>
+                    <h3>Праздничный стол</h3>
+                    <p>Печеный поросенок, сарма, пршут, сыры и домашняя ракия — обязательные элементы праздника.</p>
                     <div class="newyear-badge" style="margin-top: 10px; padding: 5px 10px; background: rgba(255, 215, 0, 0.1); border-radius: 8px; display: inline-block;">
                         <span style="font-size: 0.8rem; color: var(--accent-gold);">🍽️ Гастрономия</span>
                     </div>
@@ -362,114 +1289,16 @@
             </div>
             <div class="tradition-card">
                 <div class="tradition-image">
-                    <img src="images/tradition4.jpg" alt="Празднование" onerror="this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format&fit=crop'">
+                    <img src="images/ny-serbia4.jpg" alt="Новогодние гуляния">
                 </div>
                 <div class="tradition-content">
                     <div class="tradition-number">04</div>
-                    <h3>Улицы городов</h3>
+                    <h3>Уличные гуляния</h3>
                     <p>Массовые гуляния, концерты на площадях и фейерверки в Белграде, Нови-Саде и других городах.</p>
                     <div class="newyear-badge" style="margin-top: 10px; padding: 5px 10px; background: rgba(77, 159, 255, 0.1); border-radius: 8px; display: inline-block;">
                         <span style="font-size: 0.8rem; color: var(--accent-blue);">🎆 Публичные празднования</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- New Year Traditions Section -->
-    <section class="traditions" id="ny" style="background: linear-gradient(180deg, transparent 0%, rgba(198, 54, 60, 0.02) 50%, transparent 100%);">
-        <div class="section-header">
-            <span class="section-tag">Новый Год</span>
-            <h2 class="section-title">Сербский Новый Год</h2>
-            <p class="section-subtitle">Уникальные традиции празднования</p>
-        </div>
-        
-        <div class="traditions-grid">
-            <div class="tradition-card">
-                <div class="tradition-image">
-                    <img src="images/ny1.jpg" alt="Сербская кухня" onerror="this.src='https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop'">
-                </div>
-                <div class="tradition-content">
-                    <div class="tradition-number">01</div>
-                    <h3>Сербская кухня</h3>
-                    <p>Плескавица, чевапы, каймак, пршут и ракия — гастрономическое наслаждение, отражающее смешение культур.</p>
-                    <a href="#" class="tradition-btn">
-                        <span>Узнать больше</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="tradition-card">
-                <div class="tradition-image">
-                    <img src="images/ny2.jpg" alt="Народные костюмы" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop'">
-                </div>
-                <div class="tradition-content">
-                    <div class="tradition-number">02</div>
-                    <h3>Народные костюмы</h3>
-                    <p>Разнообразие региональных народных костюмов, каждый со своей уникальной вышивкой и символикой.</p>
-                    <a href="#" class="tradition-btn">
-                        <span>Узнать больше</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="tradition-card">
-                <div class="tradition-image">
-                    <img src="images/ny3.jpg" alt="Коло танец" onerror="this.src='https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&auto=format&fit=crop'">
-                </div>
-                <div class="tradition-content">
-                    <div class="tradition-number">03</div>
-                    <h3>Народные танцы</h3>
-                    <p>Коло — традиционный круговой танец, объединяющий людей во время праздников и семейных торжеств.</p>
-                    <a href="#" class="tradition-btn">
-                        <span>Узнать больше</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="tradition-card">
-                <div class="tradition-image">
-                    <img src="images/ny4.jpg" alt="Православные праздники" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&auto=format&fit=crop'">
-                </div>
-                <div class="tradition-content">
-                    <div class="tradition-number">04</div>
-                    <h3>Православные праздники</h3>
-                    <p>Рождество, Пасха, Видовдан и другие религиозные праздники, глубоко укорененные в сербской культуре.</p>
-                    <a href="#" class="tradition-btn">
-                        <span>Узнать больше</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter" id="newsletter">
-        <div class="newsletter-container">
-            <div class="section-header" style="margin-bottom: 40px;">
-                <span class="section-tag">Оставайтесь на связи</span>
-                <h2 class="section-title">Новогодние новости Сербии</h2>
-            </div>
-            <p>Подпишитесь, чтобы получать информацию о новогодних мероприятиях, традициях и культурных событиях в Сербии.</p>
-            <form class="newsletter-form" id="newsletterForm">
-                <input type="email" placeholder="Введите ваш email" required>
-                <button type="submit">Подписаться</button>
-            </form>
-            <div style="margin-top: 20px; font-size: 0.9rem; color: var(--text-dim);">
-                <span>🎁 Первым 100 подписчикам — гид по новогодней Сербии!</span>
             </div>
         </div>
     </section>
@@ -484,47 +1313,10 @@
                 </a>
                 <p>Личный проект Generallisto<br>
                 Создано с любовью к Сербии и её новогодним традициям. Образовательный проект о культуре и праздниках Сербии.</p>
-                <div class="footer-social">
-                    <a href="#" title="ВКонтакте">VK</a>
-                    <a href="#" title="Telegram">TG</a>
-                    <a href="#" title="YouTube">▶</a>
-                    <a href="#" title="Instagram">📸</a>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h4>Навигация</h4>
-                <ul>
-                    <li><a href="#hero">Главная</a></li>
-                    <li><a href="#about">О Сербии</a></li>
-                    <li><a href="#events">События</a></li>
-                    <li><a href="#traditions">Традиции</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Ресурсы</h4>
-                <ul>
-                    <li><a href="#">Традиции</a></li>
-                    <li><a href="#">Гастрономия</a></li>
-                    <li><a href="#">Туризм</a></li>
-                    <li><a href="#">Культура</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Контакты</h4>
-                <ul>
-                    <li><a href="mailto:serbia2026@generallisto.com">serbia2026@generallisto.com</a></li>
-                    <li><a href="#">О проекте</a></li>
-                    <li><a href="#">Сотрудничество</a></li>
-                </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <p>Образовательный проект © 2025 | Все права защищены</p>
-            <div class="footer-legal">
-                <a href="#">Политика конфиденциальности</a>
-                <a href="#">Условия использования</a>
-                <a href="#">Личный проект Generallisto</a>
-            </div>
             <p style="width: 100%; margin-top: 20px; font-size: 0.8rem; color: var(--text-dim); text-align: center;">
                 <span style="color: var(--accent-gold);">✨ Srećna Nova Godina 2026! ✨</span><br>
                 Материалы сайта могут быть использованы в образовательных целях с указанием источника<br>
@@ -533,6 +1325,171 @@
         </div>
     </footer>
 
-    <script src="Script.js"></script>
+    <script>
+        // Создаем снег на фоне
+        function createSnowBackground() {
+            const container = document.getElementById('snowBackground');
+            
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake-bg';
+                snowflake.textContent = '❄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (10 + Math.random() * 20) + 's';
+                snowflake.style.animationDelay = Math.random() * 15 + 's';
+                snowflake.style.fontSize = (1 + Math.random() * 2) + 'rem';
+                snowflake.style.opacity = 0.1 + Math.random() * 0.3;
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Таймер до Нового Года
+        function updateCountdown() {
+            const newYear = new Date('December 31, 2025 23:59:59').getTime();
+            const now = new Date().getTime();
+            const distance = newYear - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Сербское приветствие
+        function showSerbianGreeting() {
+            const greetings = [
+                "✨ Srećna Nova Godina 2026! ✨",
+                "🎉 С Новым 2026 годом! 🎉",
+                "🌟 Пусть новый год принесет счастье и благополучие! 🌟"
+            ];
+            
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+            alert(randomGreeting);
+        }
+
+        // Показать все даты
+        function showMoreDates() {
+            const dates = `📅 Новогодние праздники в Сербии:
+
+• 24 декабря — Баджни день (Badnjak)
+• 25 декабря — Рождество (Božić)
+• 31 декабря — Нова Година
+• 1 января — Новогодний день
+• 7 января — Рождество по юлианскому календарю
+• 13 января — Сербский Новый год
+• 14 января — Новогодний день по старому стилю
+
+🎊 Сербы празднуют Новый год дважды! 🎊`;
+            
+            alert(dates);
+        }
+
+        // Обновление счетчика желаний
+        function updateWishes() {
+            const checkboxes = document.querySelectorAll('.wish-list input[type="checkbox"]');
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            const counter = document.getElementById('wish-counter');
+            
+            if (counter) {
+                const percentage = Math.round((completed / total) * 100);
+                counter.textContent = `✅ Выполнено: ${completed}/${total} (${percentage}%)`;
+                
+                if (completed === total) {
+                    counter.innerHTML = '🎉 Все желания выполнены! Готовы к Новому Году! 🎉';
+                    counter.style.color = '#f8e71c';
+                    counter.style.fontWeight = 'bold';
+                }
+            }
+        }
+
+        // Header scroll effect
+        function handleScroll() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        // Mobile navigation
+        function setupNavigation() {
+            const toggle = document.getElementById('navToggle');
+            const nav = document.getElementById('nav');
+            const links = nav.querySelectorAll('a');
+
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    toggle.classList.remove('active');
+                    nav.classList.remove('active');
+                });
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createSnowBackground();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            setupNavigation();
+            updateWishes();
+            
+            window.addEventListener('scroll', handleScroll);
+            
+            // Анимация для кнопки "Показать все праздники"
+            const showDatesBtn = document.querySelector('.ny-calendar button');
+            if (showDatesBtn) {
+                showDatesBtn.addEventListener('mouseenter', () => {
+                    showDatesBtn.style.background = 'rgba(248, 231, 28, 0.1)';
+                    showDatesBtn.style.transform = 'translateY(-2px)';
+                });
+                showDatesBtn.addEventListener('mouseleave', () => {
+                    showDatesBtn.style.background = 'transparent';
+                    showDatesBtn.style.transform = 'translateY(0)';
+                });
+            }
+            
+            // Автоматическое приветствие через 2 секунды
+            setTimeout(() => {
+                showSerbianGreeting();
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
