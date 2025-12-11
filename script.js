@@ -1,95 +1,101 @@
 /* JavaScript Document
 
-TemplateMo 605 Xmas Countdown - Модифицирован для Сербии
-
-https://templatemo.com/tm-605-xmas-countdown
+Адаптировано для сайта "Сербия встречает Новый Год"
 
 */
 
-// Create Particles and Snowflakes with Serbian colors
+// Create Particles and Snowflakes with Serbian theme
 function createParticles() {
    const container = document.getElementById('particles');
-   
-   // Создаем новогодние украшения (гирлянды, звезды и т.д.)
-   createChristmasDecorations();
 
-   // Floating particles with Serbian colors
-   for (let i = 0; i < 50; i++) {
+   // Новогодние частицы с сербскими цветами
+   for (let i = 0; i < 40; i++) { // Увеличили количество частиц
       const particle = document.createElement('div');
       particle.className = 'particle';
       particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDuration = (15 + Math.random() * 25) + 's';
-      particle.style.animationDelay = Math.random() * 20 + 's';
-      particle.style.width = (3 + Math.random() * 5) + 'px';
-      particle.style.height = particle.style.width;
+      particle.style.animationDuration = (10 + Math.random() * 20) + 's';
+      particle.style.animationDelay = Math.random() * 10 + 's';
+      particle.style.opacity = 0.2 + Math.random() * 0.5;
       
-      // Сербские цвета (красный, синий, белый, золотой)
-      const colors = ['#c6363c', '#0c4076', '#ffffff', '#ffd700'];
-      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      // Разные цвета для разнообразия
+      if (i % 4 === 0) {
+         particle.style.background = '#c6363c'; // Сербский красный
+      } else if (i % 4 === 1) {
+         particle.style.background = '#f8e71c'; // Сербский желтый
+      } else if (i % 4 === 2) {
+         particle.style.background = '#ffd700'; // Золотой
+      }
       
       container.appendChild(particle);
    }
 
-   // Snowflakes - новогодние снежинки
-   const snowflakeSymbols = ['❄', '❅', '❆', '★', '☆', '✨', '🎄', '🎁'];
-   for (let i = 0; i < 35; i++) {
+   // Снежинки - новогодняя атмосфера
+   for (let i = 0; i < 25; i++) {
       const snowflake = document.createElement('div');
       snowflake.className = 'snowflake';
-      snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+      snowflake.textContent = '❄';
       snowflake.style.left = Math.random() * 100 + '%';
-      snowflake.style.animationDuration = (15 + Math.random() * 25) + 's';
+      snowflake.style.animationDuration = (10 + Math.random() * 20) + 's';
       snowflake.style.animationDelay = Math.random() * 15 + 's';
-      snowflake.style.fontSize = (0.8 + Math.random() * 1.5) + 'rem';
-      snowflake.style.opacity = 0.3 + Math.random() * 0.7;
-      
-      // Сербские цвета для снежинок
-      const flakeColors = ['rgba(255, 255, 255, 0.8)', 'rgba(198, 54, 60, 0.7)', 'rgba(12, 64, 118, 0.7)', 'rgba(255, 215, 0, 0.7)'];
-      snowflake.style.color = flakeColors[Math.floor(Math.random() * flakeColors.length)];
-      
+      snowflake.style.fontSize = (0.6 + Math.random() * 1.2) + 'rem';
+      snowflake.style.opacity = 0.1 + Math.random() * 0.5;
       container.appendChild(snowflake);
    }
 }
 
-// Создание новогодних украшений
-function createChristmasDecorations() {
-   const container = document.getElementById('particles');
-   const decorations = ['🎄', '🎅', '🎁', '✨', '⭐', '🔔', '🕯️', '🇷🇸'];
-   
-   for (let i = 0; i < 15; i++) {
-      const decoration = document.createElement('div');
-      decoration.className = 'xmas-decoration';
-      decoration.textContent = decorations[Math.floor(Math.random() * decorations.length)];
-      decoration.style.left = Math.random() * 100 + '%';
-      decoration.style.animationDuration = (20 + Math.random() * 40) + 's';
-      decoration.style.animationDelay = Math.random() * 25 + 's';
-      decoration.style.fontSize = (1.5 + Math.random() * 2) + 'rem';
-      decoration.style.opacity = 0.15 + Math.random() * 0.3;
-      
-      // Добавляем индивидуальные анимации
-      if (i % 3 === 0) {
-         decoration.style.animationName = 'float-xmas-decoration, rotate-slow';
-         decoration.style.animationDuration = (20 + Math.random() * 40) + 's, ' + (30 + Math.random() * 50) + 's';
-      }
-      
-      container.appendChild(decoration);
-   }
-}
-
-// Countdown Timer - Target: January 1, 2025 at 00:00:00 (Новый Год)
+// Countdown Timer - Target: December 31, 2025 at 23:59
 function updateCountdown() {
-   const newYear = new Date('January 1, 2025 00:00:00').getTime();
+   const newYear = new Date('December 31, 2025 23:59:59').getTime();
    const now = new Date().getTime();
    const distance = newYear - now;
 
    if (distance < 0) {
-      // Новый год наступил
+      // Если Новый год уже наступил
       document.getElementById('days').textContent = '00';
       document.getElementById('hours').textContent = '00';
       document.getElementById('minutes').textContent = '00';
       document.getElementById('seconds').textContent = '00';
       
-      // Показать праздничное сообщение
-      showNewYearMessage();
+      // Показываем поздравление
+      if (!document.getElementById('newYearMessage')) {
+         const message = document.createElement('div');
+         message.id = 'newYearMessage';
+         message.innerHTML = `
+            <div style="
+               position: fixed;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
+               background: rgba(10, 10, 15, 0.95);
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+               align-items: center;
+               z-index: 9999;
+               text-align: center;
+               padding: 20px;
+            ">
+               <h1 style="color: #f8e71c; font-size: 4rem; margin-bottom: 20px;">🎉 Srećna Nova Godina! 🎉</h1>
+               <p style="color: white; font-size: 1.5rem; max-width: 600px; margin-bottom: 30px;">
+                  Счастливого Нового 2026 года! Пусть он принесет радость, здоровье и успех!
+               </p>
+               <button onclick="this.parentElement.remove()" style="
+                  padding: 15px 30px;
+                  background: linear-gradient(135deg, #c6363c, #f8e71c);
+                  border: none;
+                  border-radius: 10px;
+                  color: #0a0a0f;
+                  font-size: 1.1rem;
+                  font-weight: bold;
+                  cursor: pointer;
+               ">
+                  Продолжить праздновать!
+               </button>
+            </div>
+         `;
+         document.body.appendChild(message);
+      }
       return;
    }
 
@@ -98,253 +104,100 @@ function updateCountdown() {
    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-   // Плавная анимация изменения чисел
-   animateNumberChange('days', days.toString().padStart(2, '0'));
-   animateNumberChange('hours', hours.toString().padStart(2, '0'));
-   animateNumberChange('minutes', minutes.toString().padStart(2, '0'));
-   animateNumberChange('seconds', seconds.toString().padStart(2, '0'));
-   
-   // Обновляем прогресс-бар
-   updateProgressBar(distance);
-   
-   // Добавляем праздничные эффекты когда мало времени
-   if (days <= 7) {
-      addHolidayEffects(days);
-   }
+   document.getElementById('days').textContent = days.toString().padStart(2, '0');
+   document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+   document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+   document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+   // Специальные сообщения при приближении Нового года
+   showSpecialMessage(days, hours, minutes);
 }
 
-// Плавная анимация изменения чисел
-function animateNumberChange(elementId, newValue) {
-   const element = document.getElementById(elementId);
-   const oldValue = element.textContent;
-   
-   if (oldValue !== newValue) {
-      element.style.transform = 'scale(1.1)';
-      element.style.color = '#ffd700'; // Золотой цвет при изменении
-      
-      setTimeout(() => {
-         element.textContent = newValue;
-         element.style.transform = 'scale(1)';
-         element.style.color = '';
-      }, 150);
-   }
-}
+// Специальные новогодние сообщения
+function showSpecialMessage(days, hours, minutes) {
+   const messages = [
+      {condition: days === 0 && hours < 1, text: "✨ Меньше часа до Нового Года! ✨", color: "#f8e71c"},
+      {condition: days === 0 && hours < 3, text: "🎆 Скоро бой курантов! 🎆", color: "#ff6b6b"},
+      {condition: days === 0 && hours < 6, text: "🎄 Вечер настал, праздник близко! 🎄", color: "#00d4aa"},
+      {condition: days === 0 && hours < 12, text: "🌟 Последний день года! 🌟", color: "#4d9fff"},
+      {condition: days === 1, text: "⏳ Завтра Новый Год! ⏳", color: "#f8e71c"},
+      {condition: days <= 7, text: "🎁 Неделя до Нового Года! 🎁", color: "#c6363c"}
+   ];
 
-// Обновление прогресс-бара до Нового Года
-function updateProgressBar(distance) {
-   const totalDays = 365; // Дней в году
-   const daysPassed = totalDays - Math.floor(distance / (1000 * 60 * 60 * 24));
-   const progress = (daysPassed / totalDays) * 100;
-   
-   const progressBar = document.getElementById('progress-bar');
-   if (progressBar) {
-      progressBar.style.width = progress + '%';
-      
-      // Цвет прогресс-бара меняется в зависимости от времени года
-      if (progress < 25) {
-         progressBar.style.background = 'linear-gradient(90deg, var(--serbian-blue), #4a90e2)';
-      } else if (progress < 50) {
-         progressBar.style.background = 'linear-gradient(90deg, #4a90e2, #7cb342)';
-      } else if (progress < 75) {
-         progressBar.style.background = 'linear-gradient(90deg, #7cb342, #f57c00)';
-      } else {
-         progressBar.style.background = 'linear-gradient(90deg, var(--serbian-red), #ffd700)';
-      }
-   }
-}
+   const specialMsg = document.getElementById('specialMessage');
+   const message = messages.find(m => m.condition);
 
-// Добавление праздничных эффектов когда мало дней до Нового Года
-function addHolidayEffects(daysLeft) {
-   const heroSection = document.querySelector('.hero');
-   const countdownItems = document.querySelectorAll('.countdown-item');
-   
-   // Мерцание элементов
-   if (daysLeft <= 3) {
-      countdownItems.forEach((item, index) => {
-         item.style.animation = `pulse-glow 1.5s ease-in-out ${index * 0.2}s infinite`;
-      });
+   if (message && (!specialMsg || specialMsg.textContent !== message.text)) {
+      if (specialMsg) specialMsg.remove();
       
-      // Добавляем конфетти при 1 дне
-      if (daysLeft === 1) {
-         createConfetti();
-      }
-   }
-   
-   // Интенсивность эффектов увеличивается с уменьшением дней
-   const intensity = 1 - (daysLeft / 7);
-   document.documentElement.style.setProperty('--glow-intensity', intensity);
-}
-
-// Создание конфетти
-function createConfetti() {
-   const container = document.getElementById('particles');
-   const confettiColors = ['#c6363c', '#0c4076', '#ffffff', '#ffd700', '#ff6b6b', '#4d9fff'];
-   const confettiShapes = ['❄', '✨', '⭐', '🎉', '🎊', '💫'];
-   
-   for (let i = 0; i < 100; i++) {
-      const confetti = document.createElement('div');
-      confetti.className = 'confetti';
-      confetti.textContent = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
-      confetti.style.left = Math.random() * 100 + '%';
-      confetti.style.top = '-20px';
-      confetti.style.position = 'absolute';
-      confetti.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
-      confetti.style.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      confetti.style.opacity = 0.8 + Math.random() * 0.2;
-      confetti.style.zIndex = '9999';
-      confetti.style.pointerEvents = 'none';
-      confetti.style.userSelect = 'none';
-      
-      // Анимация падения конфетти
-      const animation = confetti.animate([
-         { 
-            transform: `translateY(0) rotate(0deg)`,
-            opacity: 1
-         },
-         { 
-            transform: `translateY(${window.innerHeight + 100}px) rotate(${360 + Math.random() * 360}deg)`,
-            opacity: 0
-         }
-      ], {
-         duration: 3000 + Math.random() * 2000,
-         easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)',
-         delay: Math.random() * 1000
-      });
-      
-      animation.onfinish = () => confetti.remove();
-      container.appendChild(confetti);
-   }
-}
-
-// Показать сообщение о наступлении Нового Года
-function showNewYearMessage() {
-   const hero = document.querySelector('.hero');
-   const countdownWrapper = document.querySelector('.countdown-wrapper');
-   
-   if (!hero.querySelector('.new-year-message')) {
-      const message = document.createElement('div');
-      message.className = 'new-year-message';
-      message.innerHTML = `
-         <div class="message-content">
-            <h2 style="font-size: 4rem; color: #ffd700; margin-bottom: 20px;">🎉 С НОВЫМ 2025 ГОДОМ! 🎉</h2>
-            <p style="font-size: 1.5rem; color: white; margin-bottom: 30px;">Živela Srbija! Слава Сербии!</p>
-            <div style="font-size: 5rem; animation: pulse 2s infinite;">
-               🇷🇸🎄🎅🎁✨
-            </div>
-         </div>
-      `;
-      
-      message.style.cssText = `
-         position: absolute;
-         top: 50%;
+      const msgElement = document.createElement('div');
+      msgElement.id = 'specialMessage';
+      msgElement.textContent = message.text;
+      msgElement.style.cssText = `
+         position: fixed;
+         top: 20px;
          left: 50%;
-         transform: translate(-50%, -50%);
-         background: rgba(10, 10, 15, 0.95);
-         padding: 40px;
-         border-radius: 30px;
-         border: 2px solid #ffd700;
-         box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
-         text-align: center;
-         z-index: 100;
-         animation: fadeIn 1s ease-out;
+         transform: translateX(-50%);
+         background: ${message.color}20;
+         border: 1px solid ${message.color};
+         color: ${message.color};
+         padding: 12px 24px;
+         border-radius: 50px;
+         font-weight: 600;
+         z-index: 9998;
+         backdrop-filter: blur(10px);
+         animation: slideDown 0.5s ease-out;
       `;
       
-      hero.appendChild(message);
+      document.body.appendChild(msgElement);
       
-      // Запускаем масштабный конфетти
-      setInterval(() => createConfetti(), 500);
+      // Удаляем через 5 секунд
+      setTimeout(() => {
+         if (msgElement.parentElement) {
+            msgElement.style.opacity = '0';
+            msgElement.style.transform = 'translateX(-50%) translateY(-20px)';
+            setTimeout(() => msgElement.remove(), 500);
+         }
+      }, 5000);
    }
 }
 
-// Header scroll effect with parallax
+// Header scroll effect
 function handleScroll() {
    const header = document.getElementById('header');
-   const scrollY = window.scrollY;
-   
-   if (scrollY > 50) {
+   if (window.scrollY > 50) {
       header.classList.add('scrolled');
    } else {
       header.classList.remove('scrolled');
    }
-   
-   // Параллакс эффект для фона
-   const gridBg = document.querySelector('.grid-bg');
-   if (gridBg) {
-      gridBg.style.transform = `translateY(${scrollY * 0.2}px)`;
-   }
 }
 
-// Smooth Scroll Spy with highlighting
+// Scroll Spy - Update active nav item based on scroll position
 function scrollSpy() {
    const sections = document.querySelectorAll('section[id]');
    const navLinks = document.querySelectorAll('nav a:not(.nav-cta)');
-   const headerHeight = document.getElementById('header').offsetHeight;
 
    let currentSection = '';
-   const scrollPosition = window.scrollY + headerHeight + 100;
+   const scrollPosition = window.scrollY + 150;
 
    sections.forEach(section => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
 
       if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-         currentSection = sectionId;
-         
-         // Добавляем эффект подсветки секции
-         section.style.boxShadow = '0 0 40px rgba(255, 215, 0, 0.1)';
-         setTimeout(() => {
-            section.style.boxShadow = '';
-         }, 1000);
+         currentSection = section.getAttribute('id');
       }
    });
 
    navLinks.forEach(link => {
       link.classList.remove('nav-active');
-      const href = link.getAttribute('href');
-      
-      if (href === '#' + currentSection) {
+      if (link.getAttribute('href') === '#' + currentSection) {
          link.classList.add('nav-active');
-         
-         // Анимация активной ссылки
-         link.style.transform = 'scale(1.05)';
-         setTimeout(() => {
-            link.style.transform = '';
-         }, 300);
       }
    });
 }
 
-// Smooth scrolling for anchor links
-function setupSmoothScroll() {
-   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-         e.preventDefault();
-         
-         const targetId = this.getAttribute('href');
-         if (targetId === '#') return;
-         
-         const targetElement = document.querySelector(targetId);
-         if (targetElement) {
-            const headerHeight = document.getElementById('header').offsetHeight;
-            const targetPosition = targetElement.offsetTop - headerHeight;
-            
-            window.scrollTo({
-               top: targetPosition,
-               behavior: 'smooth'
-            });
-            
-            // Эффект пульсации для целевого элемента
-            targetElement.style.animation = 'pulse-highlight 1s ease';
-            setTimeout(() => {
-               targetElement.style.animation = '';
-            }, 1000);
-         }
-      });
-   });
-}
-
-// Mobile navigation with animations
+// Mobile navigation
 function setupNavigation() {
    const toggle = document.getElementById('navToggle');
    const nav = document.getElementById('nav');
@@ -353,269 +206,297 @@ function setupNavigation() {
    toggle.addEventListener('click', () => {
       toggle.classList.toggle('active');
       nav.classList.toggle('active');
-      
-      // Анимация кнопки меню
-      if (nav.classList.contains('active')) {
-         document.body.style.overflow = 'hidden';
-         nav.style.animation = 'slideInRight 0.4s ease-out';
-      } else {
-         document.body.style.overflow = '';
-         nav.style.animation = 'slideOutRight 0.4s ease-out';
-      }
    });
 
    links.forEach(link => {
       link.addEventListener('click', () => {
          toggle.classList.remove('active');
          nav.classList.remove('active');
-         document.body.style.overflow = '';
-         
-         // Эффект клика по ссылке
-         link.style.transform = 'scale(0.95)';
-         setTimeout(() => {
-            link.style.transform = '';
-         }, 200);
       });
    });
 }
 
-// Newsletter form with validation and animation
+// Newsletter form
 function setupNewsletter() {
    const form = document.getElementById('newsletterForm');
-   const input = form.querySelector('input');
-   const button = form.querySelector('button');
-   
    form.addEventListener('submit', (e) => {
       e.preventDefault();
+      const input = form.querySelector('input');
+      const email = input.value.trim();
       
-      if (!input.value || !input.value.includes('@')) {
-         // Анимация ошибки
-         input.style.animation = 'shake 0.5s ease';
-         input.style.borderColor = '#c6363c';
-         setTimeout(() => {
-            input.style.animation = '';
-            input.style.borderColor = '';
-         }, 500);
+      if (!email) {
+         showNotification('Введите email адрес', '#c6363c');
          return;
       }
       
-      // Анимация успешной отправки
-      button.textContent = '✓';
+      if (!validateEmail(email)) {
+         showNotification('Введите корректный email', '#c6363c');
+         return;
+      }
+      
+      showNotification(`Спасибо за подписку! Вы будете получать новогодние новости Сербии на ${email}`, '#f8e71c');
+      input.value = '';
+      
+      // Анимация успешной подписки
+      const button = form.querySelector('button');
+      const originalText = button.textContent;
+      button.textContent = '✓ Успешно!';
       button.style.background = 'linear-gradient(135deg, #00d4aa, #00b894)';
       
-      // Создаем эффект праздничного конфетти
-      createSuccessConfetti();
-      
       setTimeout(() => {
-         // Показать праздничное сообщение
-         const message = document.createElement('div');
-         message.textContent = `Hvala! Новогодние обновления будут отправлены на ${input.value}`;
-         message.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--serbian-red), var(--serbian-blue));
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            z-index: 10000;
-            animation: slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-         `;
-         
-         document.body.appendChild(message);
-         setTimeout(() => message.remove(), 3000);
-         
-         // Сброс формы
-         input.value = '';
-         button.textContent = 'Subscribe';
-         button.style.background = '';
-      }, 1000);
-   });
-   
-   // Эффект фокуса на поле ввода
-   input.addEventListener('focus', () => {
-      input.style.transform = 'scale(1.02)';
-      input.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
-   });
-   
-   input.addEventListener('blur', () => {
-      input.style.transform = '';
-      input.style.boxShadow = '';
+         button.textContent = originalText;
+         button.style.background = 'linear-gradient(135deg, #c6363c, #f8e71c)';
+      }, 2000);
    });
 }
 
-// Создание конфетти при успешной подписке
-function createSuccessConfetti() {
-   const container = document.getElementById('particles');
-   const colors = ['#c6363c', '#0c4076', '#ffd700', '#ffffff'];
+// Валидация email
+function validateEmail(email) {
+   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   return re.test(email);
+}
+
+// Показ уведомлений
+function showNotification(message, color) {
+   const notification = document.createElement('div');
+   notification.textContent = message;
+   notification.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: ${color}20;
+      border: 1px solid ${color};
+      color: ${color};
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-weight: 500;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+      max-width: 300px;
+      animation: slideIn 0.3s ease-out;
+   `;
    
-   for (let i = 0; i < 30; i++) {
+   document.body.appendChild(notification);
+   
+   setTimeout(() => {
+      notification.style.opacity = '0';
+      notification.style.transform = 'translateX(100px)';
+      setTimeout(() => notification.remove(), 300);
+   }, 3000);
+}
+
+// Новогодние анимации для элементов
+function setupNewYearAnimations() {
+   // Анимация для новогодних тегов
+   const newYearTags = document.querySelectorAll('.newyear-tag, .newyear-badge');
+   newYearTags.forEach(tag => {
+      tag.addEventListener('mouseenter', () => {
+         tag.style.transform = 'scale(1.05)';
+      });
+      tag.addEventListener('mouseleave', () => {
+         tag.style.transform = 'scale(1)';
+      });
+   });
+   
+   // Анимация для сербских символов
+   const serbianIcons = document.querySelectorAll('.serbian-charm, .serbian-newyear');
+   serbianIcons.forEach(icon => {
+      icon.addEventListener('click', () => {
+         icon.style.transform = 'scale(0.95)';
+         setTimeout(() => {
+            icon.style.transform = 'scale(1)';
+         }, 150);
+      });
+   });
+}
+
+// Сербское новогоднее приветствие
+function showSerbianGreeting() {
+   const greetings = [
+      "✨ Srećna Nova Godina 2026! ✨",
+      "🎉 С Новым 2026 годом! 🎉",
+      "🌟 Нека vam Nova Godina donese radost, zdravlje i uspeh! 🌟",
+      "🎄 Пусть новый год принесет счастье и благополучие! 🎄"
+   ];
+   
+   const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+   showNotification(randomGreeting, '#f8e71c');
+}
+
+// Показ всех праздничных дат
+function showMoreDates() {
+   const dates = `
+📅 Новогодние праздники в Сербии:
+
+• 24 декабря — Баджни день (Badnjak)
+• 25 декабря — Рождество (Božić)
+• 31 декабря — Нова Година
+• 1 января — Новогодний день
+• 7 января — Рождество по юлианскому календарю
+• 13 января — Сербский Новый год
+• 14 января — Новогодний день по старому стилю
+
+🎊 Сербы празднуют Новый год дважды! 🎊
+   `;
+   
+   alert(dates);
+}
+
+// Обновление счетчика желаний
+function updateWishes() {
+   const checkboxes = document.querySelectorAll('.wish-list input[type="checkbox"]');
+   const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+   const total = checkboxes.length;
+   const counter = document.getElementById('wish-counter');
+   
+   if (counter) {
+      const percentage = Math.round((completed / total) * 100);
+      counter.textContent = `✅ Выполнено: ${completed}/${total} (${percentage}%)`;
+      
+      // Специальное сообщение при выполнении всех желаний
+      if (completed === total) {
+         counter.innerHTML = '🎉 Все желания выполнены! Готовы к Новому Году! 🎉';
+         counter.style.color = '#f8e71c';
+         counter.style.fontWeight = 'bold';
+         
+         // Запускаем конфетти
+         createConfetti();
+      }
+   }
+}
+
+// Новогоднее конфетти
+function createConfetti() {
+   const colors = ['#c6363c', '#f8e71c', '#ffd700', '#00d4aa', '#4d9fff'];
+   const confettiContainer = document.createElement('div');
+   confettiContainer.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9997;
+   `;
+   
+   document.body.appendChild(confettiContainer);
+   
+   for (let i = 0; i < 150; i++) {
       const confetti = document.createElement('div');
       confetti.style.cssText = `
-         position: fixed;
-         top: 50%;
-         left: 50%;
+         position: absolute;
          width: 10px;
          height: 10px;
          background: ${colors[Math.floor(Math.random() * colors.length)]};
          border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
-         z-index: 10000;
-         pointer-events: none;
+         top: -20px;
+         left: ${Math.random() * 100}%;
+         animation: fall ${2 + Math.random() * 3}s linear forwards;
+         opacity: 0.8;
       `;
       
-      const angle = Math.random() * Math.PI * 2;
-      const velocity = 2 + Math.random() * 3;
-      const vx = Math.cos(angle) * velocity;
-      const vy = Math.sin(angle) * velocity;
-      
-      let x = 0;
-      let y = 0;
-      
-      const animate = () => {
-         x += vx;
-         y += vy;
-         vy += 0.1; // гравитация
-         
-         confetti.style.transform = `translate(${x}px, ${y}px) rotate(${x}deg)`;
-         confetti.style.opacity = 1 - (y / 200);
-         
-         if (y < 200) {
-            requestAnimationFrame(animate);
-         } else {
-            confetti.remove();
-         }
-      };
-      
-      container.appendChild(confetti);
-      requestAnimationFrame(animate);
+      confettiContainer.appendChild(confetti);
    }
-}
-
-// Mouse move parallax effect
-function setupMouseParallax() {
-   document.addEventListener('mousemove', (e) => {
-      const mouseX = e.clientX / window.innerWidth;
-      const mouseY = e.clientY / window.innerHeight;
-      
-      // Параллакс для частиц
-      document.querySelectorAll('.particle, .snowflake, .xmas-decoration').forEach(element => {
-         const speed = parseFloat(getComputedStyle(element).animationDuration) || 20;
-         const moveX = (mouseX - 0.5) * (speed / 2);
-         const moveY = (mouseY - 0.5) * (speed / 2);
-         
-         element.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      });
-   });
-}
-
-// Initialize animations and effects
-document.addEventListener('DOMContentLoaded', () => {
-   createParticles();
-   updateCountdown();
-   setInterval(updateCountdown, 1000);
-   setupNavigation();
-   setupNewsletter();
-   setupSmoothScroll();
-   setupMouseParallax();
    
-   // Инициализация прогресс-бара
-   const progressBar = document.createElement('div');
-   progressBar.id = 'progress-bar';
-   progressBar.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--serbian-blue), var(--serbian-red));
-      z-index: 1001;
-      transition: width 0.3s ease;
-   `;
-   document.body.appendChild(progressBar);
-   
-   // Добавляем CSS анимации
-   addKeyframes();
-   
-   // Обработчики скролла
-   window.addEventListener('scroll', () => {
-      handleScroll();
-      scrollSpy();
-   });
-   
-   // Preloader
+   // Удаляем конфетти через 5 секунд
    setTimeout(() => {
-      document.body.classList.add('loaded');
-   }, 500);
-});
+      confettiContainer.style.opacity = '0';
+      setTimeout(() => confettiContainer.remove(), 1000);
+   }, 5000);
+}
 
-// Добавление keyframes анимаций
-function addKeyframes() {
+// Добавляем CSS для анимаций
+function addAnimationStyles() {
    const style = document.createElement('style');
    style.textContent = `
-      @keyframes pulse-glow {
-         0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(198, 54, 60, 0.4); }
-         50% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.6); }
+      @keyframes slideDown {
+         from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-20px);
+         }
+         to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+         }
       }
       
-      @keyframes pulse-highlight {
-         0%, 100% { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); }
-         50% { box-shadow: 0 5px 30px rgba(255, 215, 0, 0.3); }
+      @keyframes slideIn {
+         from {
+            opacity: 0;
+            transform: translateX(100px);
+         }
+         to {
+            opacity: 1;
+            transform: translateX(0);
+         }
       }
       
-      @keyframes shake {
-         0%, 100% { transform: translateX(0); }
-         10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-         20%, 40%, 60%, 80% { transform: translateX(5px); }
+      @keyframes fall {
+         to {
+            transform: translateY(100vh) rotate(${Math.random() * 360}deg);
+         }
       }
       
-      @keyframes slideInRight {
-         from { transform: translateX(100%); }
-         to { transform: translateX(0); }
-      }
-      
-      @keyframes slideOutRight {
-         from { transform: translateX(0); }
-         to { transform: translateX(100%); }
-      }
-      
-      @keyframes fadeIn {
-         from { opacity: 0; transform: translate(-50%, -40%); }
-         to { opacity: 1; transform: translate(-50%, -50%); }
-      }
-      
-      @keyframes fadeOut {
-         from { opacity: 1; }
-         to { opacity: 0; }
-      }
-      
-      @keyframes pulse {
-         0%, 100% { transform: scale(1); opacity: 1; }
-         50% { transform: scale(1.1); opacity: 0.8; }
-      }
-      
-      .loaded .hero h1 {
-         animation: fadeInUp 0.8s ease 0.2s forwards !important;
-      }
-      
-      .loaded .hero-subtitle {
-         animation: fadeInUp 0.8s ease 0.4s forwards !important;
-      }
-      
-      .loaded .countdown-wrapper {
-         animation: fadeInUp 0.8s ease 0.6s forwards !important;
+      @keyframes pulse-banner {
+         0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 5px 15px rgba(198, 54, 60, 0.3);
+         }
+         50% {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(248, 231, 28, 0.4);
+         }
       }
    `;
    document.head.appendChild(style);
 }
 
-// Добавление ресайз обработчика для адаптивности
-window.addEventListener('resize', () => {
-   // Пересоздаем частицы при изменении размера окна для лучшей адаптивности
-   const container = document.getElementById('particles');
-   const particles = container.querySelectorAll('.particle, .snowflake, .xmas-decoration, .confetti');
-   particles.forEach(p => p.remove());
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+   // Добавляем стили анимаций
+   addAnimationStyles();
    
+   // Создаем частицы и снежинки
+   createParticles();
+   
+   // Запускаем отсчет до Нового Года
+   updateCountdown();
+   setInterval(updateCountdown, 1000);
+   
+   // Настраиваем навигацию
+   setupNavigation();
+   
+   // Настраиваем форму подписки
+   setupNewsletter();
+   
+   // Настраиваем новогодние анимации
+   setupNewYearAnimations();
+   
+   // Настраиваем Scroll Spy
+   scrollSpy();
+   
+   // Обработка скролла
+   window.addEventListener('scroll', () => {
+      handleScroll();
+      scrollSpy();
+   });
+   
+   // Добавляем обработчики для интерактивных элементов
+   const serbianCharm = document.querySelector('.serbian-charm span:last-child');
+   if (serbianCharm) {
+      serbianCharm.addEventListener('click', showSerbianGreeting);
+   }
+   
+   // Инициализируем счетчик желаний
+   updateWishes();
+   
+   // Автоматическое новогоднее приветствие при загрузке
    setTimeout(() => {
-      createParticles();
-   }, 100);
+      showNotification('✨ Добро пожаловать на сайт "Сербия встречает Новый Год"! ✨', '#f8e71c');
+   }, 1000);
 });
+
+// Глобальные функции для HTML
+window.showSerbianGreeting = showSerbianGreeting;
+window.showMoreDates = showMoreDates;
+window.updateWishes = updateWishes;
